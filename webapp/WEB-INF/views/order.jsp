@@ -179,70 +179,10 @@
 			<br><br>
 
 			<!-- 주문자 정보 -->
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
-				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
-			</table>
 
 			<!-- form2 시작  -->
 			<form name="form2" method="post" action="order_pay.jsp">
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
-				<tr>
-					<td align="left" valign="top" width="150" STYLE="padding-left:45;padding-top:5">
-						<font size="2" color="#B90319"><b>주문자 정보</b></font>
-					</td>
-					<td align="center" width="560">
-
-						<table width="560" border="0" cellpadding="0" cellspacing="0" class="cmfont">
-							<tr height="25">
-								<td width="150"><b>주문자 성명</b></td>
-								<td width="20"><b>:</b></td>
-								<td width="390">
-									<input type="hidden" name="o_no" value="">
-									<input type="text"   name="o_name" size="20" maxlength="10" value="" class="cmfont1">
-								</td>
-							</tr>
-							<tr height="25">
-								<td width="150"><b>전화번호</b></td>
-								<td width="20"><b>:</b></td>
-								<td width="390">
-									<input type="text" name="o_tel1" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="o_tel2" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="o_tel3" size="4" maxlength="4" value="" class="cmfont1">
-								</td>
-							</tr>
-							<tr height="25">
-								<td width="150"><b>휴대폰번호</b></td>
-								<td width="20"><b>:</b></td>
-								<td width="390">
-									<input type="text" name="o_phone1" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="o_phone2" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="o_phone3" size="4" maxlength="4" value="" class="cmfont1">
-								</td>
-							</tr>
-							<tr height="25">
-								<td width="150"><b>E-Mail</b></td>
-								<td width="20"><b>:</b></td>
-								<td width="390">
-									<input type="text" name="o_email" size="50" maxlength="50" value="" class="cmfont1">
-								</td>
-							</tr>
-							<tr height="50">
-								<td width="150"><b>주소</b></td>
-								<td width="20"><b>:</b></td>
-								<td width="390">
-									<input type="text" name="o_zip1" size="3" maxlength="3" value="" class="cmfont1" readonly> -
-									<input type="text" name="o_zip2" size="3" maxlength="3" value="" class="cmfont1" readonly>
-									<a href="javascript:FindZip(1)"><img src="${pageContext.servletContext.contextPath }/assets/images/b_zip.gif" align="absmiddle" border="0"></a> <br>
-									<input type="text" name="o_juso" size="50" maxlength="200" value="" class="cmfont1" readonly><br>
-								</td>
-							</tr>
-						</table>
-
-					</td>
-				</tr>
-				<tr height="10"><td></td></tr>
-			</table>
-
+			
 			<!-- 배송지 정보 -->
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>

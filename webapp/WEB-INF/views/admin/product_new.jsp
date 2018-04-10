@@ -6,7 +6,22 @@
 <head>
 	<title>쇼핑몰 관리자 홈페이지</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+	<script>
+		$(function(){
+			$("input[name=used-option]").on('click', function() { 
+				if ( $(this).val() == 'used-option') { 
+					$('#unused-option').attr('checked','');
+					$('#option-menu').css('display','block');
+				} else { 
+					$('#used-option').attr('checked','');
+					$('#option-menu').css('display','none');
+				} 
+				
+			});
+		});
+	</script>
 </head>
 <body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <br>
@@ -18,9 +33,9 @@
     <td width="700" bgcolor="#F2F2F2">
 			<select name="menu">
 				<option value="0" selected>상품분류를 선택하세요</option>
-				<option value="1">금팔찌</option>
-				<option value="2">은팔찌</option>
-				<option value="3">기타팔찌</option>
+				<c:forEach items="${categoryList}" var="vo" varStatus="status">
+					<option value='${vo.no}'>${vo.name}</option>
+				</c:forEach>
 			</select>
 		</td>
 	</tr>
@@ -50,19 +65,15 @@
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">옵션</td>
-    <td width="700" bgcolor="#F2F2F2">
-			<select name="opt1">
-				<option value="0" selected>옵션선택</option>
-				<option value="1">사이즈</option>
-				<option value="2">색상_WB</option>
-				<option value="3">색상_WR</option>
-			</select> &nbsp; &nbsp; 
-
-			<select name="opt2">
-				<option value="0" selected>옵션선택</option>
-				<option value="1">사이즈</option>
-				<option value="2">색상_WB</option>
-				<option value="3">색상_WR</option>
+    	<td id='add-option' width="700" bgcolor="#F2F2F2">
+    		<input type="radio" id="used-option" name="used-option" value="used-option"/> 사용함
+    		<input type="radio" id="unused-option" name="used-option" value="unused-option" checked/> 사용안함
+			
+			<select id="option-menu" style="display:none">
+			<option value="0" selected>옵션선택</option>
+			<c:forEach items="${optionList}" var="vo">
+				<option value="${vo.no}">${vo.name}</option>
+			</c:forEach>	
 			</select> &nbsp; &nbsp; 
 		</td>
 	</tr>

@@ -15,7 +15,7 @@
 <form name="form1" method="get" action="">
 <table width="800" border="0" cellspacing="0" cellpadding="0">
 	<tr height="40">
-		<td align="left"  width="150" valign="bottom">&nbsp 제품수 : <font color="#FF0000">20</font></td>
+		<td align="left"  width="150" valign="bottom">&nbsp 제품수 : <font color="#FF0000"></font></td>
 		<td align="right" width="550" valign="bottom">
 			<select name="sel1">
 				<option value="0" >상품상태</option>

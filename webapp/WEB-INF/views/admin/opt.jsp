@@ -16,7 +16,7 @@
 	<tr>
 		<td align="left"  width="250" height="50" valign="bottom">&nbsp 옵션수 : <font color="#FF0000">2</font></td>
 		<td align="right" width="200" height="50" valign="bottom">
-			<a href="opt_new.jsp"><input type="button" value="신규입력"></a> &nbsp
+			<a href="${pageContext.servletContext.contextPath }/admin/option/insert"><input type="button" value="신규입력"></a> &nbsp
 		</td>
 	</tr>
 	<tr><td height="5" colspan="2"></td></tr>

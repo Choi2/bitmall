@@ -13,7 +13,7 @@
 	<tr>
 		<td align="left"  height="50" valign="bottom">&nbsp 자료수 : <font color="#FF0000">2</font></td>
 		<td align="right" height="50" valign="bottom">
-			<a href="faq_new.jsp"><input type="button" value="신규입력"></a> &nbsp
+			<a href="${pageContext.servletContext.contextPath }/admin/faq_new"><input type="button" value="신규입력"></a> &nbsp
 		</td>
 	</tr>
 	<tr><td height="5" colspan="2"></td></tr>

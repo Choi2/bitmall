@@ -16,7 +16,7 @@
 <table width="800" border="0" cellspacing="0" cellpadding="0">
 	<form name="form1" method="get" action="">
 	<tr height="40">
-		<td width="200" valign="bottom">&nbsp 회원수 : <font color="#FF0000">20</font></td>
+		<td width="200" valign="bottom">&nbsp 회원수 : <font color="#FF0000">${list.size()}</font></td>
 		<td width="200">&nbsp</td>
 		<td width="350" align="right" valign="bottom">
 			<select name="sel1" class="combo1">
@@ -42,35 +42,20 @@
 		<td width="100" align="center">회원구분</td>
 		<td width="100" align="center">수정/삭제</td>
 	</tr>
-	
-	
-	<tr bgcolor="#F2F2F2" height="23">	
-		<td width="100">&nbsp id1</td>	
-		<td width="100">&nbsp 홍길동</td>	
-		<td width="100">&nbsp 02 -123-1234</td>	
-		<td width="100">&nbsp 011-123-1234</td>	
-		<td width="200">&nbsp abcd@abcd.com</td>	
-		<td width="100" align="center">회원</td>	
-		<td width="100" align="center">
-			<a href="#">수정</a>/
-			<a href="#">삭제</a>
-		</td>
-	</tr>
-	
-	<c:forEach var="vo" items="${list }" varStatus="status">
-	
-	<tr bgcolor="#F2F2F2" height="23">	
-		<td width="100">&nbsp ${vo.id }</td>	
-		<td width="100">&nbsp ${vo.name }</td>	
-		<td width="100">&nbsp ${vo.phone_number }</td>	
-		<td width="100">&nbsp ${vo.handphone }</td>	
-		<td width="200">&nbsp ${vo.email }</td>	
-		<td width="100" align="center">${vo.type }</td>	
-		<td width="100" align="center">
-			<a href="#">수정</a>/
-			<a href="#">삭제</a>
-		</td>
-	</tr>
+		
+	<c:forEach var="vo" items="${list}" varStatus="status">
+		<tr bgcolor="#F2F2F2" height="23">	
+			<td width="100">${vo.id}</td>	
+			<td width="100">${vo.name}</td>	
+			<td width="100">${vo.phone}</td>	
+			<td width="100">${vo.cellphone}</td>	
+			<td width="200">${vo.email}</td>	
+			<td width="100" align="center">${vo.auth}</td>	
+			<td width="100" align="center">
+				<a href="#">수정</a>/
+				<a href="#">삭제</a>
+			</td>
+		</tr>
 	</c:forEach>
 </table>
 <br>

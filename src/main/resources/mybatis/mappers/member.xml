@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<insert id="insert" parameterType="membervo">
+		<![CDATA[
+			INSERT 
+			INTO 	member 
+			VALUES(
+					null, 
+					#{id}, 
+					password(#{password}), 
+					#{name}, 
+					#{birthday},
+					#{phone},
+					#{cellphone},
+					#{zipcode},
+					#{address},
+					#{email},
+					#{auth},
+					now()
+				  )
+		 ]]>
+	</insert>
+	
+	<select id="getList" resultType="membervo">
+		<![CDATA[
+			SELECT	no,
+					id,
+					name,
+					phone,
+					cellphone,
+					email,
+					auth
+			FROM	member				
+		]]>
+	</select>
+	
+</mapper>
