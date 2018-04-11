@@ -15,6 +15,7 @@ public class MemberVo {
 	private String email;
 	private String auth;
 	private Date regDate;
+
 	
 	public long getNo() {
 		return no;

@@ -8,14 +8,20 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
 </head>
-<body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<br>
-<jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
+<style>
+body {
+	 background-color :white;
+	 margin : 0;
+}
+</style>
+
+<body>
+	<jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
 <hr width='900' size='3'>
 <form name="form1" method="get" action="">
 <table width="800" border="0" cellspacing="0" cellpadding="0">
 	<tr height="40">
-		<td align="left"  width="150" valign="bottom">&nbsp 제품수 : <font color="#FF0000"></font></td>
+		<td align="left"  width="150" valign="bottom">&nbsp 제품수 : <font color="#FF0000">${list.size()}</font></td>
 		<td align="right" width="550" valign="bottom">
 			<select name="sel1">
 				<option value="0" >상품상태</option>
@@ -44,7 +50,7 @@
 		<td align="left" width="120" valign="bottom">
 			<input type="submit" value="검색">
 			&nbsp;
-			<a href="product_new"><input type="button" value="새상품"></a>
+			<a href="product/new"><input type="button" value="새상품"></a>
 		</td>
 	</tr>
 	<tr><td height="5"></td></tr>
@@ -62,30 +68,31 @@
 		<td width="80"  align="center">수정/삭제</td>
 	</tr>
 	
-	<tr bgcolor="#F2F2F2" height="23">	
-		<td width="100">&nbsp 코트</td>
-		<td width="100">&nbsp Coat001</td>
-		<td width="280">&nbsp 비싼 코트</td>	
-		<td width="70"  align="right">4,500,000 &nbsp</td>	
-		<td width="50"  align="center">판매중</td>	
-		<td width="120" align="center">&nbsp New Hit Sale(10%)</td>	
-		<td width="80"  align="center">
-			<a href="product_edit.jsp">수정</a>/
-			<a href="#">삭제</a>
-		</td>
-	</tr>
-	<tr bgcolor="#F2F2F2" height="23">	
-		<td width="100">&nbsp 코트</td>
-		<td width="100">&nbsp Coat001</td>
-		<td width="280">&nbsp 비싼 코트</td>	
-		<td width="70"  align="right">4,500,000 &nbsp</td>	
-		<td width="50"  align="center">판매중</td>	
-		<td width="120" align="center">&nbsp New Hit Sale(10%)</td>	
-		<td width="80"  align="center">
-			<a href="product_edit.jsp">수정</a>/
-			<a href="#">삭제</a>
-		</td>
-	</tr>	
+	<c:forEach items="${list}" var="vo">
+		<c:set var="icon" value="${vo.icon}"/>
+		<tr bgcolor="#F2F2F2" height="23">	
+			<td width="100">${vo.groupName}</td>
+			<td width="100">&nbsp ${vo.code}</td>
+			<td width="280">&nbsp ${vo.name}</td>	
+			<td width="70"  align="right">${vo.retailPrice} &nbsp</td>	
+			<td width="50"  align="center">판매중</td>	
+			<td width="120" align="center">
+				<c:if test="${fn:substring(icon, 0,1) eq 1}">
+					<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif">
+				</c:if>
+				<c:if test="${fn:substring(icon, 1,2) eq 1}">
+					<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif">		
+				</c:if>
+				<c:if test="${fn:substring(icon, 2,3) eq 1}">
+					<img src="${pageContext.servletContext.contextPath }/assets/images/i_sale.gif">
+				</c:if>
+			</td>	
+			<td width="80"  align="center">
+				<a href="product_edit.jsp">수정</a>/
+				<a href="#">삭제</a>
+			</td>
+		</tr>	
+	</c:forEach>
 </table>
 
 <br>

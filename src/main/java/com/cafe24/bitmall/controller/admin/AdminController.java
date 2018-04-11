@@ -1,4 +1,4 @@
-package com.cafe24.bitmall.controller;
+package com.cafe24.bitmall.controller.admin;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.cafe24.bitmall.vo.CategoryVo;
 import com.cafe24.bitmall.vo.MemberVo;
 import com.cafe24.bitmall.vo.OptionVo;
 
-@Controller
+@Controller("adminMainController")
 @RequestMapping("/admin")
 public class AdminController {
 	
@@ -24,11 +24,6 @@ public class AdminController {
 	@Autowired private CategoryService categoryService;
 	@Autowired private OptionService optionService;
 	
-	
-	@RequestMapping("/product")
-	public String product() {
-		return "admin/product";
-	}
 	
 	@RequestMapping("/member")
 	public String member(Model model) {
@@ -42,8 +37,11 @@ public class AdminController {
 		return "admin/jumun";
 	}
 	
+	
 	@RequestMapping("/option")
-	public String option() {
+	public String option(Model model) {
+		List<OptionVo> list = optionService.getList();
+		model.addAttribute("list", list);
 		return "admin/opt";
 	}
 	
@@ -55,8 +53,13 @@ public class AdminController {
 	@RequestMapping(value="/option/insert", method=RequestMethod.POST)
 	public String optionInsert(@ModelAttribute OptionVo vo) {
 		optionService.insert(vo);
-		return "redirect:/admin/opt_new";
+		return "redirect:/admin/option/insert";
 	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/faq")
 	public String faq() {
@@ -69,12 +72,7 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/product_new")
-	public String productNew(Model model) {
-		List<CategoryVo> categorylist = categoryService.getList();
-		List<OptionVo> optionList = optionService.getList();
-		model.addAttribute("categoryList", categorylist);
-		model.addAttribute("optionList", optionList);	
-		return "admin/product_new";
-	}
+	
+	
+
 }

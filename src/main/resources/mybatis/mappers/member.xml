@@ -36,4 +36,20 @@
 		]]>
 	</select>
 	
+	
+	<select id="get" parameterType="membervo" resultType="membervo">
+		<![CDATA[
+			SELECT	no,
+					id,
+					name,
+					phone,
+					cellphone,
+					email,
+					auth
+			FROM	member
+			WHERE	id = #{id}
+			AND		password = password(#{password})				
+		]]>
+	</select>
+	
 </mapper>

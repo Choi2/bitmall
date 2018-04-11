@@ -20,6 +20,10 @@ public class OptionDao {
 	public int insert(OptionVo vo) {
 		return sqlSession.insert("option.insert", vo); 
 	}
+
+	public OptionVo get(long no) {
+		return sqlSession.selectOne("option.get", no);
+	}
 	
 	
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cafe24.bitmall.service.MemberService;
 import com.cafe24.bitmall.vo.MemberVo;
@@ -15,14 +16,15 @@ import com.cafe24.bitmall.vo.MemberVo;
 
 @Controller
 @RequestMapping("/member")
+@SessionAttributes("authMember")
 public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping(value="/member_login", method=RequestMethod.GET)
+	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
-		return "user/member_login";
+		return "member/member_login";
 	}
 	
 	
@@ -31,10 +33,11 @@ public class MemberController {
 			HttpSession session,
 			@ModelAttribute MemberVo vo, 
 			Model model) {
+		System.out.println(vo);
 		MemberVo authMember = memberService.getMember(vo);
 		if(authMember == null) {
 			model.addAttribute("result", "fail");
-			return "member/login";
+			return "redirect:/";
 		}
 		
 		session.setAttribute("authMember", authMember); //인증처리
@@ -43,19 +46,19 @@ public class MemberController {
 	
 	@RequestMapping(value="/member_agree", method=RequestMethod.GET)
 	public String agree() {
-		return "user/member_agree";
+		return "member/member_agree";
 	}
 	
 	@RequestMapping(value="/member_join", method=RequestMethod.GET)
 	public String join() {
-		return "user/member_join";
+		return "member/member_join";
 	}
 	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public String insert(@ModelAttribute MemberVo vo) {
 		System.out.println(vo);
 		memberService.addMember(vo);
-		return "user/member_joinend";
+		return "member/member_joinend";
 	}
 	
 }

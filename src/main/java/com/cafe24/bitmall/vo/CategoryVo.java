@@ -3,7 +3,7 @@ package com.cafe24.bitmall.vo;
 public class CategoryVo {
 	
 	private long no;
-	private String name;
+	private String groupName;
 	
 	public long getNo() {
 		return no;
@@ -11,15 +11,16 @@ public class CategoryVo {
 	public void setNo(long no) {
 		this.no = no;
 	}
-	public String getName() {
-		return name;
+	public String getGroupName() {
+		return groupName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
-	
 	@Override
 	public String toString() {
-		return "CategoryVo [no=" + no + ", name=" + name + "]";
+		return "CategoryVo [no=" + no + ", groupName=" + groupName + "]";
 	}
+
+	
 }

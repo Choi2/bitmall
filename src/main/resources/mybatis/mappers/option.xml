@@ -15,9 +15,20 @@
 			INTO bitmall.option 
 			VALUES (
 						null,
-						#{name}
+						#{name},
+						#{basicValue}
 					)		
 		]]>
 	</insert>
+	
+	<select id="get" parameterType="long" resultType="optionvo">
+		<![CDATA[
+			SELECT	no,
+					name,
+					basic_value AS basicValue
+			FROM	bitmall.option
+			WHERE	no = #{no}
+		]]>
+	</select>
 	
 </mapper>

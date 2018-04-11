@@ -21,5 +21,9 @@ public class OptionService {
 	public void insert(OptionVo vo) {
 		optionDao.insert(vo);
 	}
+
+	public OptionVo get(OptionVo vo) {
+		return optionDao.get(vo.getNo());
+	}
 	
 }

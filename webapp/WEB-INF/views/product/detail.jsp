@@ -33,8 +33,8 @@
 			</table>
 
 			<!-- form2 시작  -->
-			<form name="form2" method="post" action="">
-			<input type="hidden" name="no" value="0000">
+			<form id="detail">
+			<input type="hidden" name="no" value="${vo.no}">
 			<input type="hidden" name="kind" value="insert">
 
 			<table border="0" cellpadding="0" cellspacing="0" width="745">
@@ -44,7 +44,7 @@
 						<table border="0" cellpadding="0" cellspacing="1" width="315" height="315" bgcolor="D4D0C8">
 							<tr>
 								<td bgcolor="white" align="center">
-									<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L.jpg" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
+									<img src="${vo.imagePath}" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
 								</td>
 							</tr>
 						</table>
@@ -60,7 +60,7 @@
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
 								<td style="padding-left:10px">
-									<font color="282828">제품명1</font><br>
+									<font color="282828">${vo.name}</font><br>
 									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" vspace="1"> 
 								</td>
 							</tr>
@@ -160,16 +160,7 @@
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="200" valign=top style="line-height:14pt">
-						본제품의 상세설명은 다음과 같습니다.
-						<br>
-						<br>
-						<center>
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg"><br><br><br>
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg">&nbsp
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg"><br><br>
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg">&nbsp
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg"><br><br>
-						</center>
+						${vo.content}
 					</td>
 				</tr>
 			</table>

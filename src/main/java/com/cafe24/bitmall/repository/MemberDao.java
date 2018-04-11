@@ -21,6 +21,10 @@ public class MemberDao {
 	public List<MemberVo> getList() {
 		return sqlSession.selectList("member.getList");
 	}
+
+	public MemberVo get(MemberVo vo) {
+		return sqlSession.selectOne("member.get", vo);
+	}
 	
 	
 }

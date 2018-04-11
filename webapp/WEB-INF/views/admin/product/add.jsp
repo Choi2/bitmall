@@ -4,12 +4,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>쇼핑몰 관리자 홈페이지</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
-	<script>
+<title>쇼핑몰 관리자 홈페이지</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<style>
+body {
+	background-color : white;
+	margin : 0;
+}
+</style>
+<script>
+	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+	          var reader = new FileReader();
+	          reader.onload = function (e) {
+	                $('#image_upload_preview').attr('src', e.target.result);
+	          }
+	          reader.readAsDataURL(input.files[0]);
+	     }
+	 }
+	
 		$(function(){
+			
+			 $("#file").change(function () {
+		         readURL(this);
+		 	}); 
+			
+			
+			$('input[type=submit]').click(function(){
+				
+				var icon = 	$('input[name=icon_new]').val() + 
+							$('input[name=icon_hit]').val() +
+							$('input[name=icon_sale]').val();
+				
+				$('input[name=icon]').val(icon);			
+				$('#form1').attr({
+									'method' : 'post',
+									'enctype': 'multipart/form-data',
+									'action' :'${pageContext.servletContext.contextPath}/admin/product/insert'
+								}).submit();	
+			}); //등록하기 버튼
+			
+			
 			$("input[name=used-option]").on('click', function() { 
 				if ( $(this).val() == 'used-option') { 
 					$('#unused-option').attr('checked','');
@@ -17,13 +55,44 @@
 				} else { 
 					$('#used-option').attr('checked','');
 					$('#option-menu').css('display','none');
+					$('#option-menu-detail').css('display','none');
 				} 
+			}); //옵션 사용함을 하게 되면 메뉴가 뜸
+			
+			
+			$("#option-menu").change(function() {
+				var no = $(this).val();
 				
+				$.ajax({
+					url:"${pageContext.servletContext.contextPath}/admin/product/option_menu",
+					type:"post",
+					data: "no=" + no,
+					dataType:"json",
+					success: function(response) {
+						$('#option-menu-detail').css('display','block');
+						$('#option-menu-detail').append(
+								'<tr>'+ 
+									'<td>'+ response.name +'</td>' +
+									'<td class="option-values"><input type="text" name="option-values" value="'+ response.basicValue + '" disabled/></td>' +
+									'<td>'+ '<input type="button" name="modify-option" value="옵선값 수정"/>'+ '</td>' +
+								'</tr>'
+							);
+					}
+				});
+				
+			}); //옵션 메뉴를 선택하면 해당 옵션을 수정할 수 있음
+			
+			
+			$(document).on('click','input[name=modify-option]',function(){
+				alert("fuck");
+				alert($(this).prop('tagName')); //.children('input[name=option-values]').attr('disabled', '');
 			});
+			
 		});
-	</script>
+</script>
 </head>
-<body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<body>
+<form id="form1">
 <br>
 <jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
 <hr width='900' size='3'>
@@ -31,10 +100,10 @@
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품분류</td>
     <td width="700" bgcolor="#F2F2F2">
-			<select name="menu">
+			<select name="categoryNo">
 				<option value="0" selected>상품분류를 선택하세요</option>
 				<c:forEach items="${categoryList}" var="vo" varStatus="status">
-					<option value='${vo.no}'>${vo.name}</option>
+					<option value='${vo.no}'>${vo.groupName}</option>
 				</c:forEach>
 			</select>
 		</td>
@@ -54,13 +123,13 @@
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">제조사</td>
 		<td width="700" bgcolor="#F2F2F2">
-			<input type="text" name="coname" value="" size="30" maxlength="30">
+			<input type="text" name="company" value="" size="30" maxlength="30">
 		</td>
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">판매가</td>
 		<td width="700" bgcolor="#F2F2F2">
-			<input type="text" name="price" value="" size="12" maxlength="12"> 원
+			<input type="text" name="sellingPrice" value="" size="12" maxlength="12"> 원
 		</td>
 	</tr>
 	<tr> 
@@ -74,7 +143,15 @@
 			<c:forEach items="${optionList}" var="vo">
 				<option value="${vo.no}">${vo.name}</option>
 			</c:forEach>	
-			</select> &nbsp; &nbsp; 
+			</select> &nbsp; &nbsp;
+			
+			<table id="option-menu-detail" style="display:none">
+				<tr>
+					<td align="center">옵션명</td>
+					<td align="center">옵션값</td>
+				<tr>
+			</table>
+			
 		</td>
 	</tr>
 	<tr> 
@@ -85,7 +162,7 @@
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품상태</td>
-    <td width="700" bgcolor="#F2F2F2">
+    	<td width="700" bgcolor="#F2F2F2">
 			<input type="radio" name="status" value="1" checked> 판매중
 			<input type="radio" name="status" value="2"> 판매중지
 			<input type="radio" name="status" value="3"> 품절
@@ -94,19 +171,21 @@
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">아이콘</td>
 		<td width="700" bgcolor="#F2F2F2">
-			<input type="checkbox" name="icon_new" value="1"> New &nbsp;&nbsp	
-			<input type="checkbox" name="icon_hit" value="1"> Hit &nbsp;&nbsp	
-			<input type="checkbox" name="icon_sale" value="1" onclick="form1.discount.disabled=!form1.discount.disabled;"> Sale &nbsp;&nbsp
+			<input type="hidden" name="icon" value=""/>
+			<input type="checkbox" name="icon_new" value="1"> New &nbsp;	
+			<input type="checkbox" name="icon_hit" value="1"> Hit &nbsp;	
+			<input type="checkbox" name="icon_sale" value="1" onclick="form1.discount.disabled=!form1.discount.disabled;"> Sale &nbsp;
 			할인율 : <input type="text" name="discount" value="0" size="3" maxlength="3" disabled> %
 		</td>
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">이미지</td>
 		<td width="700" bgcolor="#F2F2F2">
-			<b>이미지1</b>: <input type="file" name="file1" size="30" value="찾아보기"><br>
-			<b>이미지2</b>: <input type="file" name="file2" size="30" value="찾아보기"><br>
-			<b>이미지3</b>: <input type="file" name="file3" size="30" value="찾아보기"><br>
-		</td>
+			<b>이미지1</b>: <input type="file" id="file" name="file" size="30" value="찾아보기"><br>
+			<img id="image_upload_preview"/>	 
+			<!-- <b>이미지2</b>: <input type="file" name="file2" size="30" value="찾아보기"><br>
+			<b>이미지3</b>: <input type="file" name="file3" size="30" value="찾아보기"><br> -->
+		</td> 
 	</tr>
 </table>
 <br>

@@ -6,7 +6,20 @@
 <head>
 	<title>비트닷컴 쇼핑몰</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+	<script>
+		$(function(){
+			$('#login-image').click(function(){
+				$('#login')
+					.attr({
+						'method' : 'post',
+						'action' :'${pageContext.servletContext.contextPath }/member/login'
+						})
+					.submit();
+			});
+		});
+	</script>
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
@@ -53,7 +66,7 @@
 												</table>
 												<table border="0" cellpadding="0" cellspacing="0" width="320">
 													<!-- form2 시작 ------>
-													<form name = "form2" method = "post" action = "/user/member_loginok">
+													<form id ="login">
 													<tr>
 														<td width="220" height="25">
 															<p style="padding-left:10px;">
@@ -62,7 +75,7 @@
 															</p>
 														</td>
 														<td width="100" rowspan="2">
-															<input type="image" align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/b_login.gif" width="50" border="0">
+															<input type="image" id='login-image' align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/b_login.gif" width="50" border="0">
 														</td>
 													</tr>
 													<tr>

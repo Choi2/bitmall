@@ -19,7 +19,7 @@ public class MemberService {
 	}
 
 	public MemberVo getMember(MemberVo vo) {
-		return null;
+		return memberDao.get(vo);
 	}
 
 	public List<MemberVo> getList() {

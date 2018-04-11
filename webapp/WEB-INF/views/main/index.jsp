@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath}/assets/css/font.css" rel="stylesheet" type="text/css">
+<style>
+	body {
+		margin : 0;
+	}
+</style>
 </head>
-<body style="margin:0">
+<body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
@@ -32,274 +40,33 @@
 
 			<table border="0" cellpadding="0" cellspacing="0">
 				<!---1번째 줄-->
-				<tr>
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=1"><font color="444444">상품명1</font></a>&nbsp; 
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" vspace="1"> 
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hot.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_sale.gif" align="absmiddle" vspace="1"> <font color="red">20%</font>
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><strike>89,000 원</strike><br><b>70,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 												
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 												
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 												
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-				</tr>
-				<tr><td height="10"></td></tr>
-				<!---2번째 줄-->
-				<tr>
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" >
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hot.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_sale.gif" align="absmiddle" >
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 									
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 									
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 									
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-				</tr>
-				<tr><td height="10"></td></tr>
-				<!---3번째 줄-->
-				<tr>
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" >
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hot.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_sale.gif" align="absmiddle" >
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 									
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 									
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-
-					<td width="150" height="205" align="center" valign="top">
-						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
-							<tr> 
-								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
-								</td>
-							</tr>
-							<tr><td height="5"></td></tr>
-							<tr> 
-								<td height="20" align="center">
-									<a href="product_detail.jsp?no=109469"><font color="444444">상품명1</font></a>&nbsp; 									
-								</td>
-							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
-						</table>
-					</td>
-				</tr>
+				
+					<c:forEach items="${itemList}" var="vo" varStatus="status">
+						<c:if test="${status.index % 5 eq 0}">
+						<tr>
+						</c:if>
+						<td width="150" height="205" align="center" valign="top">
+							<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
+								<tr> 
+									<td align="center"> 
+										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}"><img src="${vo.imagePath}" width="120" height="140" border="0"></a>
+									</td>
+								</tr>
+								<tr><td height="5"></td></tr>
+								<tr> 
+									<td height="20" align="center">
+										<font color="444444">${vo.name}</font>
+										<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> 
+										<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" vspace="1"> 
+									</td>
+								</tr>
+								<tr><td height="20" align="center"><b>${vo.retailPrice} 원</b></td></tr>
+							</table>
+						</td>
+						<c:if test="${(status.index + 1) % 5 == 0}">
+						</tr>
+						</c:if>
+					</c:forEach>
 				<tr><td height="10"></td></tr>
 			</table>
 
@@ -313,8 +80,6 @@
 	</tr>
 </table>
 <br><br>
-<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
-&nbsp
-
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>
 </html>

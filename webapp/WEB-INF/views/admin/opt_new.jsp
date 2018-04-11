@@ -10,9 +10,10 @@
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
 	<script>
 		$(function(){
-			$('input[type=submit]').submit(function(){
+			$('#submit').click(function(){
 				$('#form1').attr('method','post');
-				$('#form1').attr('action','${pageContext.servletContext.contextPath }/admin/option/insert')
+				$('#form1').attr('action','${pageContext.servletContext.contextPath}/admin/option/insert');
+				$('#form1').submit();
 			});
 		});
 	</script>
@@ -25,10 +26,18 @@
 
 <table width="500" border="1" cellspacing="0" bordercolordark="white" bordercolorlight="black">
 	<tr> 
-		<td width="100" height="20" bgcolor="#CCCCCC" align="center">
+		<td width="130" height="20" bgcolor="#CCCCCC" align="center">
 			<font color="#142712">새 옵션명</font>
 		</td>
-		<td width="400" height="20"  bgcolor="#F2F2F2">
+		<td width="250" height="20"  bgcolor="#F2F2F2">
+			<input type="text" name="name" value="" size="20" maxlength="20">
+		</td>
+	</tr>
+	<tr> 
+		<td width="130" height="20" bgcolor="#CCCCCC" align="center">
+			<font color="#142712">기본 옵션값(';'로 구분해주세요.)</font>
+		</td>
+		<td width="250" height="20"  bgcolor="#F2F2F2">
 			<input type="text" name="name" value="" size="20" maxlength="20">
 		</td>
 	</tr>
@@ -37,7 +46,7 @@
 <table width="500" border="0" cellspacing="0" cellpadding="7">
 	<tr> 
 		<td align="center">
-			<input type="submit" value="등 록 하 기"> &nbsp;&nbsp
+			<input id="submit" type="submit" value="등 록 하 기"> &nbsp;&nbsp
 			<a href="opt.jsp"><input type="button" value="이 전 화 면"></a>
 		</td>
 	</tr>
