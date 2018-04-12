@@ -74,8 +74,18 @@ body {
 			<td width="100">${vo.groupName}</td>
 			<td width="100">&nbsp ${vo.code}</td>
 			<td width="280">&nbsp ${vo.name}</td>	
-			<td width="70"  align="right">${vo.retailPrice} &nbsp</td>	
-			<td width="50"  align="center">판매중</td>	
+			<td width="70"  align="right">${vo.sellingPrice} &nbsp</td>	
+			<td width="50"  align="center">
+				<c:if test="${vo.status == 1}">
+					<span>판매중</span>
+				</c:if>
+				<c:if test="${vo.status == 2}">
+					<span>판매중지</span>
+				</c:if>
+				<c:if test="${vo.status == 3}">
+					<span>품절</span>
+				</c:if>
+			</td>	
 			<td width="120" align="center">
 				<c:if test="${fn:substring(icon, 0,1) eq 1}">
 					<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif">

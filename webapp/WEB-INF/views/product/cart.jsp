@@ -11,6 +11,7 @@
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <jsp:include page="/WEB-INF/views/include/search.jsp"/>
+<form id="cart">
 <table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
@@ -45,7 +46,8 @@
 			<table border="0" cellpadding="0" cellspacing="0" width="710">
 				<tr><td height="10"></td></tr>
 			</table>
-
+			
+			
 			<table border="0" cellpadding="5" cellspacing="1" width="710" class="cmfont" bgcolor="#CCCCCC">
 				<tr bgcolor="F0F0F0" height="23" class="cmfont">
 					<td width="420" align="center">상품</td>
@@ -54,58 +56,38 @@
 					<td width="90"  align="center">합계</td>
 					<td width="50"  align="center">삭제</td>
 				</tr>
-				<tr>
-					<form name="form2" method="post" action="">
-					<td height="60" align="center" bgcolor="#FFFFFF">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td width="60">
-									<a href="product_detail.jsp?product_num=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="50" height="50" border="0"></a>
-								</td>
-								<td class="cmfont">
-									<a href="product_detail.jsp?product_num=0000">제품명</a><br>
-									<font color="#0066CC">[옵션사항]</font> 옵션1
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td align="center" bgcolor="#FFFFFF">
-						<input type="text" name="num1" size="3" value="1" class="cmfont1">&nbsp<font color="#464646">개</font>
-					</td>
-					<td align="center" bgcolor="#FFFFFF"><font color="#464646">70,200</font></td>
-					<td align="center" bgcolor="#FFFFFF"><font color="#464646">70,200</font></td>
-					<td align="center" bgcolor="#FFFFFF">
-						<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
-						<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
-					</td>
-					</form>
-				</tr>
-				<tr>
-					<form name="form2" method="post" action="">
-					<td height="60" align="center" bgcolor="#FFFFFF">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td width="60">
-									<a href="product_detail.jsp?product_num=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="50" height="50" border="0"></a>
-								</td>
-								<td class="cmfont">
-									<a href="product_detail.jsp?product_num=0000">제품명2</a><br>
-									<font color="#0066CC">[옵션사항]</font> 옵션2
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td align="center" bgcolor="#FFFFFF">
-						<input type="text" name="num2" size="3" value="1" class="cmfont1">&nbsp<font color="#464646">개</font>
-					</td>
-					<td align="center" bgcolor="#FFFFFF"><font color="#464646">60,000</font></td>
-					<td align="center" bgcolor="#FFFFFF"><font color="#464646">60,000</font></td>
-					<td align="center" bgcolor="#FFFFFF">
-						<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
-						<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
-					</td>
-					</form>
-				</tr>
+				
+				<c:forEach items="${list}" var="vo" varStatus="status">
+					<tr>
+						
+						<td height="60" align="center" bgcolor="#FFFFFF">
+							<table cellpadding="0" cellspacing="0" width="100%">
+								<tr>
+									<td width="60">
+										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
+										<img src="${vo.imagePath}" width="50" height="50" border="0"></a>
+									</td>
+									<td class="cmfont">
+										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
+										<font color="#0066CC">${vo.name}</font></a><br>
+										<span>[옵션]</span> 옵션1
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td align="center" bgcolor="#FFFFFF">
+							<input type="text" name="itemCount" size="3" value="${vo.itemCount}" class="cmfont1">&nbsp<font color="#464646">개</font>
+						</td>
+						<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.sellingPrice}</font></td>
+						<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.sellingPrice * vo.itemCount}</font></td>
+						<td align="center" bgcolor="#FFFFFF">
+							<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
+							<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
+						</td>
+						
+					</tr>
+				</c:forEach>
+			
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
@@ -137,6 +119,7 @@
 		</td>
 	</tr>
 </table>
+</form>
 <br><br>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cafe24.bitmall.service.MemberService;
@@ -42,6 +43,13 @@ public class MemberController {
 		
 		session.setAttribute("authMember", authMember); //인증처리
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/same", method=RequestMethod.POST)
+	public MemberVo sameMember(
+			@ModelAttribute("authMember") MemberVo authMember) {
+		return authMember;
 	}
 	
 	@RequestMapping(value="/member_agree", method=RequestMethod.GET)

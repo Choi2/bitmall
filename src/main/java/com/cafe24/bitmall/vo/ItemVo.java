@@ -8,9 +8,9 @@ public class ItemVo {
 	private String name;
 	private String company;
 	private int sellingPrice;
-	private int retailPrice;
-	private int item_count;
-	private String status;
+	private int discountPrice;
+	private int itemCount;
+	private int status;
 	private String icon;
 	private int discount;
 	private String content;
@@ -49,22 +49,22 @@ public class ItemVo {
 	public void setSellingPrice(int sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
-	public int getRetailPrice() {
-		return retailPrice;
+	public int getDiscountPrice() {
+		return discountPrice;
 	}
-	public void setRetailPrice(int retailPrice) {
-		this.retailPrice = retailPrice;
+	public void setDiscountPrice(int discountPrice) {
+		this.discountPrice = discountPrice;
 	}
-	public int getItem_count() {
-		return item_count;
+	public int getItemCount() {
+		return itemCount;
 	}
-	public void setItem_count(int item_count) {
-		this.item_count = item_count;
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public String getContent() {
@@ -114,7 +114,7 @@ public class ItemVo {
 	@Override
 	public String toString() {
 		return "ItemVo [no=" + no + ", code=" + code + ", name=" + name + ", company=" + company + ", sellingPrice="
-				+ sellingPrice + ", retailPrice=" + retailPrice + ", item_count=" + item_count + ", status=" + status
+				+ sellingPrice + ", discountPrice=" + discountPrice + ", itemCount=" + itemCount + ", status=" + status
 				+ ", icon=" + icon + ", discount=" + discount + ", content=" + content + ", regDate=" + regDate
 				+ ", imagePath=" + imagePath + ", categoryNo=" + categoryNo + ", groupName=" + groupName + "]";
 	}

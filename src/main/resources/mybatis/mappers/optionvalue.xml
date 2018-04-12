@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="optionvalue">
+
+	<insert id="insert">
+		<![CDATA[
+			INSERT 
+			INTO option_value
+			VALUES (
+						#{itemNo},
+						#{optionNo},
+						#{optValues}
+					)		
+		]]>
+	</insert>
+	
+	<select id="getByNo" parameterType="long" resultType="optionvaluevo">
+		<![CDATA[
+			SELECT	item_no AS itemNo,
+					option_no AS optionNo,
+					opt_values AS optValues
+			FROM	option_value
+			WHERE	item_no = #{no}
+		]]>
+	</select>
+	
+</mapper>

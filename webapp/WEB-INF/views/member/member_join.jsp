@@ -67,11 +67,11 @@ $(function(){
 		var phone = $('#tel1').val() + '-' +
 				    $('#tel2').val() + '-' +
 				    $('#tel3').val();
-		alert(phone);
+
 		var cellphone = $('#phone1').val() + '-' +
 	    				$('#phone2').val() + '-' +
 	   					$('#phone3').val();
-		alert(cellphone);
+
 		$('input[name=birthday]').val(birthday);
 		$('input[name=phone]').val(phone);
 		$('input[name=cellphone]').val(cellphone);
@@ -179,7 +179,7 @@ $(function(){
 									<table border="0" cellpadding="0" cellspacing="0" width="635" class="cmfont">
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>전화 번호</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>전화 번호</b></font>
 											</td>
 											<td>
 												<input type="hidden" name='phone' />
@@ -201,18 +201,18 @@ $(function(){
 										</tr>
 										<tr>
 											<td width="127" height="50">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>주 소</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>주 소</b></font>
 											</td>
 											<td>
 												<input type="text" id='zipcode' name='zipcode' size = "6" maxlength = "10" value = "" class="cmfont1"><font color="898989">-</font>
-												<img name='zipcode' align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/b_zip.gif" border="0"><br>
+												<img name='zipcode' align="middle" src="${pageContext.servletContext.contextPath }/assets/images/b_zip.gif" border="0"><br>
 												<input type="text" id='address' name='address' size = "50" maxlength = "200" value = "" class="cmfont1"><br>
 												<span id="guide" style="color:#999"></span>
 											</td>
 										</tr>
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>E-Mail</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>E-Mail</b></font>
 											</td>
 											<td>
 												<input type="text" name='email' size = "50" maxlength = "50" value = "" class="cmfont1">

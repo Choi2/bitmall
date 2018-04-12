@@ -13,6 +13,12 @@ body {
 	background-color : white;
 	margin : 0;
 }
+
+#image_upload_preview {
+	width:100px;
+	height:100px;
+	display:none;
+}
 </style>
 <script>
 	
@@ -20,7 +26,8 @@ body {
 		if (input.files && input.files[0]) {
 	          var reader = new FileReader();
 	          reader.onload = function (e) {
-	                $('#image_upload_preview').attr('src', e.target.result);
+	                $('#image_upload_preview').attr('src', e.target.result)
+	                						  .css('display','block');
 	          }
 	          reader.readAsDataURL(input.files[0]);
 	     }
@@ -35,9 +42,11 @@ body {
 			
 			$('input[type=submit]').click(function(){
 				
-				var icon = 	$('input[name=icon_new]').val() + 
-							$('input[name=icon_hit]').val() +
-							$('input[name=icon_sale]').val();
+				var icon = 	($('input[name=icon_new]').is(':checked') == true ? '1' : '0')+ 
+							($('input[name=icon_hit]').is(':checked') == true ? '1' : '0') +
+							($('input[name=icon_sale]').is(':checked') == true ? '1' : '0');
+				
+				alert(icon);
 				
 				$('input[name=icon]').val(icon);			
 				$('#form1').attr({
@@ -50,18 +59,30 @@ body {
 			
 			$("input[name=used-option]").on('click', function() { 
 				if ( $(this).val() == 'used-option') { 
-					$('#unused-option').attr('checked','');
-					$('#option-menu').css('display','block');
+					$('#unused-option').attr('checked',false);
+					$('#used-option').attr('checked',true);
+					$('#option-menu-detail').before(
+							'<select id="option">' +
+							'<option value="0" selected>옵션선택</option>' +
+							'<c:forEach items="${optionList}" var="vo">' +
+							'<option value="${vo.no}">${vo.name}</option>' +
+							'</c:forEach> </select>'
+						);
+					
 				} else { 
-					$('#used-option').attr('checked','');
-					$('#option-menu').css('display','none');
+					$('#used-option').attr('checked',false);
+					$('#unused-option').attr('checked',true);
+					$('#option').remove();
+					$('#option-menu-detail').empty();
 					$('#option-menu-detail').css('display','none');
 				} 
-			}); //옵션 사용함을 하게 되면 메뉴가 뜸
+			}); //옵션 사용함을 하게 되면 메뉴가 뜸(사용안함 선택하면 메뉴 사라짐)
 			
 			
-			$("#option-menu").change(function() {
+			$(document).on('change','#option', function() {
 				var no = $(this).val();
+				var length = $("#option-menu-detail").find('tr').length - 2;
+				
 				
 				$.ajax({
 					url:"${pageContext.servletContext.contextPath}/admin/product/option_menu",
@@ -72,6 +93,8 @@ body {
 						$('#option-menu-detail').css('display','block');
 						$('#option-menu-detail').append(
 								'<tr>'+ 
+									'<input type="hidden" name="optionValues['+ length +'].optionNo" value="'+ no +'"/>'+
+									'<input type="hidden" name="optionValues['+ length +'].values" value="'+ response.basicValue +'"/>'+
 									'<td>'+ response.name +'</td>' +
 									'<td class="option-values"><input type="text" name="option-values" value="'+ response.basicValue + '" disabled/></td>' +
 									'<td>'+ '<input type="button" name="modify-option" value="옵선값 수정"/>'+ '</td>' +
@@ -84,8 +107,8 @@ body {
 			
 			
 			$(document).on('click','input[name=modify-option]',function(){
-				alert("fuck");
-				alert($(this).prop('tagName')); //.children('input[name=option-values]').attr('disabled', '');
+				alert($(this).closest('td').siblings('.option-values').children('input[name=option-values]').val());
+				$(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled', false);
 			});
 			
 		});
@@ -135,16 +158,10 @@ body {
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">옵션</td>
     	<td id='add-option' width="700" bgcolor="#F2F2F2">
-    		<input type="radio" id="used-option" name="used-option" value="used-option"/> 사용함
-    		<input type="radio" id="unused-option" name="used-option" value="unused-option" checked/> 사용안함
-			
-			<select id="option-menu" style="display:none">
-			<option value="0" selected>옵션선택</option>
-			<c:forEach items="${optionList}" var="vo">
-				<option value="${vo.no}">${vo.name}</option>
-			</c:forEach>	
-			</select> &nbsp; &nbsp;
-			
+    		<input type="radio" id="used-option" name="used-option" value="used-option"/> 
+    			<span>사용함</span>
+    		<input type="radio" id="unused-option" name="used-option" value="unused-option" checked/>
+				<span>사용안함 </span><br/>
 			<table id="option-menu-detail" style="display:none">
 				<tr>
 					<td align="center">옵션명</td>

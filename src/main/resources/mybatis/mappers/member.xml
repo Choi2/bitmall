@@ -45,7 +45,9 @@
 					phone,
 					cellphone,
 					email,
-					auth
+					auth,
+					zipcode,
+					address
 			FROM	member
 			WHERE	id = #{id}
 			AND		password = password(#{password})				

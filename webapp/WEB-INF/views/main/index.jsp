@@ -56,11 +56,11 @@
 								<tr> 
 									<td height="20" align="center">
 										<font color="444444">${vo.name}</font>
-										<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> 
-										<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" vspace="1"> 
+										<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="middle" vspace="1"> 
+										<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="middle" vspace="1"> 
 									</td>
 								</tr>
-								<tr><td height="20" align="center"><b>${vo.retailPrice} 원</b></td></tr>
+								<tr><td height="20" align="center"><b>${vo.sellingPrice} 원</b></td></tr>
 							</table>
 						</td>
 						<c:if test="${(status.index + 1) % 5 == 0}">

@@ -17,6 +17,7 @@ import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.OptionService;
 import com.cafe24.bitmall.vo.CategoryVo;
 import com.cafe24.bitmall.vo.ItemVo;
+import com.cafe24.bitmall.vo.OptionValueVo;
 import com.cafe24.bitmall.vo.OptionVo;
 
 @Controller("adminProductController")
@@ -46,9 +47,10 @@ public class ProductController {
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public String insert(
 			@ModelAttribute ItemVo vo,
+			@ModelAttribute OptionValueVo optionValues,
 			@RequestParam("file") MultipartFile multipartFile) {
-		System.out.println(vo);
-		itemService.addItem(vo, multipartFile);
+		System.out.println(optionValues.getOptionValues());
+		itemService.addItem(vo, optionValues, multipartFile);
 		return "redirect:/admin/product";
 	}
 	
@@ -56,7 +58,6 @@ public class ProductController {
 	@RequestMapping(value="/option_menu", method=RequestMethod.POST)
 	public OptionVo optionMenu(@ModelAttribute OptionVo vo) {
 		OptionVo option = optionService.get(vo);
-		System.out.println(option);
 		return option;
 	}
 	

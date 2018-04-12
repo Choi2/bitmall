@@ -7,6 +7,19 @@
 	<title>비트닷컴 쇼핑몰</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script>
+		$(function(){
+			$('a[class=cart]').on("click", function(e){
+				e.preventDefault();
+				var url = $(this).closest('a').attr('href');
+				$('#detail').attr({
+					'method' : 'post',
+					'action' : url
+				}).submit();
+			});
+		});
+	</script>
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
@@ -34,8 +47,7 @@
 
 			<!-- form2 시작  -->
 			<form id="detail">
-			<input type="hidden" name="no" value="${vo.no}">
-			<input type="hidden" name="kind" value="insert">
+			<input type="hidden" name="itemNo" value="${vo.no}">
 
 			<table border="0" cellpadding="0" cellspacing="0" width="745">
 				<tr>
@@ -49,7 +61,7 @@
 							</tr>
 						</table>
 					</td>
-					<td width="410 " align="center" valign="top">
+					<td width="410" align="center" valign="top">
 						<!-- 상품명 -->
 						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
@@ -93,29 +105,28 @@
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
 								<td style="padding-left:10px">
-									<select name="opts1" class="cmfont1">
-										<option value="">선택하세요</option>
-										<option value="1">빨강</option>
-										<option value="2">흰색</option>
-									</select> &nbsp;
-									<select name="opts2" class="cmfont1">
-										<option value="">선택하세요</option>
-										<option value="3">L</option>
-										<option value="4">M</option>
-										<option value="5">S</option>
-									</select>
+									<c:forEach items="${optionList}" var="vo" varStatus="status">
+										<c:set var="values" value="${fn:split(vo.optValues,';')}" />
+										<select name="opts1" class="cmfont1">
+											<option value="">선택하세요</option>
+											<c:forEach items="${values}" var="val">
+												<option value="${status.index + 1}">${val}</option>
+											</c:forEach>
+										</select>
+									</c:forEach>
 								</td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<!-- 수량 -->
 							<tr>
 								<td width="80" height="35" style="padding-left:10px">
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_dot1.gif" width="3" height="3" border="0" align="absmiddle">
+									<img src="${pageContext.servletContext.contextPath }/assets/images/i_dot1.gif" width="3" height="3" border="0" align="middle">
 									<font color="666666"><b>수량</b></font>
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
 								<td style="padding-left:10px">
-									<input type="text" name="num" value="1" size="3" maxlength="5" class="cmfont1"> <font color="666666">개</font>
+									<input type="text" name="itemCount" value="1" size="3" maxlength="5"> 
+									<font color="666666">개</font>
 								</td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
@@ -123,8 +134,12 @@
 						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
 							<tr>
 								<td height="70" align="center">
-									<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order.gif" border="0" align="absmiddle"></a>&nbsp;&nbsp;&nbsp;
-									<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cart.gif"  border="0" align="absmiddle"></a>
+									<a class="order" href="${pageContext.servletContext.contextPath}/order?itemNo=${vo.no}">
+										<img src="${pageContext.servletContext.contextPath }/assets/images/b_order.gif" border="0" align="middle">
+									</a>&nbsp;&nbsp;&nbsp;
+									<a class="cart" href="${pageContext.servletContext.contextPath}/product/cart?itemNo=${vo.no}">
+										<img src="${pageContext.servletContext.contextPath }/assets/images/b_cart.gif"  border="0" align="middle">
+									</a>
 								</td>
 							</tr>
 						</table>

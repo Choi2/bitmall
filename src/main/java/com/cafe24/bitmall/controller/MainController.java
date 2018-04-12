@@ -27,13 +27,4 @@ public class MainController {
 		return "cart";
 	}
 	
-	@RequestMapping( "/order" )
-	public String order() {
-		return "order";
-	}
-	
-	@RequestMapping( "/product_detail" )
-	public String productDetail() {
-		return "product_detail";
-	}
 }

@@ -45,5 +45,19 @@
 		<property name="defaultEncoding" value="utf-8" />
 
 	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/order/**" />
+			<bean class="com.cafe24.bitmall.interceptor.AuthLoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+<!-- 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/member/logout" />
+			<bean class="com.cafe24.bitmall.interceptor.AuthLogoutInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> -->
 
 </beans>
