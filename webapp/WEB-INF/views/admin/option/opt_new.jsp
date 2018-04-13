@@ -38,7 +38,7 @@
 			<font color="#142712">기본 옵션값(';'로 구분해주세요.)</font>
 		</td>
 		<td width="250" height="20"  bgcolor="#F2F2F2">
-			<input type="text" name="name" value="" size="20" maxlength="20">
+			<input type="text" name="basicValue" value="" size="20" maxlength="20">
 		</td>
 	</tr>
 </table>

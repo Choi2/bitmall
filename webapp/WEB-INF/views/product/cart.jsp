@@ -102,15 +102,17 @@ body {
 						<td align="center" bgcolor="#FFFFFF">
 							<input type="text" name="itemCount" size="3" value="${vo.itemCount}" class="cmfont1">&nbsp<font color="#464646">개</font>
 						</td>
-						<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.sellingPrice}</font></td>
-						<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.sellingPrice * vo.itemCount}</font></td>
+						<td align="center" bgcolor="#FFFFFF">
+						<font color="#464646">${vo.discountPrice}</font>
+						</td>
+						<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.discountPrice * vo.itemCount}</font></td>
 						<td align="center" bgcolor="#FFFFFF">
 							<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
 							<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
 						</td>
 						
 					</tr>
-					<input type="hidden" value="${total = total + (vo.sellingPrice * vo.itemCount)}" />
+					<input type="hidden" value="${total = total + (vo.discountPrice * vo.itemCount)}" />
 				</c:forEach>
 			
 				<tr>
@@ -129,7 +131,7 @@ body {
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 				<tr height="44">
 					<td width="710" align="center" valign="middle">
-						<a href="index.jsp"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" border="0"></a>&nbsp;&nbsp;
+						<a href="${pageContext.servletContext.contextPath}"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" border="0"></a>&nbsp;&nbsp;
 						<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cartalldel.gif" width="103" height="26" border="0"></a>&nbsp;&nbsp;
 						<a class="order" href="${pageContext.servletContext.contextPath }/order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
 					</td>

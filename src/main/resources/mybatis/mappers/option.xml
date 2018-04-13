@@ -4,7 +4,8 @@
 	<select id="getList" resultType="optionvo">
 		<![CDATA[
 			SELECT	no,
-					name
+					name,
+					basic_value AS basicValue
 			FROM	bitmall.option
 		]]>
 	</select>

@@ -39,18 +39,18 @@ public class AdminController {
 	public String option(Model model) {
 		List<OptionVo> list = optionService.getList();
 		model.addAttribute("list", list);
-		return "admin/opt";
+		return "admin/option/opt";
 	}
 	
 	@RequestMapping(value="/option/insert", method=RequestMethod.GET)
 	public String optionNew() {
-		return "admin/opt_new";
+		return "admin/option/opt_new";
 	}
 	
 	@RequestMapping(value="/option/insert", method=RequestMethod.POST)
 	public String optionInsert(@ModelAttribute OptionVo vo) {
 		optionService.insert(vo);
-		return "redirect:/admin/option/insert";
+		return "redirect:/admin/option";
 	}
 	
 	

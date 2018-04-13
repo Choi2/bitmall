@@ -11,7 +11,8 @@
 						#{itemNo},
 						#{memberNo},
 						#{itemCount},
-						#{price}
+						#{price},
+						null
 					)		
 		]]>
 		

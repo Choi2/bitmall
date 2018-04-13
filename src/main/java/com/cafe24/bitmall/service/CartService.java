@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.bitmall.repository.CartDao;
 import com.cafe24.bitmall.repository.MemberOptionDao;
@@ -12,6 +13,7 @@ import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
 
 @Service
+@Transactional
 public class CartService {
 	
 	@Autowired
@@ -31,9 +33,11 @@ public class CartService {
 		cart.setPrice(vo.getDiscountPrice() * vo.getItemCount());
 		cartDao.insert(cart);
 		
-		for(MemberOptionVo option : memberOption.getMemberOptionList()) {
-			option.setCartNo(cart.getNo());
-			memberOptionDao.insert(option);
+		if(memberOption.getMemberOptionList() != null) {
+			for(MemberOptionVo option : memberOption.getMemberOptionList()) {
+				option.setCartNo(cart.getNo());
+				memberOptionDao.insert(option);
+			}
 		}
 	}
 

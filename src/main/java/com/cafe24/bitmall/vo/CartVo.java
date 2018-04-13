@@ -7,6 +7,7 @@ public class CartVo {
 	private long memberNo;
 	private int itemCount;
 	private int price;
+	private long orderNo;
 	
 	public long getItemNo() {
 		return itemNo;
@@ -37,6 +38,12 @@ public class CartVo {
 	}
 	public void setNo(long no) {
 		this.no = no;
+	}
+	public long getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(long orderNo) {
+		this.orderNo = orderNo;
 	}
 	@Override
 	public String toString() {

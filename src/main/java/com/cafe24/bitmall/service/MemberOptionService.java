@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.bitmall.repository.MemberOptionDao;
 import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
 
 @Service
+@Transactional
 public class MemberOptionService {
 
 	@Autowired

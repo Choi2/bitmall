@@ -4,7 +4,7 @@
 	<select id="getList" resultType="categoryvo">
 		<![CDATA[
 			SELECT	no,
-					group_name groupName
+					group_name AS groupName
 			FROM	category
 		]]>
 	</select>

@@ -29,7 +29,24 @@
 <script>
 
 $(function(){
+	$('#submit-order').click(function(){
+
+		var phone = $('#tel1').val() + '-' +
+				    $('#tel2').val() + '-' +
+				    $('#tel3').val();
+
+		var cellphone = $('#phone1').val() + '-' +
+	    				$('#phone2').val() + '-' +
+	   					$('#phone3').val();
+
+		$('input[name=phone]').val(phone);
+		$('input[name=cellphone]').val(cellphone);
 		
+		$('#order').attr('method','post')
+					.attr('action','${pageContext.servletContext.contextPath }/order/add')
+					.submit();
+	});
+	
 });
 
 			function Check_Value() {
@@ -163,9 +180,9 @@ $(function(){
 				order.submit();
 			}
 
-			function PaySel(n) 
-			{
-				if (n == 0) {
+			function PaySel(n) {
+				if (n == 0) { //무통장
+					$('input[name=pay-type]').val('bank');
 					order.card_kind.disabled = false;
 					order.card_no1.disabled = false;
 					order.card_no2.disabled = false;
@@ -177,7 +194,8 @@ $(function(){
 					order.bank_kind.disabled = true;
 					order.bank_sender.disabled = true;
 				}
-				else {
+				else { //카드
+					$('input[name=pay-type]').val('card');
 					order.card_kind.disabled = true;
 					order.card_no1.disabled = true;
 					order.card_no2.disabled = true;
@@ -192,7 +210,8 @@ $(function(){
 			}
 
 </script>
-<form id="order">			
+<form id="order">
+			<input type="hidden" name="type" value="${param.type}"/>			
 			<table border="0" cellpadding="0" cellspacing="0" width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
@@ -274,13 +293,10 @@ $(function(){
 							</td>
 							
 						</tr>
-						<input type="hidden" value="${total = total + (vo.sellingPrice * vo.itemCount)}" />
+						<input type="hidden" value="${total = total + (vo.discountPrice * vo.itemCount)}" />
 					</c:forEach>
 				</c:if>	
-					
-				
-				
-				
+
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
@@ -324,13 +340,14 @@ $(function(){
 								<td width="150"><b>받으실 분 성명</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="name" size="20" maxlength="10" value="" class="cmfont1">
+									<input type="text" name="receiver" size="20" maxlength="10" value="" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">
 								<td width="150"><b>전화번호</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
+									<input type="hidden" name="phone" value=""/>
 									<input type="text" name="tel1" size="4" maxlength="4" value="" class="cmfont1"> -
 									<input type="text" name="tel2" size="4" maxlength="4" value="" class="cmfont1"> -
 									<input type="text" name="tel3" size="4" maxlength="4" value="" class="cmfont1">
@@ -340,6 +357,7 @@ $(function(){
 								<td width="150"><b>휴대폰번호</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
+									<input type="hidden" name="cellphone" value=""/>
 									<input type="text" name="phone1" size="4" maxlength="4" value="" class="cmfont1"> -
 									<input type="text" name="phone2" size="4" maxlength="4" value="" class="cmfont1"> -
 									<input type="text" name="phone3" size="4" maxlength="4" value="" class="cmfont1">
@@ -356,7 +374,7 @@ $(function(){
 								<td width="150"><b>주소</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="zipcode" size="6" maxlength="10" value="" class="cmfont1"> 
+									<input type="text" name="zipcode" size="6" maxlength="10" value="" /> 
 									<a href="javascript:FindZip(2)"><img src="${pageContext.servletContext.contextPath }/assets/images/b_zip.gif" align="middle" border="0"></a> <br>
 									<input type="text" id='address' name='address' size = "50" maxlength = "200" value = "" class="cmfont1"><br>
 								</td>
@@ -365,7 +383,7 @@ $(function(){
 								<td width="150"><b>배송시요구사항</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<textarea name="o_desc" cols="60" rows="3" class="cmfont1"></textarea>
+									<textarea name="content" cols="60" rows="3" class="cmfont1"></textarea>
 								</td>
 							</tr>
 						</table>
@@ -411,6 +429,7 @@ $(function(){
 								<td width="150"><b>결재방법 선택</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
+									<input type="hidden" name="pay_type" value=""/>
 									<input type="radio" name="pay_method" onclick="javascript:PaySel(0);" checked>카드 &nbsp;
 									<input type="radio" name="pay_method" onclick="javascript:PaySel(1);">무통장
 								</td>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -17,6 +18,7 @@ import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
 import com.cafe24.bitmall.vo.MemberVo;
+import com.cafe24.bitmall.vo.OrderVo;
 
 @Controller
 @RequestMapping("/order")
@@ -61,5 +63,17 @@ public class OrderController {
 		return "order/order";
 	}
 	
+	
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String addOrder(
+			@ModelAttribute OrderVo order,
+			@ModelAttribute MemberVo member,
+			@RequestParam("pay-type") String payType) {
+		
+		
+		
+		return "order/order_ok";
+	}
 	
 }

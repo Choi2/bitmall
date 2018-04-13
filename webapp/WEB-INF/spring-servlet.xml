@@ -49,6 +49,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/order/**" />
+			<mvc:mapping path="/product/cart/**" />
 			<bean class="com.cafe24.bitmall.interceptor.AuthLoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
