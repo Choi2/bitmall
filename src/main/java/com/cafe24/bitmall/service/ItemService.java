@@ -9,12 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.bitmall.repository.ImageDao;
 import com.cafe24.bitmall.repository.ItemDao;
-import com.cafe24.bitmall.repository.OptionValueDao;
+import com.cafe24.bitmall.repository.ItemOptionDao;
 import com.cafe24.bitmall.util.FileUploadService;
 import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.ImageVo;
 import com.cafe24.bitmall.vo.ItemVo;
-import com.cafe24.bitmall.vo.OptionValueVo;
+import com.cafe24.bitmall.vo.ItemOptionVo;
 
 @Service
 public class ItemService {
@@ -26,13 +26,14 @@ public class ItemService {
 	private ImageDao imageDao;
 	
 	@Autowired
-	private OptionValueDao optionValueDao;
+	private ItemOptionDao itemOptionDao;
 	
 	public void addItem(
 			ItemVo vo, 
-			OptionValueVo optionValues,
+			List<ItemOptionVo> itemOptionList,
 			MultipartFile multipartFile) {
 		
+		System.out.println(itemOptionList);
 		ImageVo image = new ImageVo();
 
 		String imagePath = new FileUploadService().restore(multipartFile);
@@ -40,9 +41,10 @@ public class ItemService {
 		
 		if(vo.getIcon().charAt(2) == '1') {
 			double discountPrice = vo.getSellingPrice() * ((double)((100 - vo.getDiscount())/100.0));
-			System.out.println(discountPrice);
 			vo.setDiscountPrice((int) discountPrice);
-		} 
+		} else {
+			vo.setDiscountPrice(vo.getSellingPrice());
+		}
 		
 		itemDao.insert(vo);
 		
@@ -50,10 +52,12 @@ public class ItemService {
 		image.setItemNo(vo.getNo());
 		imageDao.insert(image);
 		
-		if(optionValues.getOptionValues() != null) {
-			for(OptionValueVo values : optionValues.getOptionValues()) {
+		System.out.println(itemOptionList);
+		
+		if(itemOptionList!=null && itemOptionList.size() != 0) {
+			for(ItemOptionVo values : itemOptionList) {
 				values.setItemNo(vo.getNo());
-				optionValueDao.insert(values);
+				itemOptionDao.insert(values);
 			}
 		}
 	}

@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.bitmall.repository.CartDao;
+import com.cafe24.bitmall.repository.MemberOptionDao;
 import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.ItemVo;
+import com.cafe24.bitmall.vo.MemberOptionVo;
 
 @Service
 public class CartService {
@@ -15,8 +17,24 @@ public class CartService {
 	@Autowired
 	private CartDao cartDao;
 
-	public void addItem(ItemVo vo, long memberNo) {
-		cartDao.insert(vo, memberNo);
+	@Autowired
+	private MemberOptionDao memberOptionDao;
+	
+	public void addItem(ItemVo vo, long memberNo, MemberOptionVo memberOption) {
+		
+		System.out.println(memberOption);
+		
+		CartVo cart = new CartVo();
+		cart.setItemNo(vo.getNo());
+		cart.setMemberNo(memberNo);
+		cart.setItemCount(vo.getItemCount());
+		cart.setPrice(vo.getDiscountPrice() * vo.getItemCount());
+		cartDao.insert(cart);
+		
+		for(MemberOptionVo option : memberOption.getMemberOptionList()) {
+			option.setCartNo(cart.getNo());
+			memberOptionDao.insert(option);
+		}
 	}
 
 	public List<CartVo> getList(long no) {

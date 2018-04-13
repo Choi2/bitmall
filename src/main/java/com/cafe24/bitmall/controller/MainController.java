@@ -22,9 +22,11 @@ public class MainController {
 		return "main/index";
 	}
 	
-	@RequestMapping( "/cart" )
+	
+	@RequestMapping( "/pay" )
 	public String cart() {
-		return "cart";
+		return "order/order_pay";
 	}
+	
 	
 }

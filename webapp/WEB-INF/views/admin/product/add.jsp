@@ -46,7 +46,6 @@ body {
 							($('input[name=icon_hit]').is(':checked') == true ? '1' : '0') +
 							($('input[name=icon_sale]').is(':checked') == true ? '1' : '0');
 				
-				alert(icon);
 				
 				$('input[name=icon]').val(icon);			
 				$('#form1').attr({
@@ -93,8 +92,9 @@ body {
 						$('#option-menu-detail').css('display','block');
 						$('#option-menu-detail').append(
 								'<tr>'+ 
-									'<input type="hidden" name="optionValues['+ length +'].optionNo" value="'+ no +'"/>'+
-									'<input type="hidden" name="optionValues['+ length +'].values" value="'+ response.basicValue +'"/>'+
+									'<input type="hidden" name="itemOptionList['+ length +'].optionNo" value="'+ no +'"/>'+
+									'<input type="hidden" name="itemOptionList['+ length +'].optionName" value="'+ response.name +'"/>'+
+									'<input type="hidden" name="itemOptionList['+ length +'].itemOptionValues" value="'+ response.basicValue +'"/>'+
 									'<td>'+ response.name +'</td>' +
 									'<td class="option-values"><input type="text" name="option-values" value="'+ response.basicValue + '" disabled/></td>' +
 									'<td>'+ '<input type="button" name="modify-option" value="옵선값 수정"/>'+ '</td>' +

@@ -6,19 +6,19 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cafe24.bitmall.vo.CartVo;
+import com.cafe24.bitmall.vo.ItemOptionVo;
 
 @Repository
-public class CartDao {
+public class ItemOptionDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insert(CartVo vo) {
-		return sqlSession.insert("cart.insert", vo);
+	public int insert(ItemOptionVo vo) {
+		return sqlSession.insert("itemoption.insert", vo);
 	}
 
-	public List<CartVo> getList(long no) {
-		return sqlSession.selectList("cart.getByNo", no);
+	public List<ItemOptionVo> getByNo(long no) {
+		return sqlSession.selectList("itemoption.getByNo", no);
 	}
 }

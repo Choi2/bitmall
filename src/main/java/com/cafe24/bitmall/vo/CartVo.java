@@ -2,6 +2,7 @@ package com.cafe24.bitmall.vo;
 
 public class CartVo {
 	
+	private long no;
 	private long itemNo;
 	private long memberNo;
 	private int itemCount;
@@ -31,10 +32,15 @@ public class CartVo {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public long getNo() {
+		return no;
+	}
+	public void setNo(long no) {
+		this.no = no;
+	}
 	@Override
 	public String toString() {
-		return "CartVo [itemNo=" + itemNo + ", memberNo=" + memberNo + ", itemCount=" + itemCount + ", price=" + price
-				+ "]";
+		return "CartVo [no=" + no + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", itemCount=" + itemCount
+				+ ", price=" + price + "]";
 	}
 }

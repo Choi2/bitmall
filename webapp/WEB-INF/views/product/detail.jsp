@@ -18,6 +18,15 @@
 					'action' : url
 				}).submit();
 			});
+			
+			$('a[class=order]').on("click", function(e){
+				e.preventDefault();
+				var url = $(this).closest('a').attr('href');
+				$('#detail').attr({
+					'method' : 'post',
+					'action' : url
+				}).submit();
+			});
 		});
 	</script>
 </head>
@@ -84,7 +93,7 @@
 									<font color="666666"><b>소비자가</b></font>
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
-								<td width="289" style="padding-left:10px"><font color="666666">62,000 원</font></td>
+								<td width="289" style="padding-left:10px"><font color="666666">${vo.sellingPrice}원</font></td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<!-- 판매가 -->
@@ -94,28 +103,34 @@
 									<font color="666666"><b>판매가</b></font>
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
-								<td style="padding-left:10px"><font color="0288DD"><b>62,000 원</b></font></td>
+								<td style="padding-left:10px"><font color="0288DD"><b>${vo.discountPrice}원</b></font></td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
+							
 							<!-- 옵션 -->
-							<tr>
-								<td width="80" height="35" style="padding-left:10px">
-									<img src="${pageContext.servletContext.contextPath }/assets/images/i_dot1.gif" width="3" height="3" border="0" align="absmiddle">
-									<font color="666666"><b>옵션선택</b></font>
-								</td>
-								<td width="1" bgcolor="E8E7EA"></td>
-								<td style="padding-left:10px">
-									<c:forEach items="${optionList}" var="vo" varStatus="status">
-										<c:set var="values" value="${fn:split(vo.optValues,';')}" />
-										<select name="opts1" class="cmfont1">
-											<option value="">선택하세요</option>
-											<c:forEach items="${values}" var="val">
-												<option value="${status.index + 1}">${val}</option>
-											</c:forEach>
-										</select>
-									</c:forEach>
-								</td>
-							</tr>
+							<c:forEach items="${itemOptionList}" var="vo" varStatus="status">
+								<tr>
+									<td width="80" height="35" style="padding-left:10px">
+										<input type="hidden" name="memberOptionList[${status.index}].optionName" value="${vo.optionName}"/>
+										<img src="${pageContext.servletContext.contextPath }/assets/images/i_dot1.gif" width="3" height="3" border="0" align="middle">
+										<font color="666666"><b>${vo.optionName}</b></font>
+									</td>
+									<td width="1" bgcolor="E8E7EA"></td>
+									<td style="padding-left:10px">
+										
+										<input type="hidden" name="memberOptionList[${status.index}].itemOptionNo" value="${vo.no}"/>
+							
+											<c:set var="values" value="${fn:split(vo.itemOptionValues,';')}" />
+											<select name="memberOptionList[${status.index}].memberOptionValue">
+												<option value="">선택하세요</option>
+												<c:forEach items="${values}" var="val">
+													<option value="${val}">${val}</option>
+												</c:forEach>
+											</select>
+									</td>
+								</tr>
+							</c:forEach>
+							
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<!-- 수량 -->
 							<tr>
@@ -134,7 +149,7 @@
 						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
 							<tr>
 								<td height="70" align="center">
-									<a class="order" href="${pageContext.servletContext.contextPath}/order?itemNo=${vo.no}">
+									<a class="order" href="${pageContext.servletContext.contextPath}/order?itemNo=${vo.no}&type=one">
 										<img src="${pageContext.servletContext.contextPath }/assets/images/b_order.gif" border="0" align="middle">
 									</a>&nbsp;&nbsp;&nbsp;
 									<a class="cart" href="${pageContext.servletContext.contextPath}/product/cart?itemNo=${vo.no}">

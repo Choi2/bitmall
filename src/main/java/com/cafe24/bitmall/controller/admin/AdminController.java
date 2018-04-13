@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cafe24.bitmall.service.CategoryService;
 import com.cafe24.bitmall.service.MemberService;
 import com.cafe24.bitmall.service.OptionService;
-import com.cafe24.bitmall.vo.CategoryVo;
 import com.cafe24.bitmall.vo.MemberVo;
 import com.cafe24.bitmall.vo.OptionVo;
 
@@ -21,7 +19,6 @@ import com.cafe24.bitmall.vo.OptionVo;
 public class AdminController {
 	
 	@Autowired private MemberService memberService;
-	@Autowired private CategoryService categoryService;
 	@Autowired private OptionService optionService;
 	
 	
@@ -57,10 +54,7 @@ public class AdminController {
 	}
 	
 	
-	
-	
-	
-	
+
 	@RequestMapping("/faq")
 	public String faq() {
 		return "admin/faq";
@@ -72,7 +66,4 @@ public class AdminController {
 	}
 	
 	
-	
-	
-
 }

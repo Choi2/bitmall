@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberoption">
+
+	<insert id="insert">
+		<![CDATA[
+			INSERT 
+			INTO member_option
+			VALUES (
+						#{cartNo},
+						#{itemOptionNo},
+						#{optionName},
+						#{memberOptionValue}
+					)		
+		]]>
+	</insert>
+	
+	<select id="getByCartNo" parameterType="long" resultType="memberoptionvo">
+		<![CDATA[
+			SELECT	cart_no AS cartNo,
+					item_option_no AS optionNo,
+					member_option_value AS memberOptionValue,
+					option_name AS optionName
+			FROM	member_option
+			WHERE	cart_no = #{no}
+		]]>
+	</select>
+	
+</mapper>

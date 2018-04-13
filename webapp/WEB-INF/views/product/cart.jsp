@@ -4,11 +4,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+		$(function(){
+			$('a[class=order]').on("click", function(e){
+				e.preventDefault();
+				var url = $(this).closest('a').attr('href');
+				alert(url);
+				$('#cart').attr({
+					'method' : 'post',
+					'action' : url
+				}).submit();
+			});
+		});
+	</script>
+<style>
+body {
+	margin : 0;
+}
+</style>
 </head>
-<body style="margin:0">
+<body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <form id="cart">
@@ -57,6 +76,7 @@
 					<td width="50"  align="center">삭제</td>
 				</tr>
 				
+				<c:set var="total" value="0" />
 				<c:forEach items="${list}" var="vo" varStatus="status">
 					<tr>
 						
@@ -70,7 +90,11 @@
 									<td class="cmfont">
 										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
 										<font color="#0066CC">${vo.name}</font></a><br>
-										<span>[옵션]</span> 옵션1
+										<span>[옵션]</span>
+									 	<c:forEach items="${optionResult[status.index]}" var="result">
+											<span>${result.optionName} : </span> 
+											<span>${result.memberOptionValue}</span> 
+										</c:forEach>
 									</td>
 								</tr>
 							</table>
@@ -86,6 +110,7 @@
 						</td>
 						
 					</tr>
+					<input type="hidden" value="${total = total + (vo.sellingPrice * vo.itemCount)}" />
 				</c:forEach>
 			
 				<tr>
@@ -94,7 +119,7 @@
 							<tr>
 								<td bgcolor="#F0F0F0"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_image1.gif" border="0"></td>
 								<td align="right" bgcolor="#F0F0F0">
-									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(132,000원) + 배송료(2,500원) = <font color="#FF3333"><b>134,500원</b></font>&nbsp;&nbsp
+									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(${total}원) + 배송료(2,500원) = <font color="#FF3333"><b>${total + 2500}원</b></font>&nbsp;&nbsp
 								</td>
 							</tr>
 						</table>
@@ -106,7 +131,7 @@
 					<td width="710" align="center" valign="middle">
 						<a href="index.jsp"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" border="0"></a>&nbsp;&nbsp;
 						<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cartalldel.gif" width="103" height="26" border="0"></a>&nbsp;&nbsp;
-						<a href="order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
+						<a class="order" href="${pageContext.servletContext.contextPath }/order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
 					</td>
 				</tr>
 			</table>
