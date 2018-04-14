@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.bitmall.repository.CartDao;
 import com.cafe24.bitmall.repository.MemberOptionDao;
+import com.cafe24.bitmall.repository.OrderDao;
 import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
@@ -20,11 +21,14 @@ public class CartService {
 	private CartDao cartDao;
 
 	@Autowired
+	private OrderDao orderDao;
+	
+	@Autowired
 	private MemberOptionDao memberOptionDao;
 	
-	public void addItem(ItemVo vo, long memberNo, MemberOptionVo memberOption) {
-		
-		System.out.println(memberOption);
+	public void addItem(ItemVo vo, 
+						long memberNo, 
+						MemberOptionVo memberOption) {
 		
 		CartVo cart = new CartVo();
 		cart.setItemNo(vo.getNo());
@@ -41,8 +45,19 @@ public class CartService {
 		}
 	}
 
-	public List<CartVo> getList(long no) {
-		return cartDao.getList(no);
+	public List<CartVo> getListByMemberNo(long memberNo) {
+		return cartDao.getListByMemberNo(memberNo);
 	}
+	
+	public List<CartVo> getListByOrderNo(long orderNo) {
+		return cartDao.getListByOrderNo(orderNo);
+	}
+
+	
+/*	public Map<String, Object> getList() {
+		Map<String, Object> results = new TreeMap<>();
+		List<OrderVo> orderList = orderDao.getList();
+		return results;
+	}*/
 	
 }

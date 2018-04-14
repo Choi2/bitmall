@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +53,7 @@ public class ProductController {
 	public String cartPage(@ModelAttribute("authMember") MemberVo member,
 			Model model) {
 		
-		List<CartVo> cartList = cartService.getList(member.getNo());
+		List<CartVo> cartList = cartService.getListByMemberNo(member.getNo());
 		
 		List<ItemVo> newItemList = itemService.getRenewList(cartList);
 		List<MemberOptionVo> options = memberOptionService.get(cartList);
@@ -73,19 +72,16 @@ public class ProductController {
 			@ModelAttribute("authMember") MemberVo member,
 			Model model) {
 		
-		ItemVo vo = itemService.getOneItem(no);
-		vo.setItemCount(itemCount);
-		cartService.addItem(vo, member.getNo(), memberOption);
-		List<CartVo> cartList = cartService.getList(member.getNo());
+		ItemVo item = itemService.getOneItem(no);
+		item.setItemCount(itemCount);
+		cartService.addItem(item, member.getNo(), memberOption);
+		List<CartVo> cartList = cartService.getListByMemberNo(member.getNo());
 		
 		List<ItemVo> newItemList = itemService.getRenewList(cartList);
 		List<MemberOptionVo> options = memberOptionService.get(cartList);
 		List<List<MemberOptionVo>> optionResult = memberOptionService.makeResult(cartList, options);
 		model.addAttribute("list", newItemList);
 		model.addAttribute("optionResult", optionResult);
-		
-		System.out.println(newItemList);
-		System.out.println(optionResult);
 		
 		return "product/cart"; 
 	}

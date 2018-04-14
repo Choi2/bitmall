@@ -54,4 +54,20 @@
 		]]>
 	</select>
 	
+		<select id="getByNo" parameterType="long" resultType="membervo">
+		<![CDATA[
+			SELECT	no,
+					id,
+					name,
+					phone,
+					cellphone,
+					email,
+					auth,
+					zipcode,
+					address
+			FROM	member
+			WHERE	no = #{memberNo}			
+		]]>
+	</select>
+	
 </mapper>

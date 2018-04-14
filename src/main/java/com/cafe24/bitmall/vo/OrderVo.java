@@ -1,5 +1,7 @@
 package com.cafe24.bitmall.vo;
 
+import java.util.Date;
+
 public class OrderVo {
 	
 	private long no;
@@ -11,10 +13,14 @@ public class OrderVo {
 	private String address;
 	private String zipcode;
 	private String content;
+	private Date orderDate;
+	private String itemName;
+	private int itemCount;
+	private int totalPrice;
+	private String status;
 	private long memberNo;
 	private long bankNo;
 	private long cardNo;
-	private long orderItemNo;
 
 	public long getNo() {
 		return no;
@@ -85,21 +91,48 @@ public class OrderVo {
 	public long getCardNo() {
 		return cardNo;
 	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public int getItemCount() {
+		return itemCount;
+	}
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
+	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public void setCardNo(long cardNo) {
 		this.cardNo = cardNo;
 	}
-	public long getOrderItemNo() {
-		return orderItemNo;
-	}
+
 	@Override
 	public String toString() {
 		return "OrderVo [no=" + no + ", orderer=" + orderer + ", receiver=" + receiver + ", phone=" + phone
 				+ ", cellphone=" + cellphone + ", email=" + email + ", address=" + address + ", zipcode=" + zipcode
-				+ ", content=" + content + ", memberNo=" + memberNo + ", bankNo=" + bankNo + ", cardNo=" + cardNo
-				+ ", orderItemNo=" + orderItemNo + "]";
+				+ ", content=" + content + ", orderDate=" + orderDate + ", itemName=" + itemName + ", itemCount="
+				+ itemCount + ", totalPrice=" + totalPrice + ", status=" + status + ", memberNo=" + memberNo
+				+ ", bankNo=" + bankNo + ", cardNo=" + cardNo + "]";
 	}
-	public void setOrderItemNo(long orderItemNo) {
-		this.orderItemNo = orderItemNo;
-	}
+
 	
 }

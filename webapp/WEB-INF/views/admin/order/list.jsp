@@ -150,81 +150,44 @@
     <td width="135" align="center">주문상태</td>
     <td width="50"  align="center">삭제</td>
 	</tr>
-	<tr bgcolor="#F2F2F2" height="23">
-		<form method="post" action=""> 
-		<td width="70"  align="center"><a href="jumun_info.jsp?no=0803050004">0803050004</a></td>
-		<td width="70"  align="center">2008-03-05</td>
-		<td width="250" align="left">&nbsp;파란 브라우스 외 1</td>	
-		<td width="40" align="center">2</td>	
-		<td width="70"  align="right">35,000&nbsp</td>	
-		<td width="65"  align="center">홍길동</td>	
-		<td width="50"  align="center">카드</td>	
-		<td width="135" align="center" valign="bottom">
-			<select name="state" style="font-size:9pt; color:black">
-				<option value="1" selected>주문신청</option>
-				<option value="2">주문확인</option>
-				<option value="3">입금확인</option>
-				<option value="4">배송중</option>
-				<option value="5">주문완료</option>
-				<option value="6">주문취소</option>
-			</select>&nbsp;
-			<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/admin/b_edit1.gif" border="0">
-		</td>	
-		<td width="50" align="center" valign="bottom">
-			<a href=""><img src="${pageContext.servletContext.contextPath }/assets/images/admin/b_delete1.gif" border="0"></a>
-		</td>
-		</form>
-	</tr>
-	<tr bgcolor="#F2F2F2" height="23">
-		<form method="post" action="">  
-		<td width="70"  align="center"><a href="jumun_info.jsp?no=0803030002">0803030002</a></td>
-		<td width="70"  align="center">2008-03-03</td>
-		<td width="250" align="left">&nbsp;실크 브라우스</td>	
-		<td width="40" align="center">1</td>	
-		<td width="70"  align="right">120,000&nbsp</td>	
-		<td width="65"  align="center">이길동</td>	
-		<td width="50"  align="center">무통장</td>	
-		<td width="135" align="center" valign="bottom">
-			<select name="state" style="font-size:9pt; color:blue">
-				<option value="1">주문신청</option>
-				<option value="2">주문확인</option>
-				<option value="3">입금확인</option>
-				<option value="4">배송중</option>
-				<option value="5" selected>주문완료</option>
-				<option value="6">주문취소</option>
-			</select>&nbsp;
-			<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/admin/b_edit1.gif" border="0">
-		</td>	
-		<td width="50" align="center" valign="bottom">
-			<a href=""><img src="${pageContext.servletContext.contextPath }/assets/images/admin/b_delete1.gif" border="0"></a>
-		</td>
-		</form>
-	</tr>
-	<tr bgcolor="#F2F2F2" height="23">
-		<form method="post" action="">   
-		<td width="70"  align="center"><a href="jumun_info.jsp?no=0803010006">0803010006</a></td>
-		<td width="70"  align="center">2008-03-01</td>
-		<td width="250" align="left">&nbsp;하얀 브라우스</td>	
-		<td width="40" align="center">1</td>	
-		<td width="70"  align="right">155,000&nbsp</td>	
-		<td width="65"  align="center">김미자</td>	
-		<td width="50"  align="center">카드</td>	
-		<td width="135" align="center" valign="bottom">
-			<select name="state" style="font-size:9pt; color:red">
-				<option value="1">주문신청</option>
-				<option value="2">주문확인</option>
-				<option value="3">입금확인</option>
-				<option value="4">배송중</option>
-				<option value="5">주문완료</option>
-				<option value="6"selected>주문취소</option>
-			</select>&nbsp;
-			<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/admin/b_edit1.gif" border="0">
-		</td>	
-		<td width="50" align="center" valign="bottom">
-			<a href=""><img src="${pageContext.servletContext.contextPath }/assets/images/admin/b_delete1.gif" border="0"></a>
-		</td>
-		</form>
-	</tr>
+	
+	<c:forEach items="${list}" var="vo" varStatus="status">
+		<tr bgcolor="#F2F2F2" height="23">
+			<form method="post" action=""> 
+			<td width="70"  align="center"><a href="${pageContext.servletContext.contextPath}/admin/jumun/info?no=${vo.no}">${vo.no}</a></td>
+			<td width="70"  align="center"><fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd"/></td>
+			<td width="250" align="left">${vo.itemName}</td>	
+			<td width="40" align="center">${vo.itemCount}</td>	
+			<td width="70"  align="right">${vo.totalPrice}</td>	
+			<td width="65"  align="center">${vo.orderer}</td>	
+			<td width="50"  align="center">
+				<c:if test="${vo.bankNo != 0}">
+					<span>무통장</span>
+				</c:if>
+				
+				<c:if test="${vo.cardNo != 0}">
+					<span>카드</span>
+				</c:if>
+			</td>
+			
+			<td width="135" align="center" valign="bottom">
+				<select name="state" style="font-size:9pt; color:black">
+					<option value="1" selected>주문신청</option>
+					<option value="2">주문확인</option>
+					<option value="3">입금확인</option>
+					<option value="4">배송중</option>
+					<option value="5">주문완료</option>
+					<option value="6">주문취소</option>
+				</select>&nbsp;
+				<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/admin/b_edit1.gif" border="0">
+			</td>	
+			<td width="50" align="center" valign="bottom">
+				<a href=""><img src="${pageContext.servletContext.contextPath }/assets/images/admin/b_delete1.gif" border="0"></a>
+			</td>
+			</form>
+		</tr>
+	</c:forEach>
+	
 </table>
 <br>
 <table width="800" border="0" cellpadding="0" cellspacing="0">

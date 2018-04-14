@@ -32,7 +32,7 @@
 							<tr>
 								<td bgcolor="#FFFFFF">
 									<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-										<tr><td><a href="qa"><img src="${pageContext.servletContext.contextPath }/assets/images/main_left_qa.gif" border="0" width="176"></a></td></tr>
+										<tr><td><a href="board"><img src="${pageContext.servletContext.contextPath }/assets/images/main_left_qa.gif" border="0" width="176"></a></td></tr>
 									</table>
 								</td>
 							</tr>

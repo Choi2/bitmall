@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cafe24.bitmall.service.MemberService;
 import com.cafe24.bitmall.service.OptionService;
+import com.cafe24.bitmall.service.OrderService;
 import com.cafe24.bitmall.vo.MemberVo;
 import com.cafe24.bitmall.vo.OptionVo;
+import com.cafe24.bitmall.vo.OrderVo;
 
 @Controller("adminMainController")
 @RequestMapping("/admin")
@@ -20,6 +22,7 @@ public class AdminController {
 	
 	@Autowired private MemberService memberService;
 	@Autowired private OptionService optionService;
+
 	
 	
 	@RequestMapping("/member")
@@ -29,12 +32,7 @@ public class AdminController {
 		return "admin/member";
 	}
 	
-	@RequestMapping("/jumun")
-	public String jumun() {
-		return "admin/jumun";
-	}
-	
-	
+
 	@RequestMapping("/option")
 	public String option(Model model) {
 		List<OptionVo> list = optionService.getList();

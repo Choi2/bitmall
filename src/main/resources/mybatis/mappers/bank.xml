@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bank">
+	<select id="getList" resultType="optionvo">
+		<![CDATA[
+			SELECT	no,
+					name,
+					basic_value AS basicValue
+			FROM	bitmall.option
+		]]>
+	</select>
+
+	
+	<select id="get" parameterType="long" resultType="optionvo">
+		<![CDATA[
+			SELECT	no,
+					name,
+					basic_value AS basicValue
+			FROM	bitmall.option
+			WHERE	no = #{no}
+		]]>
+	</select>
+	
+</mapper>

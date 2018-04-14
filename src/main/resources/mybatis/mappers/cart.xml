@@ -12,7 +12,7 @@
 						#{memberNo},
 						#{itemCount},
 						#{price},
-						null
+						#{orderNo}
 					)		
 		]]>
 		
@@ -22,14 +22,25 @@
 		
 	</insert>
 	
-	<select id="getByNo" parameterType="long" resultType="cartvo">
+	<select id="getListByMemberNo" parameterType="long" resultType="cartvo">
 		<![CDATA[
 			SELECT	no,
 					item_no AS itemNo,
 					member_no AS memberNo,
 					item_count AS itemCount
 			FROM	cart
-			WHERE	member_no = #{no}
+			WHERE	member_no = #{memberNo}
+		]]>
+	</select>
+	
+	<select id="getListByOrderNo" parameterType="long" resultType="cartvo">
+		<![CDATA[
+			SELECT	no,
+					item_no AS itemNo,
+					member_no AS memberNo,
+					item_count AS itemCount
+			FROM	cart
+			WHERE	order_no = #{orderNo}
 		]]>
 	</select>
 	

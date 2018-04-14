@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.cafe24.bitmall.service.MemberService;
 import com.cafe24.bitmall.vo.MemberVo;
@@ -34,15 +35,20 @@ public class MemberController {
 			HttpSession session,
 			@ModelAttribute MemberVo vo, 
 			Model model) {
-		System.out.println(vo);
 		MemberVo authMember = memberService.getMember(vo);
 		if(authMember == null) {
 			model.addAttribute("result", "fail");
-			return "redirect:/";
+			return "redirect:/member/login";
 		}
 		
 		session.setAttribute("authMember", authMember); //인증처리
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:/"; 
 	}
 	
 	@ResponseBody

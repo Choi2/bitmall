@@ -22,7 +22,7 @@
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
 	<c:choose>		
-		<c:when test="${empty authMember}">
+		<c:when test="${sessionScope.authMember eq null}">
 			<td><a href="${pageContext.servletContext.contextPath}"><img src="${pageContext.servletContext.contextPath }/assets/images/top_menu01.gif" border="0"></a></td>
 			<td><img src="${pageContext.servletContext.contextPath }/assets/images/top_menu_line.gif" width="11"></td>
 			<td><a href="${pageContext.servletContext.contextPath }/member/login"><img src="${pageContext.servletContext.contextPath }/assets/images/top_menu02.gif" border="0"></a></td>

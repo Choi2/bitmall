@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.cafe24.bitmall.service.CartService;
 import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.MemberOptionService;
+import com.cafe24.bitmall.service.OrderService;
+import com.cafe24.bitmall.vo.BankVo;
+import com.cafe24.bitmall.vo.CardVo;
 import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
@@ -32,6 +35,9 @@ public class OrderController {
 	private CartService cartService;
 	
 	@Autowired
+	private OrderService orderService;
+	
+	@Autowired
 	private MemberOptionService memberOptionService;
 	
 	@RequestMapping("")
@@ -41,8 +47,8 @@ public class OrderController {
 			@ModelAttribute("itemCount") int itemCount,
 			@ModelAttribute("authMember") MemberVo member,
 			@ModelAttribute MemberOptionVo memberOption,
-			Model model) {
-			
+			Model model) {	
+		
 		if(type.equals("one")) {
 			ItemVo vo = itemService.getOneItem(no);
 			vo.setItemCount(itemCount);
@@ -51,7 +57,7 @@ public class OrderController {
 			return "order/order";
 		}
 		
-		List<CartVo> cartList = cartService.getList(member.getNo());
+		List<CartVo> cartList = cartService.getListByMemberNo(member.getNo());
 		
 		List<ItemVo> newItemList = itemService.getRenewList(cartList);
 		List<MemberOptionVo> options = memberOptionService.get(cartList);
@@ -68,11 +74,30 @@ public class OrderController {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addOrder(
 			@ModelAttribute OrderVo order,
-			@ModelAttribute MemberVo member,
-			@RequestParam("pay-type") String payType) {
+			@ModelAttribute("authMember") MemberVo authMember,
+			@ModelAttribute BankVo bank,
+			@ModelAttribute CardVo card,
+			@ModelAttribute CartVo cart,
+			@ModelAttribute MemberOptionVo memberOption,
+			@RequestParam("pay_type") String payType,
+			@RequestParam("type") String type) {
 		
+		System.out.println("order = " + order);
+		System.out.println("member = " + authMember);
+		System.out.println("bank = " + bank);
+		System.out.println("CartVo = " + cart);
+		System.out.println("payType = " + payType);
+		System.out.println("type = " + type);
+		System.out.println("memberOption = " + memberOption);
 		
-		
+		long payNo = orderService.pay(payType, bank, card); // 결제방식 나눠야 함
+		if(payType.equals("bank")) {
+			order.setBankNo(payNo);
+		} else {
+			order.setCardNo(payNo);
+		}
+		orderService.registerItem(cart, memberOption, order); // 장바구니/바로 결제 나눠야 함
+
 		return "order/order_ok";
 	}
 	

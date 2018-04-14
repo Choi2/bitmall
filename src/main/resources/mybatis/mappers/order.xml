@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+	
+	<select id="getBank" resultType="bankvo">
+		<![CDATA[
+			SELECT	no,
+					bank_name AS bankName,
+					sender
+			FROM	bank
+			WHERE	no = #{bankNo}
+		]]>
+	</select>
+	
+	
+	<select id="getList" resultType="ordervo">
+		<![CDATA[
+			SELECT	no,
+					orderer,
+					receiver,
+					phone,
+					cellphone,
+					email,
+					address,
+					zipcode
+					content,
+					order_date AS orderDate,
+					item_name AS itemName,
+					item_count AS itemCount,
+					total_price AS totalPrice,
+					status,
+					member_no AS memberNo,
+					bank_no AS bankNo,
+					card_no AS cardNo
+			FROM	bitmall.order
+		]]>
+	</select>
+	
+	
+		<select id="getOne" parameterType="long" resultType="ordervo">
+		<![CDATA[
+			SELECT	no,
+					orderer,
+					receiver,
+					phone,
+					cellphone,
+					email,
+					address,
+					zipcode
+					content,
+					order_date AS orderDate,
+					item_name AS itemName,
+					item_count AS itemCount,
+					total_price AS totalPrice,
+					status,
+					member_no AS memberNo,
+					bank_no AS bankNo,
+					card_no AS cardNo
+			FROM	bitmall.order
+			WHERE	no = #{orderNo}
+		]]>
+	</select>
+	
+	
+	
+	<insert id="insertBank" parameterType="bankvo">
+		<![CDATA[
+			INSERT 
+			INTO bank 
+			VALUES (
+						null,
+						#{bankName},
+						#{sender}
+					)		
+		]]>
+		
+		<selectKey resultType="long" keyProperty="no" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+		
+	</insert>
+	
+	<insert id="insertOrder">
+		<![CDATA[
+			INSERT 
+			INTO bitmall.order 
+			VALUES (
+						null,
+						#{orderer},
+						#{receiver},
+						#{phone},
+						#{cellphone},
+						#{email},
+						#{address},
+						#{zipcode},
+						#{content},
+						now(),
+						#{itemName},
+						#{itemCount},
+						#{totalPrice},
+						#{status},				
+						#{memberNo},
+						#{bankNo},
+						#{cardNo}
+					)				
+		]]>
+		
+		<selectKey resultType="long" keyProperty="no" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	
+	</insert>
+	
+	<insert id="insertOrderItem">
+		<![CDATA[
+			INSERT 
+			INTO order_item
+			VALUES (
+						null,
+						#{memberNo},
+						#{itemNo},
+						#{itemCount},
+						#{price}
+					)		
+		]]>
+			 
+		<selectKey resultType="long" keyProperty="no" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	
+	</insert>
+	
+
+	
+</mapper>

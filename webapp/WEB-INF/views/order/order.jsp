@@ -42,6 +42,7 @@ $(function(){
 		$('input[name=phone]').val(phone);
 		$('input[name=cellphone]').val(cellphone);
 		
+
 		$('#order').attr('method','post')
 					.attr('action','${pageContext.servletContext.contextPath }/order/add')
 					.submit();
@@ -105,7 +106,8 @@ $(function(){
 						success: function(response) {
 							var phone = response.phone.split('-');
 							var cellphone = response.cellphone.split('-');
-							$('input[name=name]').val(response.name);
+							$('input[name=orderer]').val(response.name);
+							$('input[name=receiver]').val(response.name);
 							
 							$('input[name=tel1]').val(phone[0]);
 							$('input[name=tel2]').val(phone[1]);
@@ -181,8 +183,8 @@ $(function(){
 			}
 
 			function PaySel(n) {
-				if (n == 0) { //무통장
-					$('input[name=pay-type]').val('bank');
+				if (n == 0) { //카드
+					$('input[name=pay_type]').val('card');
 					order.card_kind.disabled = false;
 					order.card_no1.disabled = false;
 					order.card_no2.disabled = false;
@@ -191,11 +193,11 @@ $(function(){
 					order.card_year.disabled = false;
 					order.card_month.disabled = false;
 					order.card_pw.disabled = false;
-					order.bank_kind.disabled = true;
-					order.bank_sender.disabled = true;
+					order.bankName.disabled = true;
+					order.sender.disabled = true;
 				}
-				else { //카드
-					$('input[name=pay-type]').val('card');
+				else { //무통장
+					$('input[name=pay_type]').val('bank');
 					order.card_kind.disabled = true;
 					order.card_no1.disabled = true;
 					order.card_no2.disabled = true;
@@ -204,14 +206,15 @@ $(function(){
 					order.card_year.disabled = true;
 					order.card_month.disabled = true;
 					order.card_pw.disabled = true;
-					order.bank_kind.disabled = false;
-					order.bank_sender.disabled = false;
+					order.bankName.disabled = false;
+					order.sender.disabled = false;
 				}
 			}
 
 </script>
 <form id="order">
 			<input type="hidden" name="type" value="${param.type}"/>			
+			<input type="hidden" name="memberNo" value="${sessionScope.authMember.no}"/>			
 			<table border="0" cellpadding="0" cellspacing="0" width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
@@ -230,9 +233,15 @@ $(function(){
 				
 				
 				<c:if test="${param.type eq 'one'}">
+					<input type="hidden" name="itemNo" value="${list.no}"/>
+					<input type="hidden" name="itemCount" value="${list.itemCount}"/>
+					<input type="hidden" name="price" value="${list.sellingPrice * list.itemCount}"/>
+					<input type="hidden" name="totalPrice" value="${list.sellingPrice * list.itemCount}"/>
+					<input type="hidden" name="itemName" value="${list.name}"/>
 					<c:set var="total" value="0" />
 					<tr bgcolor="#FFFFFF">
 						<td height="60" align="center">
+							
 							<table cellpadding="0" cellspacing="0" width="100%">
 								<tr>
 									<td width="60">
@@ -243,7 +252,10 @@ $(function(){
 										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
 										<font color="#0066CC">${list.name}</font></a><br>
 										<span>[옵션]</span>
-										<c:forEach items="${optionResult}" var="result">
+										<c:forEach items="${optionResult}" var="result" varStatus="status">
+											<input type="hidden" name="memberOptionList[${status.index}].optionName" value="${result.optionName}"/>
+											<input type="hidden" name="memberOptionList[${status.index}].itemOptionNo" value="${result.itemOptionNo}"/>
+											<input type="hidden" name="memberOptionList[${status.index}].memberOptionValue" value="${result.memberOptionValue}"/>
 											<span>${result.optionName} : </span> 
 											<span>${result.memberOptionValue}</span> 
 										</c:forEach>
@@ -257,6 +269,8 @@ $(function(){
 					</tr>
 					<input type="hidden" value="${total = total + (list.sellingPrice * list.itemCount)}" />
 				</c:if>
+				
+				<!-- 장바구니 인경우 -->
 				
 				<c:if test="${param.type ne 'one'}">
 					<c:set var="total" value="0" />
@@ -336,6 +350,16 @@ $(function(){
 									<input type="radio" name="same" onclick="SameCopy('N')">아니오
 								</td>
 							</tr>
+							
+							<tr height="25">
+								<td width="150"><b>주문자 성명</b></td>
+								<td width="20"><b>:</b></td>
+								<td width="390">
+									<input type="text" name="orderer" size="20" maxlength="10" value="" class="cmfont1">
+								</td>
+							</tr>
+							
+							
 							<tr height="25">
 								<td width="150"><b>받으실 분 성명</b></td>
 								<td width="20"><b>:</b></td>
@@ -348,9 +372,9 @@ $(function(){
 								<td width="20"><b>:</b></td>
 								<td width="390">
 									<input type="hidden" name="phone" value=""/>
-									<input type="text" name="tel1" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="tel2" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="tel3" size="4" maxlength="4" value="" class="cmfont1">
+									<input type="text" id="tel1" name="tel1" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="tel2" name="tel2" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="tel3" name="tel3" size="4" maxlength="4" value="" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">
@@ -358,9 +382,9 @@ $(function(){
 								<td width="20"><b>:</b></td>
 								<td width="390">
 									<input type="hidden" name="cellphone" value=""/>
-									<input type="text" name="phone1" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="phone2" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="phone3" size="4" maxlength="4" value="" class="cmfont1">
+									<input type="text" id="phone1" name="phone1" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="phone2" name="phone2" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="phone3" name="phone3" size="4" maxlength="4" value="" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">
@@ -398,20 +422,6 @@ $(function(){
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<input type="hidden" name="o_name"   value="홍길동">
-			<input type="hidden" name="o_tel"    value="02-111-1111">
-			<input type="hidden" name="o_phone"  value="010-222-2222">
-			<input type="hidden" name="o_email"  value="aaa@aa.aa.aa">
-			<input type="hidden" name="o_zip"    value="111-111">
-			<input type="hidden" name="o_addr"   value="서울 서초구 서초대로 74길 33 비트빌딩">
-
-			<input type="hidden" name="r_name"   value="홍길동">
-			<input type="hidden" name="r_tel"    value="02-111-1111">
-			<input type="hidden" name="r_phone"  value="010-222-2222">
-			<input type="hidden" name="r_email"  value="aaa@aa.aa.aa">
-			<input type="hidden" name="r_zip"    value="111-111">
-			<input type="hidden" name="r_addr"   value="서울 서초구 서초대로 74길 33 비트빌딩">
-			<input type="hidden" name="o_etc"    value="빠른 배송 부탁.">
 
 			<!-- 결재방법 선택 및 입력 -->
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
@@ -527,10 +537,10 @@ $(function(){
 								<td width="150"><b>은행선택</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<select name="bank_kind"  class="cmfont1" disabled>
+									<select name="bankName" disabled>
 										<option value="">입금할 은행을 선택하세요.</option>
-										<option value="1">국민은행 000-00000-0000</option>
-										<option value="2">신한은행 000-00000-0000</option>
+										<option value="국민은행">국민은행 000-00000-0000</option>
+										<option value="신한은행">신한은행 000-00000-0000</option>
 									</select>
 								</td>
 							</tr>
@@ -538,7 +548,7 @@ $(function(){
 								<td width="150"><b>입금자 이름</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="bank_sender" size="15" maxlength="20" value="" class="cmfont1" disabled>
+									<input type="text" name="sender" size="15" maxlength="20" value="" class="cmfont1" disabled>
 								</td>
 							</tr>
 						</table>

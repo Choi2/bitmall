@@ -4,9 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
@@ -54,13 +55,6 @@
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr><td colspan="2" background="${pageContext.servletContext.contextPath }/assets/images/ln1.gif"></td></tr>
 				<tr><td colspan="2" height="2"></td></tr>
-				<tr>
-					<td width="104" height="25" align="center" bgcolor="ECEFF4" class="cmfont">작성자</td>
-					<td width="586">
-						&nbsp;&nbsp;<input type="text" name="name" value="" size="15" class="cmfont1"><br>
-					</td>
-				</tr>
-				<tr><td colspan="2" height="2"></td></tr>
 				<tr><td colspan="2" background="${pageContext.servletContext.contextPath }/assets/images/ln1.gif"></td></tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr>
@@ -80,8 +74,8 @@
 			<table border="0" cellpadding="0" cellspacing="0" width="690">
 				<tr>
 					<td align="right">
-							<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_save.gif" border="0">&nbsp;
-							<a href="qa.jsp"><img src="${pageContext.servletContext.contextPath }/assets/images/b_list.gif" border="0"></a>
+							<input id="board-write" type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_save.gif">&nbsp;
+							<a href="${pageContext.servletContext.contextPath}/board"><img src="${pageContext.servletContext.contextPath }/assets/images/b_list.gif" border="0"></a>
 					</td>
 					<td width="50"></td>
 				</tr>

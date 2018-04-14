@@ -10,6 +10,11 @@
 		<typeAlias alias="itemoptionvo" type="com.cafe24.bitmall.vo.ItemOptionVo"/>
 		<typeAlias alias="memberoptionvo" type="com.cafe24.bitmall.vo.MemberOptionVo"/>
 		<typeAlias alias="cartvo" type="com.cafe24.bitmall.vo.CartVo"/>
+		<typeAlias alias="ordervo" type="com.cafe24.bitmall.vo.OrderVo"/>
+		<typeAlias alias="bankvo" type="com.cafe24.bitmall.vo.BankVo"/>
+		<typeAlias alias="boardvo" type="com.cafe24.bitmall.vo.BoardVo"/>
+		<typeAlias alias="pager" type="com.cafe24.bitmall.vo.Pager"/>
+		<typeAlias alias="commentvo" type="com.cafe24.bitmall.vo.CommentVo"/>
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml" />
@@ -20,5 +25,8 @@
 		<mapper resource="mybatis/mappers/itemoption.xml" />
 		<mapper resource="mybatis/mappers/memberoption.xml" />
 		<mapper resource="mybatis/mappers/cart.xml" />
+		<mapper resource="mybatis/mappers/order.xml" />
+		<mapper resource="mybatis/mappers/bank.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
 	</mappers>
 </configuration>

@@ -25,4 +25,8 @@ public class MemberService {
 	public List<MemberVo> getList() {
 		return memberDao.getList();
 	}
+
+	public MemberVo getMember(long memberNo) {
+		return memberDao.getByNo(memberNo);
+	}
 }

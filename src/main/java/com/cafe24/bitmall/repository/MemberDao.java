@@ -25,6 +25,10 @@ public class MemberDao {
 	public MemberVo get(MemberVo vo) {
 		return sqlSession.selectOne("member.get", vo);
 	}
+
+	public MemberVo getByNo(long memberNo) {
+		return sqlSession.selectOne("member.getByNo", memberNo);
+	}
 	
 	
 }

@@ -21,7 +21,11 @@ public class CartDao {
 		return sqlSession.insert("cart.insert", vo);
 	}
 
-	public List<CartVo> getList(long no) {
-		return sqlSession.selectList("cart.getByNo", no);
+	public List<CartVo> getListByMemberNo(long memberNo) {
+		return sqlSession.selectList("cart.getListByMemberNo", memberNo);
+	}
+	
+	public List<CartVo> getListByOrderNo(long orderNo) {
+		return sqlSession.selectList("cart.getListByOrderNo", orderNo);
 	}
 }

@@ -81,7 +81,7 @@
 													<tr>
 														<td width="220" height="25">
 															<p style="padding-left:10px;">
-															<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/login_pw.gif" width="40" height="13" border="0"> 
+															<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/login_pw.gif" width="40" height="13" border="0"> 
 															<input type="password" name="password" size="20" maxlength="12" class="cmfont1">
 															</p>
 														</td>
