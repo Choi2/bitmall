@@ -4,27 +4,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>쇼핑몰 관리자 홈페이지</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>쇼핑몰 관리자 홈페이지</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
 </head>
-<body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<br>
-<jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
-<hr width='900' size='3'>
-
-<body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-
+<body>
 <form name="form1" method="post" action="" enctype="multipart/form-data">
 <table width="800" border="1" cellspacing="0" cellpadding="3" bordercolordark="white" bordercolorlight="black">
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품분류</td>
     	<td width="700" bgcolor="#F2F2F2">
-			<select name="menu">
-				<option value="0">상품분류를 선택하세요</option>
-				<option value="1">바지</option>
-				<option value="2" selected>코트</option>
-				<option value="3">브라우스</option>
+			<select name="categoryNo">
+				<option value="0" selected>상품분류를 선택하세요</option>
+				<c:forEach items="${categoryList}" var="vo" varStatus="status">
+					<option value='${vo.no}'>${vo.groupName}</option>
+				</c:forEach>
 			</select>
 		</td>
 	</tr>
@@ -159,10 +154,10 @@
 </table>
 
 <br>
-<table width="800" border="0" cellspacing="0" cellpadding="5">
+<table width="800" cellpadding="5">
 	<tr> 
 		<td align="center">
-			<input type="submit" value="수정하기"> &nbsp;&nbsp
+			<input type="submit" value="수정하기"> &nbsp;
 			<a href="product.jsp"><input type="button" value="이전화면"></a>
 		</td>
 	</tr>

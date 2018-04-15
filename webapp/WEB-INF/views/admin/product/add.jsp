@@ -122,7 +122,7 @@ body {
 <table width="800" border="1" cellspacing="0" cellpadding="3" bordercolordark="white" bordercolorlight="black">
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품분류</td>
-    <td width="700" bgcolor="#F2F2F2">
+    	<td width="700" bgcolor="#F2F2F2">
 			<select name="categoryNo">
 				<option value="0" selected>상품분류를 선택하세요</option>
 				<c:forEach items="${categoryList}" var="vo" varStatus="status">

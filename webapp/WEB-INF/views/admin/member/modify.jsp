@@ -60,11 +60,8 @@ $(function(){
 	});
 	
 	
-	$('input[name=add]').click(function(){
-		var birthday = $('#birthday_year').val() + '-' + 
-					   $('#birthday_month').val() + '-' + 
-					   $('#birthday_day').val();
-
+	$('input[name=modify]').click(function(){
+	
 		var phone = $('#tel1').val() + '-' +
 				    $('#tel2').val() + '-' +
 				    $('#tel3').val();
@@ -73,26 +70,21 @@ $(function(){
 	    				$('#phone2').val() + '-' +
 	   					$('#phone3').val();
 
-		$('input[name=birthday]').val(birthday);
+		
 		$('input[name=phone]').val(phone);
 		$('input[name=cellphone]').val(cellphone);
 		
-		$('#form2').attr('method','post');
-		$('#form2').attr('action','${pageContext.servletContext.contextPath }/member/insert');
-		$('#form2').submit();
+		$('#form2').attr('method','post')
+				   .attr('action','${pageContext.servletContext.contextPath }/member/modify')
+					.submit();
 	});
 });
 </script>
 </head>
-<body style="margin:0">
-<jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<jsp:include page="/WEB-INF/views/include/search.jsp"/>
-<table width="959">
+<body style="width:810px; overflow:hidden">
+<table width="750">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
-		<td height="100%" valign="top">
-			<jsp:include page="/WEB-INF/views/include/navigation.jsp"/>
-		</td>
 		<td width="10"></td>
 		<td valign="top">
 
@@ -100,7 +92,7 @@ $(function(){
 		<!-- 시작 : 다른 웹페이지 삽입할 부분                                                                                                                                                            -->
 		<!-------------------------------------------------------------------------------------------->	
 
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="30" align="center">
@@ -109,68 +101,68 @@ $(function(){
 				</tr>
 				<tr><td height="13"></td></tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="685" class="cmfont">
+			<table width="685">
 				<tr>
-					<td><img src="${pageContext.servletContext.contextPath }/assets/images/login_title2.gif" border="0"></td>
+					<td><img src="${pageContext.servletContext.contextPath }/assets/images/member_edit.gif" border="0"></td>
 				</tr>
 				<tr><td height="10"></td></tr>
 			</table>
 
 			<form id="form2">
+			<input type="hidden" name="no" value="${vo.no}"/>
 			<table border="0" cellpadding="5" cellspacing="1" width="685" bgcolor="cccccc">
 				<tr>
 					<td align="center" bgcolor="efefef">
-						<table border="0" cellpadding="0" cellspacing="5" width="100%" bgcolor="white">
+						<table cellspacing="5" bgcolor="white">
 							<tr>
 								<td align="center">
-									<table border="0" cellpadding="0" cellspacing="0" width="635" class="cmfont">
+									<table width="635">
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>아이디</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>아이디</b></font>
 											</td>
 											<td>
-												<input type="text" name="id" maxlength = "12" value="" size="20" class="cmfont1"> 
-												<a href="javascript:check_id();"><img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/b_idcheck.gif" border="0"></a>
+												<input type="text" name="id" maxlength = "12" value="${vo.id}" size="20" disabled="disabled"> 
 											</td>
 										</tr>
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>비밀번호</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>비밀번호</b></font>
 											</td>
 											<td>
-												<input TYPE="password" name="password" maxlength = "10" size="20" class="cmfont1">
+												<input TYPE="password" name="password1" maxlength = "10" size="20" class="cmfont1">
 											</td>
 										</tr>
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>비밀번호 확인</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>비밀번호 확인</b></font>
 											</td>
 											<td>
-												<input TYPE="password" name="password_check" maxlength = "10" size="20" class="cmfont1">
+												<input TYPE="password" name="password2" maxlength = "10" size="20" class="cmfont1">
 											</td>
 										</tr>
 										<tr><td colspan="2" height="10"></td></tr>
 										<tr><td colspan="2" bgcolor="E6DDD5"></td></tr>
 										<tr><td colspan="2" height="10"></td></tr>
 									</table>
-									<table border="0" cellpadding="0" cellspacing="0" width="635" class="cmfont">
+									<table width="635">
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>이 름</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> 
+												<font color="898989"><b>이 름</b></font>
 											</td>
 											<td>
-												<input type="text" name="name" maxlength = "10" value = "" size="20" class="cmfont1">
+												<input type="text" name="name" maxlength="10" value="${vo.name}" size="20" disabled="disabled">
 											</td>
 										</tr>
 										<tr>
 											<td width="127" height="30">
-												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>생년월일</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>생년월일</b></font>
 											</td>
 											<td>
-												<input type="hidden" name='birthday' />
-												<input type="text" id='birthday_year' name='birthday_year' size = "4" maxlength = "4" value = "" class="cmfont1"> <font color="898989">년</font> 
-												<input type="text" id='birthday_month' name='birthday_month' size = "2" maxlength = "2" value = "" class="cmfont1"> <font color="898989">월</font> 
-												<input type="text" id='birthday_day' name='birthday_day' size = "2" maxlength = "2" value = "" class="cmfont1"> <font color="898989">일</font> 
+												<input type="text" name='birthday1' size = "4" maxlength = "4" value = "****" disabled="disabled"> <font color="898989">년</font> 
+												<input type="text" name='birthday2' size = "2" maxlength = "2" value = "**" disabled="disabled"> <font color="898989">월</font> 
+												<input type="text" name='birthday3' size = "2" maxlength = "2" value = "**" disabled="disabled"> <font color="898989">일</font> 
 											</td>
 										</tr>
 										<tr><td colspan="2" height="10"></td></tr>
@@ -184,20 +176,21 @@ $(function(){
 											</td>
 											<td>
 												<input type="hidden" name='phone' />
-												<input type="text" id='tel1' name='tel1' size = "4" maxlength = "4" value = "" class="cmfont1"><font color="898989">-</font>
-												<input type="text" id='tel2' name='tel2' size = "4" maxlength = "4" value = "" class="cmfont1"><font color="898989">-</font>
-												<input type="text" id='tel3' name='tel3' size = "4" maxlength = "4" value = "" class="cmfont1">
+												<input type="text" id='tel1' name='tel1' size = "4" maxlength = "4" value = "${phone[0]}" class="cmfont1"><font color="898989">-</font>
+												<input type="text" id='tel2' name='tel2' size = "4" maxlength = "4" value = "${phone[1]}" class="cmfont1"><font color="898989">-</font>
+												<input type="text" id='tel3' name='tel3' size = "4" maxlength = "4" value = "${phone[2]}" class="cmfont1">
 											</td>
 										</tr>
 										<tr>
 											<td width="127" height="30">
-												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>핸드폰 번호</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> 
+												<font color="898989"><b>핸드폰 번호</b></font>
 											</td>
 											<td>
 												<input type="hidden" name='cellphone' />
-												<input type="text" id='phone1' name='phone1' size = "4" maxlength = "4" value = "" class="cmfont1"><font color="898989">-</font>
-												<input type="text" id='phone2' name='phone2' size = "4" maxlength = "4" value = "" class="cmfont1"><font color="898989">-</font>
-												<input type="text" id='phone3' name='phone3' size = "4" maxlength = "4" value = "" class="cmfont1">
+												<input type="text" id='phone1' name='phone1' size = "4" maxlength = "4" value = "${cellphone[0]}" ><font color="898989">-</font>
+												<input type="text" id='phone2' name='phone2' size = "4" maxlength = "4" value = "${cellphone[1]}" ><font color="898989">-</font>
+												<input type="text" id='phone3' name='phone3' size = "4" maxlength = "4" value = "${cellphone[2]}" >
 											</td>
 										</tr>
 										<tr>
@@ -205,18 +198,19 @@ $(function(){
 												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>주 소</b></font>
 											</td>
 											<td>
-												<input type="text" id='zipcode' name='zipcode' size = "6" maxlength = "10" value = "" class="cmfont1"><font color="898989">-</font>
+												<input type="text" id="zipcode" name='zipcode' size = "6" maxlength = "10" value="${vo.zipcode}"><font color="898989">-</font>
 												<img name='zipcode' align="middle" src="${pageContext.servletContext.contextPath }/assets/images/b_zip.gif" border="0"><br>
-												<input type="text" id='address' name='address' size = "50" maxlength = "200" value = "" ><br>
+												<input type="text" id="address" name='address' size = "50" maxlength = "200" value="${vo.address}" ><br>
 												<span id="guide" style="color:#999"></span>
 											</td>
 										</tr>
 										<tr>
 											<td width="127" height="30">
-												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>E-Mail</b></font>
+												<img align="middle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> 
+												<font color="898989"><b>E-Mail</b></font>
 											</td>
 											<td>
-												<input type="text" name='email' size = "50" maxlength = "50" value = "" class="cmfont1">
+												<input type="text" name='email' size="50" maxlength="50" value="${vo.email}">
 											</td>
 										</tr>
 									</table>
@@ -227,10 +221,10 @@ $(function(){
 					</td>
 				</tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="685" class="cmfont">
+			<table width="685">
 				<tr>
 					<td height="45" align="right">
-						<input type="image" name="add" src="${pageContext.servletContext.contextPath }/assets/images/b_add.gif" border="0">&nbsp;&nbsp;
+						<input name="modify" type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_add.gif" border="0">&nbsp;&nbsp;
 						<a href="javascript:form2.reset();"><img src="${pageContext.servletContext.contextPath }/assets/images/b_reset.gif" border="0"></a>
 					</td>
 				</tr>
@@ -243,8 +237,5 @@ $(function(){
 
 		</td>
 	</tr>
-</table>
-<br><br>
-<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>
 </html>

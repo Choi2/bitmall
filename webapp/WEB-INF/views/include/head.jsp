@@ -2,24 +2,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+
+<table id="header" width="959">
 	<tr> 
-		<td>
-			<!--  상단 왼쪽 로고  -------------------------------------------->
-			<table border="0" cellspacing="0" cellpadding="0" width="182">
-				<tr>
-					<td>
-						<a href="/ad" onclick="<input type='hidden' name='no' value='${authUser.no }'>" title="no" id="no" >
-						<input type="hidden" name="no" value="${authUser.no }">
-						<img src="${pageContext.servletContext.contextPath }/assets/images/top_logo.gif" width="182" height="40" border="0">
-						</a>
-					</td>
-				</tr>
-			</table>
-		</td>
-		<td align="right" valign="bottom">
+		<td align="right" valign="bottom" style="float:right;">
 			<!--  상단메뉴 시작 (main_topmemnu.jsp) : Home/로그인/회원가입/장바구니/주문배송조회/즐겨찾기추가  ---->	
-			<table border="0" cellspacing="0" cellpadding="0">
+			<table>
 				<tr>
 	<c:choose>		
 		<c:when test="${sessionScope.authMember eq null}">
@@ -63,7 +51,7 @@
 </table>
 
 <!--  상단 메인 이미지 --------------------------------------------------->
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="959">
 	<tr>
 		<td><img src="${pageContext.servletContext.contextPath }/assets/images/main_image0.jpg" width="182" height="175"></td>
 	  <td><img src="${pageContext.servletContext.contextPath }/assets/images/main_image1.jpg" width="777" height="175"></td>

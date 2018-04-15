@@ -63,6 +63,7 @@ public class OrderController {
 		List<MemberOptionVo> options = memberOptionService.get(cartList);
 		List<List<MemberOptionVo>> optionResult = memberOptionService.makeResult(cartList, options);
 		
+		model.addAttribute("cartList", cartList);
 		model.addAttribute("list", newItemList);
 		model.addAttribute("optionResult", optionResult);
 		
@@ -80,7 +81,7 @@ public class OrderController {
 			@ModelAttribute CartVo cart,
 			@ModelAttribute MemberOptionVo memberOption,
 			@RequestParam("pay_type") String payType,
-			@RequestParam("type") String type) {
+			@RequestParam(value="type", required=false, defaultValue="cart") String type) {
 		
 		System.out.println("order = " + order);
 		System.out.println("member = " + authMember);
@@ -96,9 +97,9 @@ public class OrderController {
 		} else {
 			order.setCardNo(payNo);
 		}
-		orderService.registerItem(cart, memberOption, order); // 장바구니/바로 결제 나눠야 함
+		orderService.registerItem(cart, type, memberOption, order); // 장바구니/바로 결제 나눠야 함
 
 		return "order/order_ok";
-	}
+	} // 주문 및 결제할때
 	
 }

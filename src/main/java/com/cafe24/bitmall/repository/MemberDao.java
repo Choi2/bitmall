@@ -29,6 +29,14 @@ public class MemberDao {
 	public MemberVo getByNo(long memberNo) {
 		return sqlSession.selectOne("member.getByNo", memberNo);
 	}
+
+	public int updateMember(MemberVo member) {
+		return sqlSession.update("member.updateMember", member);
+	}
+
+	public int delete(long memberNo) {
+		return sqlSession.delete("member.delete", memberNo);
+	}
 	
 	
 }

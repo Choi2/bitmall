@@ -29,4 +29,12 @@ public class MemberService {
 	public MemberVo getMember(long memberNo) {
 		return memberDao.getByNo(memberNo);
 	}
+
+	public void modifyMember(MemberVo member) {
+		memberDao.updateMember(member);
+	}
+
+	public void delete(long memberNo) {
+		memberDao.delete(memberNo);
+	}
 }

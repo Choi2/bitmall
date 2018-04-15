@@ -4,9 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>쇼핑몰 관리자 홈페이지</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>쇼핑몰 관리자 홈페이지</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <br>

@@ -2,12 +2,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table width='900' border='0' cellspacing='0' cellpadding='3'>
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
+<table width='800' border='0' cellspacing='0' cellpadding='3'>
 <tr> 
   <td bgcolor='#F7F7F7'>
     <div align='center'> 
  	<br>
-	 	<table width='780' border='0' cellspacing='0' cellpadding='0'>
+	 	<table width='780'>
 	 		<tr>
 	    		<td>
 	      			<div align='center'> 

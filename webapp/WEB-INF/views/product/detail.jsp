@@ -4,11 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script>
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
 		$(function(){
 			$('a[class=cart]').on("click", function(e){
 				e.preventDefault();
@@ -33,7 +34,7 @@
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <jsp:include page="/WEB-INF/views/include/search.jsp"/>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
@@ -46,7 +47,7 @@
 <!-- 시작 : 다른 웹페이지 삽입할 부분                                                       -->
 <!-------------------------------------------------------------------------------------------->	
 
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="30"><img src="${pageContext.servletContext.contextPath }/assets/images/product_title3.gif" width="746" height="30" border="0"></td>
@@ -58,11 +59,11 @@
 			<form id="detail">
 			<input type="hidden" name="itemNo" value="${vo.no}">
 
-			<table border="0" cellpadding="0" cellspacing="0" width="745">
+			<table width="745">
 				<tr>
 					<td width="335" align="center" valign="top">
 						<!-- 상품이미지 -->
-						<table border="0" cellpadding="0" cellspacing="1" width="315" height="315" bgcolor="D4D0C8">
+						<table cellspacing="1" width="315" height="315" bgcolor="D4D0C8">
 							<tr>
 								<td bgcolor="white" align="center">
 									<img src="${vo.imagePath}" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
@@ -72,7 +73,7 @@
 					</td>
 					<td width="410" align="center" valign="top">
 						<!-- 상품명 -->
-						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
+						<table width="370">
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<tr>
 								<td width="80" height="45" style="padding-left:10px">
@@ -146,7 +147,7 @@
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 						</table>
-						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
+						<table width="370">
 							<tr>
 								<td height="70" align="center">
 									<a class="order" href="${pageContext.servletContext.contextPath}/order?itemNo=${vo.no}&type=one">
@@ -158,7 +159,7 @@
 								</td>
 							</tr>
 						</table>
-						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
+						<table width="370">
 							<tr>
 								<td height="30" align="center">
 									<img src="${pageContext.servletContext.contextPath }/assets/images/product_text1.gif" border="0" align="absmiddle">
@@ -171,22 +172,22 @@
 			</form>
 			<!-- form2 끝  -->
 
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="22"></td></tr>
 			</table>
 
 			<!-- 상세설명 -->
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="746">
+			<table width="746">
 				<tr>
 					<td height="30" align="center">
 						<img src="${pageContext.servletContext.contextPath }/assets/images/product_title.gif" width="746" height="30" border="0">
 					</td>
 				</tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="746" style="font-size:9pt">
+			<table width="746" style="font-size:9pt">
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="200" valign=top style="line-height:14pt">
@@ -196,15 +197,15 @@
 			</table>
 
 			<!-- 교환배송정보 -->
-			<table border="0" cellpadding="0" cellspacing="0" width="746" class="cmfont">
+			<table width="746">
 				<tr><td height="10"></td></tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="746">
+			<table width="746">
 				<tr>
 					<td align="center" class="cmfont">배송정보 어쩌고저쩌고........</td>
 				</tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="746" class="cmfont">
+			<table width="746">
 				<tr><td height="10"></td></tr>
 			</table>
 

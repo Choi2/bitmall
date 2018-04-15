@@ -37,7 +37,7 @@ public class ProductController {
 	
 	@Autowired
 	private MemberOptionService memberOptionService;
-	
+
 	@RequestMapping("/detail")
 	public String detail(
 			@RequestParam("no") long no,
@@ -47,7 +47,7 @@ public class ProductController {
 		model.addAttribute("vo", vo);
 		model.addAttribute("itemOptionList", itemOptionList);
 		return "product/detail"; 
-	}
+	} //상품 자세히 보기
 	
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
 	public String cartPage(@ModelAttribute("authMember") MemberVo member,

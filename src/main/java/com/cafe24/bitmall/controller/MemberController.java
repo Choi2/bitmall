@@ -70,9 +70,30 @@ public class MemberController {
 	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public String insert(@ModelAttribute MemberVo vo) {
-		System.out.println(vo);
 		memberService.addMember(vo);
 		return "member/member_joinend";
 	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public String modify(
+			@ModelAttribute("authMember") MemberVo member,
+			Model model) {
+
+		String phone[] = member.getPhone().split("-");
+		String cellphone[] = member.getCellphone().split("-");
+
+		model.addAttribute("phone", phone);
+		model.addAttribute("cellphone", cellphone);
+		model.addAttribute("vo", member);
+		return "member/modify";
+	} //회원 정보 수정
+	
+	
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modifying(
+			@ModelAttribute MemberVo member) {
+		memberService.modifyMember(member);
+		return "member/modifying";
+	} //회원 정보 수정
 	
 }

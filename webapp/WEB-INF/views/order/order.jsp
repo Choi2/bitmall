@@ -4,28 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
-</head>
-<body style="margin:0">
-<jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<jsp:include page="/WEB-INF/views/include/search.jsp"/>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
-	<tr><td height="10" colspan="2"></td></tr>
-	<tr>
-		<td height="100%" valign="top">
-			<jsp:include page="/WEB-INF/views/include/navigation.jsp"/>
-		</td>
-		<td width="10"></td>
-		<td valign="top">
-
-<!-------------------------------------------------------------------------------------------->	
-<!-- 시작 : 다른 웹페이지 삽입할 부분                                                       -->
-<!-------------------------------------------------------------------------------------------->	
-
-			<!--  현재 페이지 자바스크립  -------------------------------------------->
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
 <script>
 
 $(function(){
@@ -42,7 +25,10 @@ $(function(){
 		$('input[name=phone]').val(phone);
 		$('input[name=cellphone]').val(cellphone);
 		
-
+		if($('input[name=itemCount]').val() > 1 && $('input[name=type]').val() != "one") {
+			$('input[name=itemName]').val($('input[name=itemName]').val() + " 외 " + $('input[name=itemCount]').val());
+		}
+ 		
 		$('#order').attr('method','post')
 					.attr('action','${pageContext.servletContext.contextPath }/order/add')
 					.submit();
@@ -212,10 +198,27 @@ $(function(){
 			}
 
 </script>
+</head>
+<body>
+<jsp:include page="/WEB-INF/views/include/head.jsp"/>
+<jsp:include page="/WEB-INF/views/include/search.jsp"/>
+<table width="959">
+	<tr><td height="10" colspan="2"></td></tr>
+	<tr>
+		<td height="100%" valign="top">
+			<jsp:include page="/WEB-INF/views/include/navigation.jsp"/>
+		</td>
+		<td width="10"></td>
+		<td valign="top">
+
+<!-------------------------------------------------------------------------------------------->	
+<!-- 시작 : 다른 웹페이지 삽입할 부분                                                       -->
+<!-------------------------------------------------------------------------------------------->	
+
 <form id="order">
 			<input type="hidden" name="type" value="${param.type}"/>			
 			<input type="hidden" name="memberNo" value="${sessionScope.authMember.no}"/>			
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="30" align="center"><img src="${pageContext.servletContext.contextPath }/assets/images/jumun_title.gif" width="746" height="30" border="0"></td>
@@ -223,7 +226,7 @@ $(function(){
 				<tr><td height="13"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="5" cellspacing="1" width="710" class="cmfont" bgcolor="#CCCCCC">
+			<table cellpadding="5" cellspacing="1" width="710" bgcolor="#CCCCCC">
 				<tr bgcolor="F0F0F0" height="23" class="cmfont">
 					<td width="440" align="center">상품</td>
 					<td width="70"  align="center">수량</td>
@@ -235,14 +238,14 @@ $(function(){
 				<c:if test="${param.type eq 'one'}">
 					<input type="hidden" name="itemNo" value="${list.no}"/>
 					<input type="hidden" name="itemCount" value="${list.itemCount}"/>
-					<input type="hidden" name="price" value="${list.sellingPrice * list.itemCount}"/>
-					<input type="hidden" name="totalPrice" value="${list.sellingPrice * list.itemCount}"/>
+					<input type="hidden" name="price" value="${list.discountPrice * list.itemCount}"/>
+					<input type="hidden" name="totalPrice" value="${list.discountPrice * list.itemCount}"/>
 					<input type="hidden" name="itemName" value="${list.name}"/>
 					<c:set var="total" value="0" />
 					<tr bgcolor="#FFFFFF">
 						<td height="60" align="center">
 							
-							<table cellpadding="0" cellspacing="0" width="100%">
+							<table>
 								<tr>
 									<td width="60">
 										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${list.no}">
@@ -264,56 +267,66 @@ $(function(){
 							</table>
 						</td>
 						<td align="center"><font color="#464646">${list.itemCount}개</font></td>
-						<td align="center"><font color="#464646">${list.sellingPrice}</font> 원</td>
-						<td align="center"><font color="#464646">${list.sellingPrice * list.itemCount}</font> 원</td>
+						<td align="center"><font color="#464646">${list.discountPrice}</font> 원</td>
+						<td align="center"><font color="#464646">${list.discountPrice * list.itemCount}</font> 원</td>
 					</tr>
-					<input type="hidden" value="${total = total + (list.sellingPrice * list.itemCount)}" />
+					<input type="hidden" value="${total = total + (list.discountPrice * list.itemCount)}" />
 				</c:if>
 				
 				<!-- 장바구니 인경우 -->
 				
 				<c:if test="${param.type ne 'one'}">
 					<c:set var="total" value="0" />
+					<c:set var="count" value="0" />
+					<input type="hidden" name="itemName" value="${list[0].name}"/>
 					<c:forEach items="${list}" var="vo" varStatus="status">
-						<tr>
-							
-							<td height="60" align="center" bgcolor="#FFFFFF">
-								<table cellpadding="0" cellspacing="0" width="100%">
-									<tr>
-										<td width="60">
-											<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
-											<img src="${vo.imagePath}" width="50" height="50" border="0"></a>
-										</td>
-										<td class="cmfont">
-											<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
-											<font color="#0066CC">${vo.name}</font></a><br>
-											<span>[옵션]</span>
-										 	<c:forEach items="${optionResult[status.index]}" var="result">
-												<span>${result.optionName} : </span> 
-												<span>${result.memberOptionValue}</span> 
-											</c:forEach>
-										</td>
-									</tr>
-								</table>
-							</td>
-							<td align="center" bgcolor="#FFFFFF">
-								<input type="text" name="itemCount" size="3" value="${vo.itemCount}" class="cmfont1">&nbsp<font color="#464646">개</font>
-							</td>
-							<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.sellingPrice}</font></td>
-							<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.sellingPrice * vo.itemCount}</font></td>
-							<td align="center" bgcolor="#FFFFFF">
-								<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
-								<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
-							</td>
-							
-						</tr>
-						<input type="hidden" value="${total = total + (vo.discountPrice * vo.itemCount)}" />
+					<c:if test="${cartList[status.index].isOrder eq false}">
+						<input type="hidden" name="cartList[${status.index}].itemNo" value="${vo.no}"/>
+						<input type="hidden" name="cartList[${status.index}].itemCount" value="${vo.itemCount}"/>
+						<input type="hidden" name="cartList[${status.index}].price" value="${vo.discountPrice * vo.itemCount}"/>
+							<tr>
+								
+								<td height="60" align="center" bgcolor="#FFFFFF">
+									<table>
+										<tr>
+											<td width="60">
+												<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
+												<img src="${vo.imagePath}" width="50" height="50" border="0"></a>
+											</td>
+											<td class="cmfont">
+												<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
+												<font color="#0066CC">${vo.name}</font></a><br>
+												<span>[옵션]</span>
+											 	<c:forEach items="${optionResult[status.index]}" var="result">
+													<span>${result.optionName} : </span> 
+													<span>${result.memberOptionValue}</span> 
+												</c:forEach>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td align="center" bgcolor="#FFFFFF">
+									<input type="text" name="itemCount" size="3" value="${vo.itemCount}" class="cmfont1">&nbsp<font color="#464646">개</font>
+								</td>
+								<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.discountPrice}</font></td>
+								<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.discountPrice * vo.itemCount}</font></td>
+								<td align="center" bgcolor="#FFFFFF">
+									<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
+									<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
+								</td>
+								
+							</tr>
+							<input type="hidden" value="${total = total + (vo.discountPrice * vo.itemCount)}" />
+							<input type="hidden" value="${count = count + vo.itemCount}" />
+						</c:if>
 					</c:forEach>
+					<input type="hidden" name="itemCount" value="${count}"/>
+					<input type="hidden" name="totalPrice" value="${total}"/>
 				</c:if>	
 
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
-						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+						<table>
 							<tr>
 								<td align="right" bgcolor="#F0F0F0">
 									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(${total}원) + 배송료(2,500원) = <font color="#FF3333"><b>${total + 2500 }원</b></font>&nbsp;&nbsp
@@ -331,17 +344,17 @@ $(function(){
 			
 			
 			<!-- 배송지 정보 -->
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr>
 					<td align="left" valign="top" width="150" STYLE="padding-left:45;padding-top:5"><font size=2 color="#B90319"><b>배송지 정보</b></font></td>
 					<td align="center" width="560">
 
-						<table width="560" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+						<table width="560">
 							<tr height="25">
 								<td width="150"><b>주문자정보와 동일</b></td>
 								<td width="20"><b>:</b></td>
@@ -417,24 +430,24 @@ $(function(){
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
 
 
 			<!-- 결재방법 선택 및 입력 -->
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr>
 					<td align="left" valign="top" width="150" STYLE="padding-left:45;padding-top:5"><font size=2 color="#B90319"><b>결재방법</b></font></td>
 					<td align="center" width="560">
 
-						<table width="560" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+						<table width="560">
 							<tr height="25">
 								<td width="150"><b>결재방법 선택</b></td>
 								<td width="20"><b>:</b></td>
@@ -451,18 +464,18 @@ $(function(){
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="1" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
 			
 			
 			<!------------- 카드 --------------->
-			<table id="card" width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table id="card">
 				<tr>
 					<td align="left" valign="top" width="150" STYLE="padding-left:45;padding-top:5"><font size=2 color="#B90319"><b>카드</b></font></td>
 					<td align="center" width="560">
-						<table width="560" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+						<table width="560">
 							<tr height="25">
 								<td width="150"><b>카드종류</b></td>
 								<td width="20"><b>:</b></td>
@@ -521,18 +534,18 @@ $(function(){
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="1" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
 			
 			
 			<!-- 무통장 -->
-			<table id="bank" width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table id="bank" width="710">
 				<tr>
 					<td align="left" valign="top" width="150" style="padding-left:45;padding-top:5"><font size=2 color="#B90319"><b>무통장 입금</b></font></td>
 					<td align="center" width="560">
-						<table width="560" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+						<table width="560">
 							<tr height="25">
 								<td width="150"><b>은행선택</b></td>
 								<td width="20"><b>:</b></td>
@@ -558,12 +571,12 @@ $(function(){
 				<tr height="10"><td></td></tr>
 			</table>
 
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
 			
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr>
 					<td align="center">
 						<input id="submit-order" type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_order3.gif">

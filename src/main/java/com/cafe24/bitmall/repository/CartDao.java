@@ -28,4 +28,8 @@ public class CartDao {
 	public List<CartVo> getListByOrderNo(long orderNo) {
 		return sqlSession.selectList("cart.getListByOrderNo", orderNo);
 	}
+
+	public int update(CartVo cart) {
+		return sqlSession.update("cart.update", cart);
+	}
 }

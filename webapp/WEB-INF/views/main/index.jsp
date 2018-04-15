@@ -7,16 +7,12 @@
 <title>비트닷컴 쇼핑몰</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath}/assets/css/font.css" rel="stylesheet" type="text/css">
-<style>
-	body {
-		margin : 0;
-	}
-</style>
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <jsp:include page="/WEB-INF/views/include/search.jsp"/>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table id="items" width="959" >
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
@@ -30,7 +26,7 @@
 		<!-------------------------------------------------------------------------------------------->	
 
 			<!---- 화면 우측(신상품) 시작 -------------------------------------------------->	
-			<table width="767" border="0" cellspacing="0" cellpadding="0">
+			<table width="767">
 				<tr>
 					<td height="60">
 						<img src="${pageContext.servletContext.contextPath }/assets/images/main_newproduct.jpg" width="767" height="40">
@@ -38,7 +34,7 @@
 				</tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0">
+			<table>
 				<!---1번째 줄-->
 				
 					<c:forEach items="${itemList}" var="vo" varStatus="status">
@@ -46,10 +42,11 @@
 						<tr>
 						</c:if>
 						<td width="150" height="205" align="center" valign="top">
-							<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
+							<table width="100">
 								<tr> 
 									<td align="center"> 
-										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}"><img src="${vo.imagePath}" width="120" height="140" border="0"></a>
+										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
+										<img src="${vo.imagePath}" width="120" height="140" border="0"></a>
 									</td>
 								</tr>
 								<tr><td height="5"></td></tr>

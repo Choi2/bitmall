@@ -70,4 +70,23 @@
 		]]>
 	</select>
 	
+	<update id="updateMember" parameterType="membervo">
+		<![CDATA[
+			UPDATE	member
+			SET		phone = #{phone},
+					cellphone = #{cellphone},
+					zipcode = #{zipcode},
+					address = #{address},
+					email = #{email}
+			WHERE	no = #{no}
+		]]>
+	
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		DELETE 
+		FROM	member
+		WHERE	no = #{memberNo}
+	</delete>
+	
 </mapper>

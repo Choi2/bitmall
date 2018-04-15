@@ -39,20 +39,33 @@ public class OrderService {
 		return card.getNo();
 	}
 
-	public void registerItem(CartVo cartVo, 
-			MemberOptionVo memberOption, OrderVo order) {
+	public void registerItem(
+			CartVo cartVo, 
+			String type, 
+			MemberOptionVo memberOption, 
+			OrderVo order) {
+			
+			order.setStatus("배송대기");
+			orderDao.insertOrder(order);
 		
-		order.setStatus("배송대기");
-		orderDao.insertOrder(order);
-		cartVo.setOrderNo(order.getNo());
-		cartDao.insert(cartVo);
-		
+		if(type.equals("one")) {
+			cartVo.setOrderNo(order.getNo());
+			cartVo.setIsOrder(true);
+			cartDao.insert(cartVo);
+		} else {
+			for(CartVo cart : cartVo.getCartList()) {
+				cart.setOrderNo(order.getNo());
+				cart.setMemberNo(order.getMemberNo());
+				cart.setIsOrder(true);
+				cartDao.update(cart);
+			}
+		}
 		if(memberOption.getMemberOptionList() != null) {
 			for(MemberOptionVo option : memberOption.getMemberOptionList()) {
 				option.setCartNo(cartVo.getNo());
 				memberOptionDao.insert(option);
 			}
-		}
+		} //옵션 추가
 	}
 
 	public List<OrderVo> getList() {

@@ -3,7 +3,7 @@
 <mapper namespace="cart">
 
 	<insert id="insert" parameterType="cartvo">
-		<![CDATA[
+
 			INSERT 
 			INTO cart 
 			VALUES (
@@ -12,15 +12,29 @@
 						#{memberNo},
 						#{itemCount},
 						#{price},
-						#{orderNo}
+						<if test="orderNo != 0">
+						#{orderNo},
+						</if>
+						<if test="orderNo == 0">
+						null,
+						</if>
+						false
 					)		
-		]]>
-		
 		<selectKey resultType="long" keyProperty="no" order="AFTER">
         	SELECT LAST_INSERT_ID()
     	</selectKey>
 		
 	</insert>
+	
+	
+	<update id="update" parameterType="cartvo">
+		UPDATE	cart
+		SET		order_no = #{orderNo},
+				is_order = true
+		WHERE	item_no = #{itemNo}
+		AND		member_no = #{memberNo}
+		AND		item_count = #{itemCount}
+	</update>
 	
 	<select id="getListByMemberNo" parameterType="long" resultType="cartvo">
 		<![CDATA[
@@ -30,6 +44,7 @@
 					item_count AS itemCount
 			FROM	cart
 			WHERE	member_no = #{memberNo}
+			AND		is_order = false
 		]]>
 	</select>
 	

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafe24.bitmall.interceptor.Auth;
+import com.cafe24.bitmall.interceptor.Auth.Role;
 import com.cafe24.bitmall.service.CartService;
 import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.MemberOptionService;
@@ -31,6 +33,7 @@ public class JumunController {
 	@Autowired private ItemService itemService;
 	@Autowired private MemberOptionService memberOptionService;
 
+	@Auth(role=Role.ADMIN)
 	@RequestMapping("")
 	public String jumun(Model model) {
 		List<OrderVo> list= orderService.getList();
@@ -38,6 +41,7 @@ public class JumunController {
 		return "admin/order/list";
 	}
 	
+	@Auth(role=Role.ADMIN)
 	@RequestMapping("/info")
 	public String info(Model model, @RequestParam("no") long orderNo) {
 		OrderVo order = orderService.getOne(orderNo);

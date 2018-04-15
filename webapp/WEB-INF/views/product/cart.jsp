@@ -7,13 +7,13 @@
 <title>비트닷컴 쇼핑몰</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/common.css" rel="stylesheet" type="text/css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
 		$(function(){
 			$('a[class=order]').on("click", function(e){
 				e.preventDefault();
 				var url = $(this).closest('a').attr('href');
-				alert(url);
 				$('#cart').attr({
 					'method' : 'post',
 					'action' : url
@@ -31,7 +31,7 @@ body {
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <form id="cart">
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
@@ -44,30 +44,30 @@ body {
 <!-- 시작 : 다른 웹페이지 삽입할 부분                                                       -->
 <!-------------------------------------------------------------------------------------------->	
 
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="746">
+			<table width="746">
 				<tr>
 					<td height="30" align="left"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_title.gif" width="746" height="30" border="0"></td>
 				</tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="710" class="cmfont">
+			<table width="710">
 				<tr>
 					<td><img src="${pageContext.servletContext.contextPath }/assets/images/cart_title1.gif" border="0"></td>
 				</tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="710">
+			<table width="710">
 				<tr><td height="10"></td></tr>
 			</table>
 			
 			
-			<table border="0" cellpadding="5" cellspacing="1" width="710" class="cmfont" bgcolor="#CCCCCC">
+			<table cellpadding="5" cellspacing="1" width="710" bgcolor="#CCCCCC">
 				<tr bgcolor="F0F0F0" height="23" class="cmfont">
 					<td width="420" align="center">상품</td>
 					<td width="70"  align="center">수량</td>
@@ -81,7 +81,7 @@ body {
 					<tr>
 						
 						<td height="60" align="center" bgcolor="#FFFFFF">
-							<table cellpadding="0" cellspacing="0" width="100%">
+							<table>
 								<tr>
 									<td width="60">
 										<a href="${pageContext.servletContext.contextPath}/product/detail?no=${vo.no}">
@@ -117,7 +117,7 @@ body {
 			
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
-						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+						<table>
 							<tr>
 								<td bgcolor="#F0F0F0"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_image1.gif" border="0"></td>
 								<td align="right" bgcolor="#F0F0F0">

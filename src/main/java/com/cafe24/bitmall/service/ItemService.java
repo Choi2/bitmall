@@ -82,5 +82,9 @@ public class ItemService {
 			
 		return itemList;
 	}
+
+	public void delete(long itemNo) {
+		
+	}
 	
 }
