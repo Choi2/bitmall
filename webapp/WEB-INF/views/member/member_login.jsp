@@ -24,7 +24,6 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>

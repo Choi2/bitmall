@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cafe24.bitmall.repository.CartDao;
-import com.cafe24.bitmall.repository.ItemDao;
 import com.cafe24.bitmall.repository.MemberOptionDao;
 import com.cafe24.bitmall.repository.OrderDao;
+import com.cafe24.bitmall.repository.OrderItemDao;
 import com.cafe24.bitmall.vo.BankVo;
 import com.cafe24.bitmall.vo.CardVo;
-import com.cafe24.bitmall.vo.CartVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
+import com.cafe24.bitmall.vo.OrderItemVo;
 import com.cafe24.bitmall.vo.OrderVo;
 
 @Service
@@ -23,7 +22,7 @@ public class OrderService {
 	private OrderDao orderDao;
 	
 	@Autowired
-	private CartDao cartDao;
+	private OrderItemDao cartDao;
 		
 	@Autowired
 	private MemberOptionDao memberOptionDao;
@@ -40,7 +39,7 @@ public class OrderService {
 	}
 
 	public void registerItem(
-			CartVo cartVo, 
+			OrderItemVo orderItem, 
 			String type, 
 			MemberOptionVo memberOption, 
 			OrderVo order) {
@@ -49,11 +48,11 @@ public class OrderService {
 			orderDao.insertOrder(order);
 		
 		if(type.equals("one")) {
-			cartVo.setOrderNo(order.getNo());
-			cartVo.setIsOrder(true);
-			cartDao.insert(cartVo);
+			orderItem.setOrderNo(order.getNo());
+			orderItem.setIsOrder(true);
+			cartDao.insert(orderItem);
 		} else {
-			for(CartVo cart : cartVo.getCartList()) {
+			for(OrderItemVo cart : orderItem.getCartList()) {
 				cart.setOrderNo(order.getNo());
 				cart.setMemberNo(order.getMemberNo());
 				cart.setIsOrder(true);
@@ -62,7 +61,7 @@ public class OrderService {
 		}
 		if(memberOption.getMemberOptionList() != null) {
 			for(MemberOptionVo option : memberOption.getMemberOptionList()) {
-				option.setCartNo(cartVo.getNo());
+				option.setCartNo(orderItem.getNo());
 				memberOptionDao.insert(option);
 			}
 		} //옵션 추가
@@ -72,6 +71,7 @@ public class OrderService {
 		return orderDao.getList();
 	}
 
+	
 	public OrderVo getOne(long orderNo) {
 		return orderDao.getOne(orderNo);
 	}
@@ -81,8 +81,21 @@ public class OrderService {
 	}
 
 	public CardVo getCard(long cardNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<OrderVo> getListByMemberNo(long memberNo) {
+		return orderDao.getListByMemberNo(memberNo);
+	}
+
+	public boolean modifyStatus(long orderNo, String status) {
+		return orderDao.updateStatus(orderNo, status);
+	}
+
+	public int delete(long orderNo) {
+		return orderDao.delete(orderNo);
+	}
+	
+	
 
 }

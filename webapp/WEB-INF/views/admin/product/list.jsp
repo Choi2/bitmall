@@ -17,6 +17,20 @@
 			window.open(url,"수정","width=1000, height=780");
 			return false;
 		});
+		
+		$('.delete').click(function(e){
+			e.preventDefault();
+			var deleteLocation = $(this).parents('.product');
+	 		var url = $(this).attr('href');
+			$.ajax({
+				url: url,
+				type:"post",
+				dataType:"json",
+				success: function(response) {
+					deleteLocation.remove();
+				}
+			}); 
+		});	
 	});
 </script>
 </head>
@@ -73,12 +87,12 @@
 	</tr>
 	
 	<c:forEach items="${list}" var="vo">
-		<c:set var="icon" value="${vo.icon}"/>
-		<tr bgcolor="#F2F2F2" height="23">	
+		<tr class="product" bgcolor="#F2F2F2" height="23">
+			<c:set var="icon" value="${vo.icon}"/>	
 			<td width="100">${vo.groupName}</td>
 			<td width="100">&nbsp; ${vo.code}</td>
 			<td width="280">&nbsp; ${vo.name}</td>	
-			<td width="70"  align="right">${vo.sellingPrice} &nbsp; </td>	
+			<td width="70"  align="right">${vo.discountPrice} &nbsp; </td>	
 			<td width="50"  align="center">
 				<c:if test="${vo.status == 1}">
 					<span>판매중</span>
@@ -110,7 +124,7 @@
 </table>
 
 <br>
-<table width="800" border="0" cellpadding="0" cellspacing="0">
+<table width="800">
 	<tr>
 		<td height="30" class="cmfont" align="center">
 			<img src="${pageContext.servletContext.contextPath }/assets/images/admin/i_prev.gif" align="absmiddle" border="0"> 

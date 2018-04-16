@@ -1,6 +1,8 @@
 package com.cafe24.bitmall.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,8 @@ public class OrderDao {
 	}
 
 
-	public void insertCard(CardVo card) {
-		
+	public int insertCard(CardVo card) {
+		return sqlSession.insert("order.insertCard", card);
 	}
 
 
@@ -43,6 +45,23 @@ public class OrderDao {
 
 	public BankVo getBank(long bankNo) {
 		return sqlSession.selectOne("order.getBank", bankNo);
+	}
+
+
+	public List<OrderVo> getListByMemberNo(long memberNo) {
+		return sqlSession.selectList("order.getListByMemberNo", memberNo);
+	}
+
+
+	public boolean updateStatus(long orderNo, String status) {
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("orderNo", orderNo);
+		parameters.put("status", status);
+		return (sqlSession.update("order.updateStatus", parameters) == 1);
+	}
+
+	public int delete(long orderNo) {
+		return sqlSession.delete("order.delete", orderNo);
 	}
 	
 }

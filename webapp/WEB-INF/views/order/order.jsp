@@ -14,9 +14,9 @@
 $(function(){
 	$('#submit-order').click(function(){
 
-		var phone = $('#tel1').val() + '-' +
-				    $('#tel2').val() + '-' +
-				    $('#tel3').val();
+		var phone = 	$('#tel1').val() + '-' +
+					    $('#tel2').val() + '-' +
+					    $('#tel3').val();
 
 		var cellphone = $('#phone1').val() + '-' +
 	    				$('#phone2').val() + '-' +
@@ -24,6 +24,22 @@ $(function(){
 
 		$('input[name=phone]').val(phone);
 		$('input[name=cellphone]').val(cellphone);
+		
+		if($('input[name=pay_type]').val() == 'card') {
+			
+			
+			var number = $('#card_no1').val() + '-' +
+					     $('#card_no2').val() + '-' +
+					     $('#card_no3').val() + '-' +
+					     $('#card_no4').val();
+
+			var period = $('#card_month').val() + '-' +
+							$('#card_year').val();
+			
+			$('input[name=number]').val(number);
+			$('input[name=period]').val(period);
+		}
+		
 		
 		if($('input[name=itemCount]').val() > 1 && $('input[name=type]').val() != "one") {
 			$('input[name=itemName]').val($('input[name=itemName]').val() + " 외 " + $('input[name=itemCount]').val());
@@ -78,9 +94,6 @@ $(function(){
 				order.submit();
 			}
 
-			function FindZip(zip_kind) {
-				window.open("zipcode.jsp?zip_kind="+zip_kind, "", "scrollbars=no,width=500,height=250");
-			}
 
 			function SameCopy(str) {
 				if (str == "Y") {
@@ -171,27 +184,27 @@ $(function(){
 			function PaySel(n) {
 				if (n == 0) { //카드
 					$('input[name=pay_type]').val('card');
-					order.card_kind.disabled = false;
+					order.sort.disabled = false;
 					order.card_no1.disabled = false;
 					order.card_no2.disabled = false;
 					order.card_no3.disabled = false;
 					order.card_no4.disabled = false;
 					order.card_year.disabled = false;
 					order.card_month.disabled = false;
-					order.card_pw.disabled = false;
+					order.password.disabled = false;
 					order.bankName.disabled = true;
 					order.sender.disabled = true;
 				}
 				else { //무통장
 					$('input[name=pay_type]').val('bank');
-					order.card_kind.disabled = true;
+					order.sort.disabled = true;
 					order.card_no1.disabled = true;
 					order.card_no2.disabled = true;
 					order.card_no3.disabled = true;
 					order.card_no4.disabled = true;
 					order.card_year.disabled = true;
 					order.card_month.disabled = true;
-					order.card_pw.disabled = true;
+					order.password.disabled = true;
 					order.bankName.disabled = false;
 					order.sender.disabled = false;
 				}
@@ -201,7 +214,6 @@ $(function(){
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
@@ -480,12 +492,12 @@ $(function(){
 								<td width="150"><b>카드종류</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<select name="card_kind" class="cmfont1">
+									<select name="sort">
 										<option value="">카드종류를 선택하세요.</option>
-										<option value="1">국민카드</option>
-										<option value="2">신한카드</option>
-										<option value="3">우리카드</option>
-										<option value="4">하나카드</option>
+										<option value="국민카드">국민카드</option>
+										<option value="신한카드">신한카드</option>
+										<option value="우리카드">우리카드</option>
+										<option value="하나카드">하나카드</option>
 									</select>
 								</td>
 							</tr>
@@ -493,32 +505,34 @@ $(function(){
 								<td width="150"><b>카드번호</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="card_no1" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="card_no2" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="card_no3" size="4" maxlength="4" value="" class="cmfont1"> -
-									<input type="text" name="card_no4" size="4" maxlength="4" value="" class="cmfont1">
+									<input type="hidden" name="number" value=""/>
+									<input type="text" id="card_no1" name="card_no1" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="card_no2" name="card_no2" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="card_no3" name="card_no3" size="4" maxlength="4" value="" class="cmfont1"> -
+									<input type="text" id="card_no4" name="card_no4" size="4" maxlength="4" value="" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">
 								<td width="150"><b>카드기간</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="card_month" size="2" maxlength="2" value="" class="cmfont1"> 월 / 
-									<input type="text" name="card_year"  size="2" maxlength="2" value="" class="cmfont1"> 년
+									<input type="hidden" name="period" value=""/>
+									<input type="text" id="card_month" name="card_month" size="2" maxlength="2" value="" class="cmfont1"> 월 / 
+									<input type="text" id="card_year" name="card_year"  size="2" maxlength="2" value="" class="cmfont1"> 년
 								</td>
 							</tr>
 							<tr height="25">
 								<td width="150"><b>카드비밀번호(뒷2자리)</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									**<input type="password" name="card_pw" size="2" maxlength="2" value="" class="cmfont1">
+									**<input type="password" name="password" size="2" maxlength="2" value="" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">
 								<td width="150"><b>할부</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<select name="card_halbu" class="cmfont1">
+									<select name="divide">
 										<option value="0">일시불</option>
 										<option value="3">3 개월</option>
 										<option value="6">6 개월</option>

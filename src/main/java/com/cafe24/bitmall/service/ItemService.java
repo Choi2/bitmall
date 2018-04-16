@@ -11,7 +11,7 @@ import com.cafe24.bitmall.repository.ImageDao;
 import com.cafe24.bitmall.repository.ItemDao;
 import com.cafe24.bitmall.repository.ItemOptionDao;
 import com.cafe24.bitmall.util.FileUploadService;
-import com.cafe24.bitmall.vo.CartVo;
+import com.cafe24.bitmall.vo.OrderItemVo;
 import com.cafe24.bitmall.vo.ImageVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.ItemOptionVo;
@@ -70,21 +70,21 @@ public class ItemService {
 		return itemDao.getByNo(no);
 	}
 
-	public List<ItemVo> getRenewList(List<CartVo> cartList) {
+	public List<ItemVo> getRenewList(List<OrderItemVo> orderItemList) {
 		
 		List<ItemVo> itemList = new ArrayList<>();
 		
-		for(CartVo cart : cartList) {
-			ItemVo vo = itemDao.getByNo(cart.getItemNo());
-			vo.setItemCount(cart.getItemCount());
+		for(OrderItemVo orderItem : orderItemList) {
+			ItemVo vo = itemDao.getByNo(orderItem.getItemNo());
+			vo.setItemCount(orderItem.getItemCount());
 			itemList.add(vo);
 		}
 			
 		return itemList;
 	}
 
-	public void delete(long itemNo) {
-		
+	public int delete(long itemNo) {
+		return itemDao.delete(itemNo);
 	}
 	
 }

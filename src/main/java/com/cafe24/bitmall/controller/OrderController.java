@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.cafe24.bitmall.service.CartService;
+import com.cafe24.bitmall.service.OrderItemService;
 import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.MemberOptionService;
 import com.cafe24.bitmall.service.OrderService;
 import com.cafe24.bitmall.vo.BankVo;
 import com.cafe24.bitmall.vo.CardVo;
-import com.cafe24.bitmall.vo.CartVo;
+import com.cafe24.bitmall.vo.OrderItemVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
 import com.cafe24.bitmall.vo.MemberVo;
@@ -32,7 +32,7 @@ public class OrderController {
 	private ItemService itemService;
 
 	@Autowired
-	private CartService cartService;
+	private OrderItemService orderItemService;
 	
 	@Autowired
 	private OrderService orderService;
@@ -57,47 +57,38 @@ public class OrderController {
 			return "order/order";
 		}
 		
-		List<CartVo> cartList = cartService.getListByMemberNo(member.getNo());
+		List<OrderItemVo> orderItem = orderItemService.getListByMemberNo(member.getNo());
 		
-		List<ItemVo> newItemList = itemService.getRenewList(cartList);
-		List<MemberOptionVo> options = memberOptionService.get(cartList);
-		List<List<MemberOptionVo>> optionResult = memberOptionService.makeResult(cartList, options);
+		List<ItemVo> newItemList = itemService.getRenewList(orderItem);
+		List<MemberOptionVo> options = memberOptionService.get(orderItem);
+		List<List<MemberOptionVo>> optionResult = memberOptionService.makeResult(orderItem, options);
 		
-		model.addAttribute("cartList", cartList);
+		model.addAttribute("cartList", orderItem);
 		model.addAttribute("list", newItemList);
 		model.addAttribute("optionResult", optionResult);
 		
 		return "order/order";
-	}
+	} //주문 폼 페이지
 	
-	
-	
+
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addOrder(
 			@ModelAttribute OrderVo order,
 			@ModelAttribute("authMember") MemberVo authMember,
 			@ModelAttribute BankVo bank,
 			@ModelAttribute CardVo card,
-			@ModelAttribute CartVo cart,
+			@ModelAttribute OrderItemVo orderItem,
 			@ModelAttribute MemberOptionVo memberOption,
 			@RequestParam("pay_type") String payType,
 			@RequestParam(value="type", required=false, defaultValue="cart") String type) {
-		
-		System.out.println("order = " + order);
-		System.out.println("member = " + authMember);
-		System.out.println("bank = " + bank);
-		System.out.println("CartVo = " + cart);
-		System.out.println("payType = " + payType);
-		System.out.println("type = " + type);
-		System.out.println("memberOption = " + memberOption);
-		
+
 		long payNo = orderService.pay(payType, bank, card); // 결제방식 나눠야 함
 		if(payType.equals("bank")) {
 			order.setBankNo(payNo);
 		} else {
 			order.setCardNo(payNo);
 		}
-		orderService.registerItem(cart, type, memberOption, order); // 장바구니/바로 결제 나눠야 함
+		orderService.registerItem(orderItem, type, memberOption, order); // 장바구니/바로 결제 나눠야 함
 
 		return "order/order_ok";
 	} // 주문 및 결제할때

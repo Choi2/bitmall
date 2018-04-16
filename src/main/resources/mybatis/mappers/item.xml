@@ -77,4 +77,10 @@
 		]]>
 	</select>
 	
+	<delete id="delete" parameterType="long">
+		DELETE 	FROM
+		item
+		WHERE	no = #{itemNo}
+	</delete>
+	
 </mapper>

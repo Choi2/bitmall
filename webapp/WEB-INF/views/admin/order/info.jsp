@@ -18,7 +18,7 @@
         <td width="100" height="20" bgcolor="#CCCCCC" align="center"><font color="#142712">주문번호</font></td>
         <td width="300" height="20" bgcolor="#EEEEEE"><font size="3"><b>${order.no}</b></font></td>
         <td width="100" height="20" bgcolor="#CCCCCC" align="center"><font color="#142712">주문일</font></td>
-        <td width="300" height="20" bgcolor="#EEEEEE"><fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd"/></td>
+        <td width="300" height="20" bgcolor="#EEEEEE"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
 	</tr>
 </table>
 <br>
@@ -107,8 +107,8 @@
 		<tr bgcolor="#EEEEEE" height="20">	
 			<td width="340" height="20" align="left">${vo.name}</td>	
 			<td width="50"  height="20" align="center">${vo.itemCount}</td>	
-			<td width="70"  height="20" align="right">${vo.sellingPrice}</td>	
 			<td width="70"  height="20" align="right">${vo.discountPrice}</td>	
+			<td width="70"  height="20" align="right">${vo.discountPrice * vo.itemCount}</td>	
 			<td width="50"  height="20" align="center">${vo.discount}</td>	
 			<td width="60"  height="20" align="center">
 				<c:forEach items="${optionResult[status.index]}" var="result">

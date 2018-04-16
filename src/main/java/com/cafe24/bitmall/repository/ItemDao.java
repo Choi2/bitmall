@@ -26,4 +26,8 @@ public class ItemDao {
 		return sqlSession.selectOne("item.getByNo", no);
 	}
 
+	public int delete(long itemNo) {
+		return sqlSession.delete("item.delete", itemNo);
+	}
+
 }

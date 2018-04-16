@@ -40,11 +40,20 @@ body {
 		 	}); 
 			
 			
-			$('input[type=submit]').click(function(){
-				
+			$('input[type=submit]').click(function(e){
+				e.preventDefault();
 				var icon = 	($('input[name=icon_new]').is(':checked') == true ? '1' : '0')+ 
 							($('input[name=icon_hit]').is(':checked') == true ? '1' : '0') +
 							($('input[name=icon_sale]').is(':checked') == true ? '1' : '0');
+				
+				var itemOptionValue = $('input[name=option-values]').val();
+				var length = $("#option-menu-detail").find('tr').length - 2;
+				
+				
+				for(var i = 0; i < length; i++) {
+					var name = "input[name='itemOptionList["+ i +"].itemOptionValues']";
+					$('input[name='+ name +'].itemOptionValues]').val(itemOptionValue[i]);
+				}
 				
 				
 				$('input[name=icon]').val(icon);			
@@ -107,8 +116,14 @@ body {
 			
 			
 			$(document).on('click','input[name=modify-option]',function(){
-				alert($(this).closest('td').siblings('.option-values').children('input[name=option-values]').val());
-				$(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled', false);
+				var open = $(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled');
+				/* alert($(this).closest('td').siblings('.option-values').children('input[name=option-values]').val()); */
+				if(open == 'disabled') {
+					$(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled', false);
+				} else {
+					$(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled', true);
+				}
+				
 			});
 			
 		});

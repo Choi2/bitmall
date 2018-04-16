@@ -12,6 +12,19 @@
 		]]>
 	</select>
 	
+	<select id="getCard" resultType="cardvo">
+		<![CDATA[
+			SELECT	no,
+					sort,
+					number,
+					period,
+					password,
+					divide
+			FROM	bank
+			WHERE	no = #{cardNo}
+		]]>
+	</select>
+	
 	
 	<select id="getList" resultType="ordervo">
 		<![CDATA[
@@ -37,7 +50,7 @@
 	</select>
 	
 	
-		<select id="getOne" parameterType="long" resultType="ordervo">
+	<select id="getOne" parameterType="long" resultType="ordervo">
 		<![CDATA[
 			SELECT	no,
 					orderer,
@@ -76,9 +89,30 @@
 		
 		<selectKey resultType="long" keyProperty="no" order="AFTER">
         	SELECT LAST_INSERT_ID()
+    	</selectKey>	
+	</insert>
+	
+		<insert id="insertCard" parameterType="cardvo">
+		<![CDATA[
+			INSERT 
+			INTO card 
+			VALUES (
+						null,
+						#{sort},
+						#{number},
+						#{period},
+						#{password},
+						#{divide}
+					)		
+		]]>
+		
+		<selectKey resultType="long" keyProperty="no" order="AFTER">
+        	SELECT LAST_INSERT_ID()
     	</selectKey>
 		
 	</insert>
+	
+	
 	
 	<insert id="insertOrder">
 		<![CDATA[
@@ -130,6 +164,34 @@
     	
 	</insert>
 	
-
+	<select id="getListByMemberNo" parameterType="long" resultType="ordervo">
+		<![CDATA[
+			SELECT	no,
+					orderer,
+					receiver,
+					phone,
+					cellphone,
+					email,
+					address,
+					zipcode
+					content,
+					order_date AS orderDate,
+					item_name AS itemName,
+					item_count AS itemCount,
+					total_price AS totalPrice,
+					status,
+					member_no AS memberNo,
+					bank_no AS bankNo,
+					card_no AS cardNo
+			FROM	bitmall.order
+			WHERE	member_no = #{memberNo}
+		]]>
+	</select>
 	
+	<update id="updateStatus" parameterType="map">
+		UPDATE	bitmall.order
+		SET		status = #{status}
+		WHERE	no = #{orderNo}
+	</update>
+
 </mapper>

@@ -1,7 +1,14 @@
 @charset "UTF-8";
+
+* {
+	margin:0;
+	padding:0;
+}
+
 body {
-	width:1000px;
+	width:950px;
 	margin : 0 auto;
+	padding: 0;
 }
 
 table {

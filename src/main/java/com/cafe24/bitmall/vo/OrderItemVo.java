@@ -2,7 +2,7 @@ package com.cafe24.bitmall.vo;
 
 import java.util.List;
 
-public class CartVo {
+public class OrderItemVo {
 	
 	private long no;
 	private long itemNo;
@@ -12,7 +12,7 @@ public class CartVo {
 	private long orderNo;
 	private boolean isOrder;
 	
-	private List<CartVo> cartList;
+	private List<OrderItemVo> cartList;
 	
 	public long getItemNo() {
 		return itemNo;
@@ -50,10 +50,10 @@ public class CartVo {
 	public void setOrderNo(long orderNo) {
 		this.orderNo = orderNo;
 	}
-	public List<CartVo> getCartList() {
+	public List<OrderItemVo> getCartList() {
 		return cartList;
 	}
-	public void setCartList(List<CartVo> cartList) {
+	public void setCartList(List<OrderItemVo> cartList) {
 		this.cartList = cartList;
 	}
 	
@@ -65,7 +65,7 @@ public class CartVo {
 	}
 	@Override
 	public String toString() {
-		return "CartVo [no=" + no + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", itemCount=" + itemCount
-				+ ", price=" + price + ", orderNo=" + orderNo + ", cartList=" + cartList + "]";
+		return "OrderItemVo [no=" + no + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", itemCount=" + itemCount
+				+ ", price=" + price + ", orderNo=" + orderNo + ", isOrder=" + isOrder + ", cartList=" + cartList + "]";
 	}
 }

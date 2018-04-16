@@ -11,7 +11,6 @@
 <body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <br>
 <jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
-<hr width='900' size='3'>
 <form name="form1" method="post" action="opts_update.html">
 <input type="hidden" name="no1" value="1">
 <input type="hidden" name="no2" value="1">

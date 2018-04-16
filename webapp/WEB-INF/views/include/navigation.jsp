@@ -13,7 +13,7 @@
 				<tr>
 					<td bgcolor="#FFFFFF">
 						<table>
-							<tr><td><a href="product.jsp?menu=1">${vo.groupName}</a></td></tr>
+							<tr><td><a style="text-align:center;" href="product.jsp?menu=1">${vo.groupName}</a></td></tr>
 						</table>
 					</td>
 				</tr>
@@ -39,27 +39,6 @@
 								<td bgcolor="#FFFFFF">
 									<table>
 										<tr><td><a href="faq"><img src="${pageContext.servletContext.contextPath }/assets/images/main_left_faq.gif" border="0" width="176"></a></td></tr>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td bgcolor="#FFFFFF">
-									<table>
-										<tr><td><a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/main_left_etc.gif" border="0" width="176"></a></td></tr>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td bgcolor="#FFFFFF">
-									<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-										<tr><td><a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/main_left_etc.gif" border="0" width="176"></a></td></tr>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td bgcolor="#FFFFFF">
-									<table>
-										<tr><td><a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/main_left_etc.gif" border="0" width="176"></a></td></tr>
 									</table>
 								</td>
 							</tr>

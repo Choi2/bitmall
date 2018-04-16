@@ -33,7 +33,6 @@
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
@@ -195,20 +194,6 @@
 					</td>
 				</tr>
 			</table>
-
-			<!-- 교환배송정보 -->
-			<table width="746">
-				<tr><td height="10"></td></tr>
-			</table>
-			<table width="746">
-				<tr>
-					<td align="center" class="cmfont">배송정보 어쩌고저쩌고........</td>
-				</tr>
-			</table>
-			<table width="746">
-				<tr><td height="10"></td></tr>
-			</table>
-
 
 <!-------------------------------------------------------------------------------------------->	
 <!-- 끝 : 다른 웹페이지 삽입할 부분                                                         -->

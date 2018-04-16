@@ -21,15 +21,9 @@
 			});
 		});
 	</script>
-<style>
-body {
-	margin : 0;
-}
-</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<jsp:include page="/WEB-INF/views/include/search.jsp"/>
 <form id="cart">
 <table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
@@ -68,13 +62,19 @@ body {
 			
 			
 			<table cellpadding="5" cellspacing="1" width="710" bgcolor="#CCCCCC">
-				<tr bgcolor="F0F0F0" height="23" class="cmfont">
+				<tr bgcolor="F0F0F0" height="23">
 					<td width="420" align="center">상품</td>
 					<td width="70"  align="center">수량</td>
 					<td width="80"  align="center">가격</td>
 					<td width="90"  align="center">합계</td>
 					<td width="50"  align="center">삭제</td>
 				</tr>
+				
+				<c:if test="${list.size() eq 0}">
+					<tr>
+						<td colspan="5" align="center">카트에 담긴 상품이 없습니다 !</td>
+					</tr>
+				</c:if>
 				
 				<c:set var="total" value="0" />
 				<c:forEach items="${list}" var="vo" varStatus="status">
@@ -114,26 +114,30 @@ body {
 					</tr>
 					<input type="hidden" value="${total = total + (vo.discountPrice * vo.itemCount)}" />
 				</c:forEach>
-			
-				<tr>
-					<td colspan="5" bgcolor="#F0F0F0">
-						<table>
-							<tr>
-								<td bgcolor="#F0F0F0"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_image1.gif" border="0"></td>
-								<td align="right" bgcolor="#F0F0F0">
-									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(${total}원) + 배송료(2,500원) = <font color="#FF3333"><b>${total + 2500}원</b></font>&nbsp;&nbsp
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
+				
+				<c:if test="${list.size() ne 0}">
+					<tr>
+						<td colspan="5" bgcolor="#F0F0F0">
+							<table>
+								<tr>
+									<td bgcolor="#F0F0F0"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_image1.gif" border="0"></td>
+									<td align="right" bgcolor="#F0F0F0">
+										<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(${total}원) + 배송료(2,500원) = <font color="#FF3333"><b>${total + 2500}원</b></font>&nbsp;&nbsp
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</c:if>
 			</table>
-			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
+			<table width="710">
 				<tr height="44">
 					<td width="710" align="center" valign="middle">
-						<a href="${pageContext.servletContext.contextPath}"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" border="0"></a>&nbsp;&nbsp;
-						<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cartalldel.gif" width="103" height="26" border="0"></a>&nbsp;&nbsp;
-						<a class="order" href="${pageContext.servletContext.contextPath }/order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
+						<a href="${pageContext.servletContext.contextPath}"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" alt="계속 쇼핑하기" ></a>&nbsp;&nbsp;
+						<c:if test="${list.size() ne 0}">
+							<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cartalldel.gif" width="103" height="26" alt="장바구니 전부지우기"></a>&nbsp;&nbsp;
+							<a class="order" href="${pageContext.servletContext.contextPath }/order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
+						</c:if>
 					</td>
 				</tr>
 			</table>

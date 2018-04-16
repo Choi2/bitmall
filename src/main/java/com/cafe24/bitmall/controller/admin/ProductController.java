@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cafe24.bitmall.interceptor.Auth;
 import com.cafe24.bitmall.interceptor.Auth.Role;
 import com.cafe24.bitmall.service.CategoryService;
+import com.cafe24.bitmall.service.ItemOptionService;
 import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.OptionService;
 import com.cafe24.bitmall.vo.CategoryVo;
@@ -29,6 +30,7 @@ public class ProductController {
 	@Autowired private CategoryService categoryService;
 	@Autowired private OptionService optionService;
 	@Autowired private ItemService itemService;
+	@Autowired private ItemOptionService itemOptionService;
 	
 	@Auth(role=Role.ADMIN)
 	@RequestMapping("")
@@ -54,6 +56,7 @@ public class ProductController {
 			@ModelAttribute ItemVo vo,
 			@ModelAttribute ItemOptionVo itemOptionList,
 			@RequestParam("file") MultipartFile multipartFile) {
+		System.out.println("itemOptionList = " + itemOptionList);
 		itemService.addItem(vo, itemOptionList.getItemOptionList(), multipartFile);
 		return "redirect:/admin/product";
 	}
@@ -71,7 +74,11 @@ public class ProductController {
 	public String itemModifyForm(
 			@RequestParam("no") long itemNo,
 			Model model) {
+		List<CategoryVo> categorylist = categoryService.getList();
+		List<ItemOptionVo> itemOptionList = itemOptionService.get(itemNo);
 		ItemVo item = itemService.getOneItem(itemNo);
+		model.addAttribute("categoryList", categorylist);
+		model.addAttribute("itemOptionList", itemOptionList);	
 		model.addAttribute("vo", item);
 		return "admin/product/modify";
 	}

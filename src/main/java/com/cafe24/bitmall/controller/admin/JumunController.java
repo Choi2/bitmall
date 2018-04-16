@@ -6,18 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.bitmall.interceptor.Auth;
 import com.cafe24.bitmall.interceptor.Auth.Role;
-import com.cafe24.bitmall.service.CartService;
+import com.cafe24.bitmall.service.OrderItemService;
 import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.MemberOptionService;
 import com.cafe24.bitmall.service.MemberService;
 import com.cafe24.bitmall.service.OrderService;
 import com.cafe24.bitmall.vo.BankVo;
 import com.cafe24.bitmall.vo.CardVo;
-import com.cafe24.bitmall.vo.CartVo;
+import com.cafe24.bitmall.vo.OrderItemVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
 import com.cafe24.bitmall.vo.MemberVo;
@@ -29,7 +31,7 @@ public class JumunController {
 	
 	@Autowired private OrderService orderService;
 	@Autowired private MemberService memberService;
-	@Autowired private CartService cartService;
+	@Autowired private OrderItemService cartService;
 	@Autowired private ItemService itemService;
 	@Autowired private MemberOptionService memberOptionService;
 
@@ -55,7 +57,7 @@ public class JumunController {
 			model.addAttribute("card", card);
 		}
 		
-		List<CartVo> cartList = cartService.getListByOrderNo(orderNo);
+		List<OrderItemVo> cartList = cartService.getListByOrderNo(orderNo);
 		List<ItemVo> newItemList = itemService.getRenewList(cartList);
 		List<MemberOptionVo> options = memberOptionService.get(cartList);
 		List<List<MemberOptionVo>> optionResult = memberOptionService.makeResult(cartList, options);
@@ -64,8 +66,6 @@ public class JumunController {
 		System.out.println("newItemList : " + newItemList);
 		System.out.println("optionResult : " + optionResult);
 
-
-		
 		model.addAttribute("list", newItemList); //상품리스트
 		model.addAttribute("optionResult", optionResult); //옵션
 		model.addAttribute("order", order); //받는자 정보
@@ -73,5 +73,25 @@ public class JumunController {
 		return "admin/order/info";
 	}
 	
+	
+	@Auth(role=Role.ADMIN)
+	@ResponseBody
+	@RequestMapping(value="/modifyStatus", method=RequestMethod.POST)
+	public boolean modifyStatus(
+			@RequestParam("no") long orderNo,
+			@RequestParam("status") String status) {
+		boolean result = false;
+		result = orderService.modifyStatus(orderNo, status);
+		return result;
+	} //주문 상태 수정하기
+	
+	
+	@Auth(role=Role.ADMIN)
+	@RequestMapping("/delete")
+	public String memberDelete(
+			@RequestParam("no") long orderNo) {
+		orderService.delete(orderNo);
+		return "redirect:/admin/jumun";
+	} //주문 관리 - 지우기
 	
 }
