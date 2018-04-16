@@ -13,7 +13,16 @@
 				<tr>
 					<td bgcolor="#FFFFFF">
 						<table>
-							<tr><td><a style="text-align:center;" href="product.jsp?menu=1">${vo.groupName}</a></td></tr>
+							<tr>
+								<td>
+									<c:if test="${param.no eq vo.no}">
+										<strong><a href="${pageContext.servletContext.contextPath}/menu?no=${vo.no}">${vo.groupName}</a></strong>
+									</c:if>
+									<c:if test="${param.no ne vo.no}">
+										<a href="${pageContext.servletContext.contextPath}/menu?no=${vo.no}">${vo.groupName}</a>
+									</c:if>
+								</td>
+							</tr>
 						</table>
 					</td>
 				</tr>

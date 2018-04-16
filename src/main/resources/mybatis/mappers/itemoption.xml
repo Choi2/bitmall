@@ -12,9 +12,18 @@
 						#{optionNo},
 						#{optionName},
 						#{itemOptionValues}
-					)		
+					)	
 		]]>
 	</insert>
+	
+	<update id="update">
+		UPDATE	item_option
+		SET		
+				option_no = #{optionNo},
+				option_name = #{optionName},
+				item_option_values = #{itemOptionValues}
+		WHERE	item_no = #{itemNo}
+	</update>
 	
 	<select id="getByNo" parameterType="long" resultType="itemoptionvo">
 		<![CDATA[

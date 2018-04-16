@@ -14,5 +14,9 @@ public class ImageDao {
 
 	public int insert(ImageVo vo) {
 		return sqlSession.insert("image.insert", vo);
+	}
+
+	public int update(ImageVo image) {
+		return sqlSession.update("image.update", image);
 	}	
 }

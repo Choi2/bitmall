@@ -51,8 +51,8 @@ body {
 				
 				
 				for(var i = 0; i < length; i++) {
-					var name = "input[name='itemOptionList["+ i +"].itemOptionValues']";
-					$('input[name='+ name +'].itemOptionValues]').val(itemOptionValue[i]);
+					var name = "input[name='itemOptionList["+ i +"]'.itemOptionValues]";
+					$(name).val(itemOptionValue[i]);
 				}
 				
 				
@@ -221,7 +221,7 @@ body {
 	</tr>
 </table>
 <br>
-<table width="800" border="0" cellspacing="0" cellpadding="7">
+<table width="800" cellpadding="7">
 	<tr> 
 		<td align="center">
 			<input type="submit" value="등록하기"> &nbsp;&nbsp

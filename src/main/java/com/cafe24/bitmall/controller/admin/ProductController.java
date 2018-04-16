@@ -50,6 +50,7 @@ public class ProductController {
 		return "admin/product/add";
 	}
 	
+	
 	@Auth(role=Role.ADMIN)
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public String insert(
@@ -59,7 +60,8 @@ public class ProductController {
 		System.out.println("itemOptionList = " + itemOptionList);
 		itemService.addItem(vo, itemOptionList.getItemOptionList(), multipartFile);
 		return "redirect:/admin/product";
-	}
+	} //관리자 상품 삽입
+	
 	
 	@Auth(role=Role.ADMIN)
 	@ResponseBody
@@ -67,21 +69,38 @@ public class ProductController {
 	public OptionVo optionMenu(@ModelAttribute OptionVo vo) {
 		OptionVo option = optionService.get(vo);
 		return option;
-	}
+	} 
 	
 	@Auth(role=Role.ADMIN)
-	@RequestMapping("/modify")
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String itemModifyForm(
 			@RequestParam("no") long itemNo,
 			Model model) {
 		List<CategoryVo> categorylist = categoryService.getList();
 		List<ItemOptionVo> itemOptionList = itemOptionService.get(itemNo);
+		List<OptionVo> optionList = optionService.getList();
 		ItemVo item = itemService.getOneItem(itemNo);
+			
+/*		System.out.println("itemOptionList = " + itemOptionList);*/
+		model.addAttribute("optionList", optionList);
 		model.addAttribute("categoryList", categorylist);
 		model.addAttribute("itemOptionList", itemOptionList);	
 		model.addAttribute("vo", item);
 		return "admin/product/modify";
+	} //관리자 상품 수정 페이지
+	
+	@Auth(role=Role.ADMIN)
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
+	public String modify(
+			@ModelAttribute ItemVo vo,
+			@ModelAttribute ItemOptionVo itemOptionList,
+			@RequestParam("file") MultipartFile multipartFile) {
+		System.out.println("modify = " + vo);
+		System.out.println("itemOptionList = " + itemOptionList);
+		itemService.modifyItem(vo, itemOptionList.getItemOptionList(), multipartFile);
+		return "redirect:/admin/product";
 	}
+	
 	
 	@Auth(role=Role.ADMIN)
 	@RequestMapping("/delete")

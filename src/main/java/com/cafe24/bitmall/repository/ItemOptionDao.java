@@ -21,4 +21,8 @@ public class ItemOptionDao {
 	public List<ItemOptionVo> getByNo(long no) {
 		return sqlSession.selectList("itemoption.getByNo", no);
 	}
+
+	public int update(ItemOptionVo values) {
+		return sqlSession.update("itemoption.update", values);
+	}
 }

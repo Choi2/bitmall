@@ -21,6 +21,10 @@ public class ItemDao {
 	public List<ItemVo> getList() {
 		return sqlSession.selectList("item.getList");
 	}
+	
+	public List<ItemVo> getListByCategoryNo(long categoryNo) {
+		return sqlSession.selectList("item.getListByCategoryNo", categoryNo);
+	}
 
 	public ItemVo getByNo(long no) {
 		return sqlSession.selectOne("item.getByNo", no);
@@ -28,6 +32,10 @@ public class ItemDao {
 
 	public int delete(long itemNo) {
 		return sqlSession.delete("item.delete", itemNo);
+	}
+
+	public int update(ItemVo vo) {
+		return sqlSession.update("item.update", vo);
 	}
 
 }

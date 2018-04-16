@@ -15,7 +15,7 @@
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
-			<jsp:include page="/WEB-INF/views/include/navigation.jsp"/>
+			<c:import url="/WEB-INF/views/include/navigation.jsp"/>
 		</td>
 		<td width="10"></td>
 		<td valign="top">

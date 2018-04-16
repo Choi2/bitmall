@@ -36,15 +36,19 @@ public class MainController {
 	@Autowired private OrderItemService orderItemService;
 	@Autowired private MemberOptionService memberOptionService;
 	
-	@RequestMapping( "" )
-	public String index(Model model) {
-		List<ItemVo> itemList = itemService.getList();
+	@RequestMapping({"", "/menu"})
+	public String index(
+			Model model,
+			@RequestParam(value="no", required=false, defaultValue="1") long no) {
+	
+		List<ItemVo> itemList = itemService.getListByCategoryNo(no);
 		List<CategoryVo> categoryList = categoryService.getList();
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("categoryList", categoryList);
 		return "main/index";
 	}
 	
+
 	@Auth(role=Role.USER)
 	@RequestMapping("/jumun")
 	public String jumun(
