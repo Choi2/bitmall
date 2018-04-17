@@ -1,14 +1,30 @@
 @charset "UTF-8";
 
 * {
+	font-family: "Noto Sans KR", 나눔바른고딕, NanumBarunGothic, "Nanum Gothic", 돋움, Dotum, AppleGothic, sans-serif;
 	margin:0;
 	padding:0;
+}
+
+div, ul, li, h1, h2, h3, h4, h5, h6, table, input, fieldset, form, p, dl, dt, dd, td, tr, img{
+	margin:0;
+	padding:0;
+}
+
+img,fieldset { 
+    border:none; 
+    vertical-align:top; 
+}
+
+ul{
+	list-style:none;
 }
 
 body {
 	width:950px;
 	margin : 0 auto;
 	padding: 0;
+	font-size : 13px;
 }
 
 table {

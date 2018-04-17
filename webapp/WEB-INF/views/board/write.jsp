@@ -8,10 +8,11 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/common.css" rel="stylesheet" type="text/css">
 </head>
-<body style="margin:0">
+<body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="959" align="center">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
@@ -25,7 +26,7 @@
 <!-------------------------------------------------------------------------------------------->	
 
 
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="30"><img src="${pageContext.servletContext.contextPath }/assets/images/qa_title.gif" width="746" height="30" border="0"></td>
@@ -33,15 +34,15 @@
 				<tr><td height="13"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
+			<table width="690">
 				<tr>
 					<td><img src="${pageContext.servletContext.contextPath }/assets/images/qa_title1.gif" border="0"></td>
 				</tr>
 				<tr><td height="10"></td></tr>
 			</table>
 
-			<form name="form2" method="post" action="">
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
+			<form class="board-form" method="post" action="${pageContext.servletContext.contextPath}/board/write">
+			<table width="690">
 				<tr><td colspan="5" height="3" bgcolor="8B9CBF"></td></tr>
 	
 				<tr><td colspan="2" height="2"></td></tr>
@@ -65,16 +66,16 @@
 				<tr><td colspan="2" height="2"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
+			<table width="690">
 				<tr><td height="3" bgcolor="8B9CBF"></td></tr>
 				<tr><td height="5" bgcolor="white"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
+			<table width="690">
 				<tr>
 					<td align="right">
-							<input id="board-write" type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_save.gif">&nbsp;
-							<a href="${pageContext.servletContext.contextPath}/board"><img src="${pageContext.servletContext.contextPath }/assets/images/b_list.gif" border="0"></a>
+						<input type="submit" value="등록">
+						<a href="${pageContext.servletContext.contextPath}/board">취소</a>
 					</td>
 					<td width="50"></td>
 				</tr>

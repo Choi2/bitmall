@@ -4,13 +4,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/common.css" rel="stylesheet" type="text/css">
 </head>
-<body style="margin:0">
+<body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
@@ -71,14 +72,41 @@
 						<td width="90" align="center"><font color="#686868">${vo.readCount}</font></td>
 					</tr>
 				</c:forEach>
-				
+				<%-- <tr>
+					<div class="pager">
+						<ul>
+							<c:if test="${pager.leftArrow eq true}">
+								<li><a href="${pageContext.servletContext.contextPath}/board?page=${pager.startPage - 1}&word=${pager.word}">◀</a></li>
+							</c:if>
+							
+							<c:forEach begin="${pager.startPage}" end="${pager.endPage}" varStatus="status">
+								<li>
+									<c:if test="${param.page == status.index}">	
+										<a style="color:red;" href="${pageContext.servletContext.contextPath}/board?page=${status.index}&word=${word}">${status.index}</a>
+									</c:if>
+										
+									<c:if test="${param.page != status.index}">
+										<a href="${pageContext.servletContext.contextPath}/board?page=${status.index}&word=${word}">${status.index}</a>
+									</c:if>
+								</li>
+							</c:forEach>
+							
+							<c:forEach begin ="${pager.endPage + 1}" end = '5'  varStatus="status">
+								<li style="color:gray;">${status.index}</li>
+							</c:forEach>
+							
+							<c:if test="${pager.rightArrow eq true}">
+								<li><a href="${pageContext.servletContext.contextPath}/board?page=${pager.endPage + 1}&word=${pager.word}">▶</a></li>
+							</c:if>
+						</ul>
+					</div>
+				</tr> --%>
 				<tr><td colspan="5" height="2" bgcolor="8B9CBF"></td></tr>
+				
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
-				<!-- form2 시작 -->
-				<form name="form2" method="post" action="qa.jsp">
-				<input type="hidden" name="page" value="1">
+			<table width="690">
+				<!-- 검색 부분 -->
 				<tr>
 					<td height="40">&nbsp;
 						<select name="sel1" class="cmfont1">
@@ -95,21 +123,13 @@
 						</a>&nbsp;
 					</td>
 				</tr>
-				</form>
+
 				<!-- form2 끝 -->
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
-				<tr>
-					<td height="30" class="cmfont" align="center">
-						<img src="${pageContext.servletContext.contextPath }/assets/images/i_prev.gif" align="absmiddle" border="0"> 
-						<font color="#FC0504"><b>1</b></font>&nbsp;
-						<a href="qa.jsp?page=2&sel1=&text1="><font color="#7C7A77">[2]</font></a>&nbsp;
-						<a href="qa.jsp?page=3&sel1=&text1="><font color="#7C7A77">[3]</font></a>&nbsp;
-						<img src="${pageContext.servletContext.contextPath }/assets/images/i_next.gif" align="absmiddle" border="0">
-					</td>
-				</tr>
-			</table>
+		
+			
+			
 
 <!-------------------------------------------------------------------------------------------->	
 <!-- 끝 : 다른 웹페이지 삽입할 부분                                                         -->

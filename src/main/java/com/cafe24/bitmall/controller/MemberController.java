@@ -1,5 +1,7 @@
 package com.cafe24.bitmall.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.cafe24.bitmall.service.CategoryService;
 import com.cafe24.bitmall.service.MemberService;
+import com.cafe24.bitmall.vo.CategoryVo;
 import com.cafe24.bitmall.vo.MemberVo;
 
 
@@ -24,8 +28,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired 
+	private CategoryService categoryService;
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	public String login(Model model) {
+		List<CategoryVo> categoryList = categoryService.getList();
+		model.addAttribute("categoryList", categoryList);
 		return "member/member_login";
 	}
 	
@@ -36,9 +45,11 @@ public class MemberController {
 			@ModelAttribute MemberVo vo, 
 			Model model) {
 		MemberVo authMember = memberService.getMember(vo);
+		List<CategoryVo> categoryList = categoryService.getList();
 		if(authMember == null) {
 			model.addAttribute("result", "fail");
-			return "redirect:/member/login";
+			model.addAttribute("categoryList", categoryList);
+			return "member/member_login";
 		}
 		
 		session.setAttribute("authMember", authMember); //인증처리
@@ -59,12 +70,16 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member_agree", method=RequestMethod.GET)
-	public String agree() {
+	public String agree(Model model) {
+		List<CategoryVo> categoryList = categoryService.getList();
+		model.addAttribute("categoryList", categoryList);
 		return "member/member_agree";
 	}
 	
 	@RequestMapping(value="/member_join", method=RequestMethod.GET)
-	public String join() {
+	public String join(Model model) {
+		List<CategoryVo> categoryList = categoryService.getList();
+		model.addAttribute("categoryList", categoryList);
 		return "member/member_join";
 	}
 	

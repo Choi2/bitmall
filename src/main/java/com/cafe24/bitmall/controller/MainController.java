@@ -62,7 +62,7 @@ public class MainController {
 	@Auth(role=Role.USER)
 	@RequestMapping("/jumun/info")
 	public String jumunInfo(
-			@RequestParam("no") long orderNo, 
+			@RequestParam("orderNo") long orderNo, 
 			@ModelAttribute("authMember") MemberVo member,
 			Model model) {
 		OrderVo order = orderService.getOne(orderNo);
@@ -88,5 +88,10 @@ public class MainController {
 		model.addAttribute("optionResult", optionResult); //아이템의 옵션들
 		
 		return "jumun/info";
+	}
+	
+	@RequestMapping("/faq")
+	public String faqForm() {
+		return "faq";
 	}
 }

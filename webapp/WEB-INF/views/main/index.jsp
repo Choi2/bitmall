@@ -14,10 +14,10 @@
 <table id="items" width="959" >
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
-		<td height="100%" valign="top">
+		<td style="float:left;" height="100%" valign="top">
 			<c:import url="/WEB-INF/views/include/navigation.jsp"/>
 		</td>
-		<td width="10"></td>
+
 		<td valign="top">
 
 		<!-------------------------------------------------------------------------------------------->	
@@ -52,11 +52,27 @@
 								<tr> 
 									<td height="20" align="center">
 										<font color="444444">${vo.name}</font>
-										<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="middle" vspace="1"> 
-										<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="middle" vspace="1"> 
+										<c:if test="${fn:substring(vo.icon, 0,1) eq 1}">
+											<img src="${pageContext.servletContext.contextPath}/assets/images/i_new.gif">
+										</c:if>
+										<c:if test="${fn:substring(vo.icon, 1,2) eq 1}">
+											<img src="${pageContext.servletContext.contextPath}/assets/images/i_hit.gif">		
+										</c:if>
+										<c:if test="${fn:substring(vo.icon, 2,3) eq 1}">
+											<img src="${pageContext.servletContext.contextPath}/assets/images/i_sale.gif">
+										</c:if>
 									</td>
 								</tr>
-								<tr><td height="20" align="center"><b>${vo.sellingPrice} 원</b></td></tr>
+									<tr>
+										<td height="20" align="center">
+											<c:if test="${fn:substring(vo.icon, 2,3) eq 1}">
+												<strike>${vo.sellingPrice} 원</strike>
+											</c:if>
+											<b>${vo.discountPrice} 원</b>
+										</td>
+									</tr>
+								
+
 							</table>
 						</td>
 						<c:if test="${(status.index + 1) % 5 == 0}">

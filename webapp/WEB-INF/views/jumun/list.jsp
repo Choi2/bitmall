@@ -55,7 +55,7 @@
 							<fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd"/></font>
 						</td>
 						<td align="center">
-							<a href="${pageContext.servletContext.contextPath }/jumun/info?no=${vo.no}">
+							<a href="${pageContext.servletContext.contextPath }/jumun/info?orderNo=${vo.no}">
 							<font color="#0066CC">${vo.no}</font></a>
 						</td>
 						<td><font color="686868">${vo.itemName}</font></td>

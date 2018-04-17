@@ -7,7 +7,7 @@
 <title>쇼핑몰 관리자 홈페이지</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css?no=1" rel="stylesheet" type="text/css">
 <style>
 body {
 	background-color : white;
@@ -45,16 +45,6 @@ body {
 				var icon = 	($('input[name=icon_new]').is(':checked') == true ? '1' : '0')+ 
 							($('input[name=icon_hit]').is(':checked') == true ? '1' : '0') +
 							($('input[name=icon_sale]').is(':checked') == true ? '1' : '0');
-				
-				var itemOptionValue = $('input[name=option-values]').val();
-				var length = $("#option-menu-detail").find('tr').length - 2;
-				
-				
-				for(var i = 0; i < length; i++) {
-					var name = "input[name='itemOptionList["+ i +"]'.itemOptionValues]";
-					$(name).val(itemOptionValue[i]);
-				}
-				
 				
 				$('input[name=icon]').val(icon);			
 				$('#form1').attr({
@@ -116,11 +106,14 @@ body {
 			
 			
 			$(document).on('click','input[name=modify-option]',function(){
+				var length = $("#option-menu-detail").find('tr').length - 2;
 				var open = $(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled');
 				/* alert($(this).closest('td').siblings('.option-values').children('input[name=option-values]').val()); */
 				if(open == 'disabled') {
 					$(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled', false);
 				} else {
+					var value = $(this).parent().siblings('td.option-values').children('input[name=option-values]').val();
+					$(this).parents('tr').children('input[name*="itemOptionValues"]').val(value);
 					$(this).closest('td').siblings('.option-values').children('input[name=option-values]').attr('disabled', true);
 				}
 				

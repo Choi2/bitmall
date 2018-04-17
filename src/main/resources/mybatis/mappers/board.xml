@@ -36,14 +36,14 @@
 			      group_no AS groupNo,
 			      order_no AS orderNo,  
 			      depth, 
-			      user_no AS userNo, 
+			      member_no AS memberNo, 
 			      board_delete AS boardDelete,
 			      @rownum := @rownum + 1 AS RNUM, 
 			      parent_no AS parentNo
 		FROM      board,
 			      (select @rownum :=0) AS R,
 			      member
-	    WHERE	  member.no = board.user_no
+	    WHERE	  member.no = board.member_no
 	    <if test="word != null">
 		AND       title LIKE #{word}  
 		</if>
@@ -66,19 +66,22 @@
 	</update>
 
 	<select id= "getOneList"  parameterType= "long"  resultType= "boardvo">
-		SELECT    no, 
+		SELECT    b.no AS no, 
 			      title,
 			      content,
 			      read_count AS readCount, 
-			      reg_date AS regDate,  
+			      b.reg_date AS regDate,  
 			      group_no AS groupNo,
 			      order_no AS orderNo,  
 			      depth, 
-			      user_no AS userNo, 
+			      b.member_no AS memberNo, 
 			      board_delete AS boardDelete,
-			      parent_no AS parentNo
-		FROM   	  board
-		WHERE     no = #{no}
+			      parent_no AS parentNo,
+			      m.name AS name
+		FROM   	  board b,
+				  member m
+		WHERE     b.member_no = m.no 	     
+		AND		  b.no = #{no}
 	</select>
 	
 	<select id="getComment" parameterType= "long" resultType="commentvo">
@@ -98,7 +101,7 @@
 				#{content}, 
 				now(), 
 				#{boardNo}, 
-				#{userNo}
+				#{memberNo}
 			  )
 	
 	</insert>
@@ -121,7 +124,7 @@
 					order_no, 
 					parent_no, 
 					depth, 
-					user_no, 
+					member_no, 
 					board_delete 
 				  ) 
 			<if test="parentNo == 0"> 
@@ -135,7 +138,7 @@
 						  0, 
 						  0, 
 						  0,  
-						  #{userNo},  
+						  #{memberNo},  
 						  0 
 				    FROM board
 		    </if>
@@ -151,7 +154,7 @@
 		    				#{orderNo}, 
 		    				#{parentNo}, 
 		    				#{depth} + 1, 
-		    				#{userNo}, 
+		    				#{memberNo}, 
 		    				0
 		    			 )
 		    </if>

@@ -13,19 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.cafe24.bitmall.interceptor.Auth;
+import com.cafe24.bitmall.interceptor.Auth.Role;
 import com.cafe24.bitmall.service.BoardService;
+import com.cafe24.bitmall.service.CategoryService;
 import com.cafe24.bitmall.vo.BoardVo;
+import com.cafe24.bitmall.vo.CategoryVo;
 import com.cafe24.bitmall.vo.CommentVo;
 import com.cafe24.bitmall.vo.MemberVo;
 import com.cafe24.bitmall.vo.Pager;
 
 @Controller
 @RequestMapping("/board")
-@SessionAttributes("userMember")
+@SessionAttributes("authMember")
 public class BoardController {
 	
-	@Autowired
-	private BoardService boardService;
+	@Autowired private BoardService boardService;
+	@Autowired private CategoryService categoryService;
 	
 	private static final Log LOG = LogFactory.getLog( BoardController.class );
 	
@@ -33,13 +37,13 @@ public class BoardController {
 	public String list(Model model,  Pager pager) {
 
 		List<BoardVo> list = boardService.getAllBoardList(pager);
+		List<CategoryVo> categoryList = categoryService.getList();
 		pager = boardService.getPager();
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);
-
-		System.out.println(pager);
-
-		
+		model.addAttribute("categoryList", categoryList);
+	
 		return "board/list";
 	}
 	
@@ -56,6 +60,7 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@Auth(role=Role.USER)
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public String write(@ModelAttribute MemberVo vo) {
 
@@ -66,9 +71,10 @@ public class BoardController {
 		return "board/write"; //check
 	}
 	
+	@Auth(role=Role.USER)
 	@RequestMapping(value="/write", method = RequestMethod.POST)
 	public String write(
-			@ModelAttribute MemberVo vo,
+			@ModelAttribute("authMember") MemberVo vo,
 			@ModelAttribute BoardVo board,
 			Model model) {
 
@@ -78,7 +84,7 @@ public class BoardController {
 		return "redirect:/board";
 	}
 	
-	
+	@Auth(role=Role.USER)
 	@RequestMapping(value="/modify/{no}", method = RequestMethod.GET)
 	public String modify(
 			@ModelAttribute MemberVo user,
@@ -87,7 +93,7 @@ public class BoardController {
 		
 		BoardVo board = boardService.getOneBoard(no);
 		
-		if(user == null || user.getNo() != board.getUserNo()) {
+		if(user == null || user.getNo() != board.getMemberNo()) {
 			return "member/login";
 		}
 		
@@ -95,19 +101,21 @@ public class BoardController {
 		return "board/modify";
 	}
 	
+	@Auth(role=Role.USER)
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
 	public String modify(@ModelAttribute BoardVo vo) {
 		boardService.modifyBoard(vo);
 		return "redirect:/board";
 	}
 	
+	@Auth(role=Role.USER)
 	@RequestMapping(value="/delete/{no}", method = RequestMethod.GET)
 	public String delete(@ModelAttribute MemberVo user,
 			@PathVariable long no) {
 		
 		BoardVo vo = boardService.getOneBoard(no);
 		
-		if(user == null || user.getNo() != vo.getUserNo()) {
+		if(user == null || user.getNo() != vo.getMemberNo()) {
 			return "member/login";
 		}
 		

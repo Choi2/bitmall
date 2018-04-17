@@ -50,8 +50,8 @@ public class BoardService {
 		return boardDao.getCommentList(no);
 	}
 
-	public void writeBoard(BoardVo vo, Long userNo) {
-		vo.setUserNo(userNo);
+	public void writeBoard(BoardVo vo, Long memberNo) {
+		vo.setMemberNo(memberNo);
 		boardDao.insert(vo);
 	}
 

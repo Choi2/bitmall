@@ -20,12 +20,12 @@
 		
 		$('.delete').click(function(e){
 			e.preventDefault();
-			var deleteLocation = $(this).parents('.product');
+			alert("hi!");
+			var deleteLocation = $(this).parents('td').parents('.product');
 	 		var url = $(this).attr('href');
 			$.ajax({
 				url: url,
 				type:"post",
-				dataType:"json",
 				success: function(response) {
 					deleteLocation.remove();
 				}
@@ -106,18 +106,18 @@
 			</td>	
 			<td width="120" align="center">
 				<c:if test="${fn:substring(icon, 0,1) eq 1}">
-					<img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif">
+					<img src="${pageContext.servletContext.contextPath}/assets/images/i_new.gif">
 				</c:if>
 				<c:if test="${fn:substring(icon, 1,2) eq 1}">
-					<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif">		
+					<img src="${pageContext.servletContext.contextPath}/assets/images/i_hit.gif">		
 				</c:if>
 				<c:if test="${fn:substring(icon, 2,3) eq 1}">
-					<img src="${pageContext.servletContext.contextPath }/assets/images/i_sale.gif">
+					<img src="${pageContext.servletContext.contextPath}/assets/images/i_sale.gif">
 				</c:if>
 			</td>	
 			<td width="80"  align="center">
-				<a class="modify" href="${pageContext.servletContext.contextPath }/admin/product/modify?no=${vo.no}">수정</a>/
-				<a class="delete" href="${pageContext.servletContext.contextPath }/admin/product/delete?no=${vo.no}">삭제</a>
+				<a class="modify" href="${pageContext.servletContext.contextPath}/admin/product/modify?no=${vo.no}">수정</a>/
+				<a class="delete" href="${pageContext.servletContext.contextPath}/admin/product/delete?no=${vo.no}">삭제</a>
 			</td>
 		</tr>	
 	</c:forEach>

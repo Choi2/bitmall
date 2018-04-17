@@ -86,6 +86,12 @@
 															</p>
 														</td>
 													</tr>
+													
+													<c:if test="${param.result eq 'fail'}">
+													<tr>
+														<td>아이디나 비밀번호가 맞지 않습니다. 다시 로그인 해주세요.</td>
+													</tr>
+													</c:if>
 													</form>
 													<!--form2 끝 ------>
 												</table>

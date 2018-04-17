@@ -4,13 +4,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<title>비트닷컴 쇼핑몰</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
-<table width="959" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="959" align="center">
 	<tr><td height="10" colspan="2"></td></tr>
 	<tr>
 		<td height="100%" valign="top">
@@ -43,28 +44,28 @@
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr>
 					<td width="104" height="25" align="center" bgcolor="ECEFF4" class="cmfont">제목</td>
-					<td width="586" class="cmfont">&nbsp;&nbsp;제목글입니다</td>
+					<td width="586" class="cmfont">${vo.title}</td>
 				</tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr><td colspan="2" background="${pageContext.servletContext.contextPath }/assets/images/ln1.gif"></td></tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr>
 					<td width="104" height="25" align="center" bgcolor="ECEFF4" class="cmfont">작성자</td>
-					<td width="586" class="cmfont">&nbsp;&nbsp;<a href="mailto:aaa@aa.aa.aa">홍길동</a></td>
+					<td width="586" class="cmfont">&nbsp;&nbsp;<a href="mailto:aaa@aa.aa.aa">${vo.name}</a></td>
 				</tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr><td colspan="2" background="${pageContext.servletContext.contextPath }/assets/images/ln1.gif"></td></tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr>
 					<td width="104" height="25" align="center" bgcolor="ECEFF4" class="cmfont">날짜</td>
-					<td width="586" class="cmfont">&nbsp;&nbsp;2007-01-01</td>
+					<td width="586" class="cmfont"><fmt:formatDate value="${vo.regDate}" pattern="yyyy-MM-dd"/></td>
 				</tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr><td colspan="2" background="${pageContext.servletContext.contextPath }/assets/images/ln1.gif"></td></tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr>
 					<td width="104" height="25" align="center" bgcolor="ECEFF4" class="cmfont">조회</td>
-					<td width="586" class="cmfont">&nbsp;&nbsp;11</td>
+					<td width="586" class="cmfont">${vo.readCount}</td>
 				</tr>
 				<tr><td colspan="2" height="2"></td></tr>
 				<tr><td colspan="2" background="${pageContext.servletContext.contextPath }/assets/images/ln1.gif"></td></tr>
@@ -72,18 +73,18 @@
 				<tr>
 					<td width="104" height="25" align="center" bgcolor="ECEFF4" class="cmfont">내용</td>
 					<td width="586" class="cmfont">
-						<p style="padding-left:5px;padding-top:5px;padding-right:5px;padding-bottom:5px;">글내용입니다.</p>
+						<p style="padding-left:5px;padding-top:5px;padding-right:5px;padding-bottom:5px;">${vo.content}</p>
 					</td>
 				</tr>
 				<tr><td colspan="2" height="2"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
+			<table width="690">
 				<tr><td height="3" bgcolor="8B9CBF"></td></tr>
 				<tr><td height="5" bgcolor="white"></td></tr>
 			</table>
 
-			<table border="0" cellpadding="0" cellspacing="0" width="690">
+			<table width="690">
 				<tr>
 					<td align="right">
 							<a href="qa_reply.jsp"><img src="${pageContext.servletContext.contextPath }/assets/images/b_reply.gif" border="0"></a>&nbsp;

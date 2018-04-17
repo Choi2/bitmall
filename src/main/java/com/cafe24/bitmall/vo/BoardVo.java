@@ -8,7 +8,7 @@ public class BoardVo {
 	private String content;
 	private int readCount;
 	private Date regDate;
-	private long userNo;
+	private long memberNo;
 	private String name;
 	private long groupNo;
 	private long orderNo;
@@ -46,12 +46,7 @@ public class BoardVo {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public long getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(long userNo) {
-		this.userNo = userNo;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -89,13 +84,20 @@ public class BoardVo {
 	public void setParentNo(long parentNo) {
 		this.parentNo = parentNo;
 	}
+	public long getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(long memberNo) {
+		this.memberNo = memberNo;
+	}
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", readCount=" + readCount
-				+ ", regDate=" + regDate + ", userNo=" + userNo + ", name=" + name + ", groupNo=" + groupNo
+				+ ", regDate=" + regDate + ", memberNo=" + memberNo + ", name=" + name + ", groupNo=" + groupNo
 				+ ", orderNo=" + orderNo + ", parentNo=" + parentNo + ", depth=" + depth + ", boardDelete="
 				+ boardDelete + "]";
 	}
+
 
 
 	

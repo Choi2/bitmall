@@ -54,11 +54,10 @@ public class ProductController {
 	@Auth(role=Role.ADMIN)
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public String insert(
-			@ModelAttribute ItemVo vo,
+			@ModelAttribute ItemVo item,
 			@ModelAttribute ItemOptionVo itemOptionList,
 			@RequestParam("file") MultipartFile multipartFile) {
-		System.out.println("itemOptionList = " + itemOptionList);
-		itemService.addItem(vo, itemOptionList.getItemOptionList(), multipartFile);
+		itemService.addItem(item, itemOptionList.getItemOptionList(), multipartFile);
 		return "redirect:/admin/product";
 	} //관리자 상품 삽입
 	
@@ -81,7 +80,7 @@ public class ProductController {
 		List<OptionVo> optionList = optionService.getList();
 		ItemVo item = itemService.getOneItem(itemNo);
 			
-/*		System.out.println("itemOptionList = " + itemOptionList);*/
+		/*System.out.println("itemOptionList = " + itemOptionList);*/
 		model.addAttribute("optionList", optionList);
 		model.addAttribute("categoryList", categorylist);
 		model.addAttribute("itemOptionList", itemOptionList);	
@@ -95,19 +94,19 @@ public class ProductController {
 			@ModelAttribute ItemVo vo,
 			@ModelAttribute ItemOptionVo itemOptionList,
 			@RequestParam("file") MultipartFile multipartFile) {
-		System.out.println("modify = " + vo);
-		System.out.println("itemOptionList = " + itemOptionList);
+
 		itemService.modifyItem(vo, itemOptionList.getItemOptionList(), multipartFile);
 		return "redirect:/admin/product";
 	}
 	
 	
 	@Auth(role=Role.ADMIN)
-	@RequestMapping("/delete")
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	@ResponseBody
 	public String itemDelete(
 			@RequestParam("no") long itemNo) {
 		itemService.delete(itemNo);
-		return "redirect:/admin/product";
-	}
+		return "success";
+	} //관리자 페이지 상품 삭제
 	
 }
