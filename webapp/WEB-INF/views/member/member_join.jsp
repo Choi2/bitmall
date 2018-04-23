@@ -84,7 +84,7 @@ $(function(){
 });
 </script>
 </head>
-<body style="margin:0">
+<body>
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
 <table width="959">
 	<tr><td height="10" colspan="2"></td></tr>
@@ -99,7 +99,7 @@ $(function(){
 		<!-- 시작 : 다른 웹페이지 삽입할 부분                                                                                                                                                            -->
 		<!-------------------------------------------------------------------------------------------->	
 
-			<table border="0" cellpadding="0" cellspacing="0" width="747">
+			<table width="747">
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="30" align="center">
@@ -108,7 +108,7 @@ $(function(){
 				</tr>
 				<tr><td height="13"></td></tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="685" class="cmfont">
+			<table width="685" class="cmfont">
 				<tr>
 					<td><img src="${pageContext.servletContext.contextPath }/assets/images/login_title2.gif" border="0"></td>
 				</tr>
@@ -122,7 +122,7 @@ $(function(){
 						<table border="0" cellpadding="0" cellspacing="5" width="100%" bgcolor="white">
 							<tr>
 								<td align="center">
-									<table border="0" cellpadding="0" cellspacing="0" width="635" class="cmfont">
+									<table width="635" class="cmfont">
 										<tr>
 											<td width="127" height="30">
 												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>아이디</b></font>
@@ -152,7 +152,7 @@ $(function(){
 										<tr><td colspan="2" bgcolor="E6DDD5"></td></tr>
 										<tr><td colspan="2" height="10"></td></tr>
 									</table>
-									<table border="0" cellpadding="0" cellspacing="0" width="635" class="cmfont">
+									<table width="635" class="cmfont">
 										<tr>
 											<td width="127" height="30">
 												<img align="absmiddle" src="${pageContext.servletContext.contextPath }/assets/images/i_dot.gif" border="0"> <font color="898989"><b>이 름</b></font>
@@ -226,7 +226,7 @@ $(function(){
 					</td>
 				</tr>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="685" class="cmfont">
+			<table width="685" class="cmfont">
 				<tr>
 					<td height="45" align="right">
 						<input type="image" name="add" src="${pageContext.servletContext.contextPath }/assets/images/b_add.gif" border="0">&nbsp;&nbsp;

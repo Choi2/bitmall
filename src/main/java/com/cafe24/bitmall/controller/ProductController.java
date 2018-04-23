@@ -2,8 +2,11 @@ package com.cafe24.bitmall.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,22 +14,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.cafe24.bitmall.service.OrderItemService;
 import com.cafe24.bitmall.service.CategoryService;
 import com.cafe24.bitmall.service.ItemOptionService;
 import com.cafe24.bitmall.service.ItemService;
 import com.cafe24.bitmall.service.MemberOptionService;
-import com.cafe24.bitmall.vo.OrderItemVo;
+import com.cafe24.bitmall.service.OrderItemService;
 import com.cafe24.bitmall.vo.CategoryVo;
 import com.cafe24.bitmall.vo.ItemOptionVo;
 import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.MemberOptionVo;
 import com.cafe24.bitmall.vo.MemberVo;
+import com.cafe24.bitmall.vo.OrderItemVo;
 
 @Controller
 @RequestMapping("/product")
 @SessionAttributes("authMember")
 public class ProductController {
+	
+	static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired private ItemService itemService;
 	@Autowired private ItemOptionService itemOptionService;
@@ -63,6 +68,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/cart", method=RequestMethod.POST)
+	@Transactional
 	public String cart(
 			@RequestParam("itemNo") long itemNo,
 			@ModelAttribute("itemCount") int itemCount,
@@ -72,6 +78,7 @@ public class ProductController {
 		
 		ItemVo item = itemService.getOneItem(itemNo);
 		item.setItemCount(itemCount);
+		logger.debug("ID : {}", "productController");
 		orderItemService.addItem(item, member.getNo(), memberOption);
 		List<OrderItemVo> cartList = orderItemService.getListByMemberNo(member.getNo());
 		

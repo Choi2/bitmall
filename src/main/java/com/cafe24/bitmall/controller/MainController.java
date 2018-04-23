@@ -36,7 +36,7 @@ public class MainController {
 	@Autowired private OrderItemService orderItemService;
 	@Autowired private MemberOptionService memberOptionService;
 	
-	@RequestMapping({"", "/menu"})
+	@RequestMapping({"", "/menu", "/"})
 	public String index(
 			Model model,
 			@RequestParam(value="no", required=false, defaultValue="1") long no) {

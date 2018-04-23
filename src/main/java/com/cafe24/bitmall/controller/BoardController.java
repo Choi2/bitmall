@@ -2,8 +2,6 @@ package com.cafe24.bitmall.controller;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,15 +29,12 @@ public class BoardController {
 	@Autowired private BoardService boardService;
 	@Autowired private CategoryService categoryService;
 	
-	private static final Log LOG = LogFactory.getLog( BoardController.class );
-	
 	@RequestMapping("")
 	public String list(Model model,  Pager pager) {
 
 		List<BoardVo> list = boardService.getAllBoardList(pager);
 		List<CategoryVo> categoryList = categoryService.getList();
 		pager = boardService.getPager();
-		
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);
 		model.addAttribute("categoryList", categoryList);

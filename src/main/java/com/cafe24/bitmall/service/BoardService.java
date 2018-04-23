@@ -19,9 +19,7 @@ public class BoardService {
 	
 	
 	public List<BoardVo> getAllBoardList(Pager pager) {
-		
-		System.out.println("word = " + pager.getWord());
-		
+
 		if(pager.getWord() == null || pager.getWord().equals("")) {
 			pager.setWord(null);
 		}
@@ -29,6 +27,7 @@ public class BoardService {
 		pager.setPage(pager.getPage());
 		pager.setTotalCount(boardDao.getPageSize(pager));
 		pager.calculate(pager.getPage());
+
 		this.pager = pager;
 		return boardDao.getAllList(pager);
 	}

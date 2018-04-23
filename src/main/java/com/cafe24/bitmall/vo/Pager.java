@@ -30,13 +30,13 @@ public class Pager {
 						 // 이렇게 안하면 마지막 페이지에 게시물이 나오지 않음
 		}
 		
-		if(totalPage < this.page) {
+		if(totalPage < page) {
 			page = totalPage;
 		}
 		
-		startPage = ((this.page - 1) / PAGE_SIZE) * PAGE_SIZE + 1;
+		startPage = ((page - 1) / PAGE_SIZE) * PAGE_SIZE + 1;
 		endPage = startPage + PAGE_SIZE - 1; 
-		startPageIndex = ((this.page - 1) * PAGE_SIZE);
+		startPageIndex = ((page - 1) * PAGE_SIZE);
 		leftArrow = (startPage == 1) ? false : true;
 		rightArrow = (totalCount > (((page - 1) / PAGE_SIZE) + 1) * GROUP_SIZE) ? true : false;
 		

@@ -22,16 +22,17 @@ public class OrderItemService {
 	@Autowired
 	private MemberOptionDao memberOptionDao;
 	
+
 	public void addItem(ItemVo vo, 
 						long memberNo, 
 						MemberOptionVo memberOption) {
 		
 		OrderItemVo orderItem = new OrderItemVo();
+		
 		orderItem.setItemNo(vo.getNo());
 		orderItem.setMemberNo(memberNo);
 		orderItem.setItemCount(vo.getItemCount());
 		orderItem.setPrice(vo.getDiscountPrice() * vo.getItemCount());
-		System.out.println(orderItem);
 		orderItemDao.insert(orderItem);
 		
 		if(memberOption.getMemberOptionList() != null) {
@@ -40,6 +41,7 @@ public class OrderItemService {
 				memberOptionDao.insert(option);
 			} //옵션 추가
 		}
+		/*int error = 5 / 0;*/ //RuntimeException ^^
 	}
 
 	public List<OrderItemVo> getListByMemberNo(long memberNo) {

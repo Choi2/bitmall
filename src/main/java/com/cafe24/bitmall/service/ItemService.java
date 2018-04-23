@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,12 +12,13 @@ import com.cafe24.bitmall.repository.ImageDao;
 import com.cafe24.bitmall.repository.ItemDao;
 import com.cafe24.bitmall.repository.ItemOptionDao;
 import com.cafe24.bitmall.util.FileUploadService;
-import com.cafe24.bitmall.vo.OrderItemVo;
 import com.cafe24.bitmall.vo.ImageVo;
-import com.cafe24.bitmall.vo.ItemVo;
 import com.cafe24.bitmall.vo.ItemOptionVo;
+import com.cafe24.bitmall.vo.ItemVo;
+import com.cafe24.bitmall.vo.OrderItemVo;
 
 @Service
+@Component
 public class ItemService {
 
 	@Autowired
@@ -28,11 +30,13 @@ public class ItemService {
 	@Autowired
 	private ItemOptionDao itemOptionDao;
 	
+	
 	public void addItem(
 			ItemVo vo, 
 			List<ItemOptionVo> itemOptionList,
 			MultipartFile multipartFile) {
 		
+
 		ImageVo image = new ImageVo();
 
 		String imagePath = new FileUploadService().restore(multipartFile);
@@ -51,14 +55,13 @@ public class ItemService {
 		image.setItemNo(vo.getNo());
 		imageDao.insert(image);
 		
-		System.out.println(itemOptionList);
-		
 		if(itemOptionList!=null && itemOptionList.size() != 0) {
 			for(ItemOptionVo values : itemOptionList) {
 				values.setItemNo(vo.getNo());
 				itemOptionDao.insert(values);
 			}
 		}
+		
 	}
 
 	public List<ItemVo> getList() {
@@ -78,7 +81,8 @@ public class ItemService {
 			vo.setItemCount(orderItem.getItemCount());
 			itemList.add(vo);
 		}
-			
+		
+		
 		return itemList;
 	}
 
